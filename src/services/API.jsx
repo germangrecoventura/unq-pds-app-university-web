@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:7070";
+const baseURL = "http://localhost:8080";
 
 const API = {
   getCountsUser: () => {
-    return axios.get(`${baseURL}/users`);
+    return axios.get(`${baseURL}/user`);
   },
 };
 
