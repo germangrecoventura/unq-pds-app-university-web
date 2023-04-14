@@ -24,27 +24,27 @@ const Navbar = () => {
           <ul className="navbar-nav mb-2 mb-lg-0 center">
             <li className="nav-item center">
               <Link to="/teachers" className="navbar-brand text-black">
-                Add Teacher
+                Teachers
               </Link>
             </li>
             <li className="nav-item center">
               <Link to="/students" className="navbar-brand text-black">
-                Add Student
+                Students
               </Link>
             </li>
             <li className="nav-item center">
               <Link to="/matters" className="navbar-brand text-black">
-                Add Matter
+                Matters
               </Link>
             </li>
             <li className="nav-item center">
               <Link to="/commissions" className="navbar-brand text-black">
-                Add Commission
+                Commissions
               </Link>
             </li>
             <li className="nav-item center">
               <Link to="/groups" className="navbar-brand text-black">
-                Add Group
+                Groups
               </Link>
             </li>
           </ul>
