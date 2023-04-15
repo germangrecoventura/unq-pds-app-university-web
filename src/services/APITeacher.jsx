@@ -10,6 +10,13 @@ const APITeacher = {
       email: email,
     }),
   getTeacher: (idTeacher) => axios.get(`${baseURL}/teachers?id=${idTeacher}`),
+  updateTeacher: (id, firstname, lastname, email) =>
+    axios.put(`${baseURL}/teachers`, {
+      id: id,
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+    }),
   deleteTeacher: (idTeacher) =>
     axios.delete(`${baseURL}/teachers?id=${idTeacher}`),
 };

@@ -10,6 +10,7 @@ import PageComponent from "./components/PageComponent";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import GetTeacher from "./components/GetTeacher/GetTeacher";
 import APITeacher from "./services/APITeacher";
+import UpdateTeacher from "./components/UpdateTeacher";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             />
             <Route path="/teacher/register" element={<RegisterTeacher />} />
             <Route path="/teacher/get" element={<GetTeacher />} />
+            <Route path="/teacher/update" element={<UpdateTeacher />} />
             <Route path="/teacher/delete" element={<DeleteTeacher />} />
             <Route
               path="/operation-completed"
