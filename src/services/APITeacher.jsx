@@ -2,10 +2,7 @@ import axios from "axios";
 
 const baseURL = "http://localhost:8080";
 
-const API = {
-  getCountsUser: () => {
-    return axios.get(`${baseURL}/user`);
-  },
+const APITeacher = {
   createTeacher: (firstname, lastname, email) =>
     axios.post(`${baseURL}/teachers`, {
       firstName: firstname,
@@ -14,4 +11,4 @@ const API = {
     }),
 };
 
-export default API;
+export default APITeacher;

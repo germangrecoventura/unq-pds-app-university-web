@@ -1,9 +1,9 @@
 const FormErrors = ({ errors }) => {
   if (errors.length > 0) {
     return (
-      <div className="form-errors">
+      <div class="alert alert-danger" role="alert">
         {errors.map((error, key) => (
-          <small key={key} className="text-danger">
+          <small key={key} className="text">
             ● {error[0]}: {error[1]} <br />
           </small>
         ))}
