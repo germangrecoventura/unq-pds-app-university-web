@@ -2,11 +2,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Banner from "./components/Banner/Banner";
+import DeleteTeacher from "./components/DeleteTeacher";
 import Home from "./components/Home/Home";
 import NotFound from "./components/NotFound/NotFound";
 import OperationCompleted from "./components/OperationCompleted";
 import PageComponent from "./components/PageComponent";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
+import GetTeacher from "./components/GetTeacher/GetTeacher";
 import APITeacher from "./services/APITeacher";
 
 const App = () => {
@@ -21,13 +23,12 @@ const App = () => {
               path="/teachers"
               element={<PageComponent api={APITeacher} page="teacher" />}
             />
-            <Route
-              path="/teacher/register"
-              element={<RegisterTeacher/>}
-            />
+            <Route path="/teacher/register" element={<RegisterTeacher />} />
+            <Route path="/teacher/get" element={<GetTeacher />} />
+            <Route path="/teacher/delete" element={<DeleteTeacher />} />
             <Route
               path="/operation-completed"
-              element={<OperationCompleted/>}
+              element={<OperationCompleted />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

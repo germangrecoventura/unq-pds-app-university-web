@@ -9,6 +9,9 @@ const APITeacher = {
       lastName: lastname,
       email: email,
     }),
+  getTeacher: (idTeacher) => axios.get(`${baseURL}/teachers?id=${idTeacher}`),
+  deleteTeacher: (idTeacher) =>
+    axios.delete(`${baseURL}/teachers?id=${idTeacher}`),
 };
 
 export default APITeacher;

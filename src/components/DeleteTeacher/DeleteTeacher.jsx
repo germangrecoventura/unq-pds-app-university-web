@@ -4,18 +4,14 @@ import FormErrors from "../FormErrors";
 import APITeacher from "../../services/APITeacher";
 import Navbar from "../Navbar/Navbar";
 
-const RegisterTeacher = (props) => {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
+const DeleteTeacher = (props) => {
+  const [idTeacher, setIdTeacher] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
 
   const resetForm = () => {
-    setFirstname("");
-    setLastname("");
-    setEmail("");
+    setIdTeacher("");
     setFormErrors("");
   };
 
@@ -23,7 +19,7 @@ const RegisterTeacher = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    APITeacher.createTeacher(firstname, lastname, email)
+    APITeacher.deleteTeacher(idTeacher)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
@@ -40,56 +36,22 @@ const RegisterTeacher = (props) => {
   return (
     <div className="container clearfix">
       <Navbar></Navbar>
-      <h5 className="title">Teacher registration form</h5>
+      <h5 className="title">Teacher delete form</h5>
       <form onSubmit={handleSubmit}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-4">
-              <label htmlFor="inputFirstname" className="col-form-label">
-                First name:
+              <label htmlFor="inputIdTeacher" className="col-form-label">
+                Id teacher:
               </label>
             </div>
             <div className="col-md-6">
               <input
-                type="text"
-                id="inputFirstname"
+                type="number"
+                id="inputIdTeacher"
                 className="form-control"
                 required={true}
-                onChange={(e) => setFirstname(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputLastname" className="col-form-label">
-                Last name:
-              </label>
-            </div>
-            <div className="col-md-6">
-              <input
-                type="text"
-                id="inputLastname"
-                className="form-control"
-                required={true}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputEmail" className="col-form-label">
-                Email:
-              </label>
-            </div>
-            <div className="col-md-6">
-              <input
-                type="email"
-                id="inputEmail"
-                className="form-control"
-                onChange={(e) => setEmail(e.target.value)}
-                required={true}
+                onChange={(e) => setIdTeacher(e.target.value)}
               />
             </div>
           </div>
@@ -113,4 +75,4 @@ const RegisterTeacher = (props) => {
   );
 };
 
-export default RegisterTeacher;
+export default DeleteTeacher;
