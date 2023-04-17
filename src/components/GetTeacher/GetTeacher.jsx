@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FormErrors from "../FormErrors";
-import APITeacher from "../../services/APITeacher";
+import API from "../../services/API";
 import Navbar from "../Navbar/Navbar";
 
 const GetTeacher = (props) => {
@@ -20,7 +20,7 @@ const GetTeacher = (props) => {
     setFormErrors("");
     setIsFind(false);
     setIsSubmitting(true);
-    APITeacher.getTeacher(idTeacher)
+    API.getTeacher(idTeacher)
       .then((response) => {
         setTeacher(response.data);
         setIsFind(true);

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
-import APITeacher from "../../services/APITeacher";
+import API from "../../services/API";
 import Navbar from "../Navbar/Navbar";
 
 const DeleteTeacher = (props) => {
@@ -19,7 +19,7 @@ const DeleteTeacher = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    APITeacher.deleteTeacher(idTeacher)
+    API.deleteTeacher(idTeacher)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);

@@ -9,8 +9,8 @@ import OperationCompleted from "./components/OperationCompleted";
 import PageComponent from "./components/PageComponent";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import GetTeacher from "./components/GetTeacher/GetTeacher";
-import APITeacher from "./services/APITeacher";
 import UpdateTeacher from "./components/UpdateTeacher";
+import GetAllMatters from "./components/GetAll/GetAllMatters";
 
 const App = () => {
   return (
@@ -22,12 +22,16 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route
               path="/teachers"
-              element={<PageComponent api={APITeacher} page="teacher" />}
+              element={<PageComponent data={GetAllMatters} page="teacher" />}
             />
             <Route path="/teacher/register" element={<RegisterTeacher />} />
             <Route path="/teacher/get" element={<GetTeacher />} />
             <Route path="/teacher/update" element={<UpdateTeacher />} />
             <Route path="/teacher/delete" element={<DeleteTeacher />} />
+            <Route
+             path="/matters"
+             element={<PageComponent data={GetAllMatters} page="matter" />}
+            />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

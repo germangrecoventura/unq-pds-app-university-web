@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
-import APITeacher from "../../services/APITeacher";
+import API from "../../services/API";
 import Navbar from "../Navbar/Navbar";
 
 const RegisterTeacher = (props) => {
@@ -23,7 +23,7 @@ const RegisterTeacher = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    APITeacher.createTeacher(firstname, lastname, email)
+    API.createTeacher(firstname, lastname, email)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);

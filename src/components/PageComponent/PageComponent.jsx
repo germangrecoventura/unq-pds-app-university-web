@@ -27,7 +27,9 @@ const PageComponent = (props) => {
           </button>
         </Link>
       </div>
-      <p>Aca debe estar el listado de los {props.page}</p>
+      <div>
+        <props.data />
+      </div>
     </div>
   );
 };
