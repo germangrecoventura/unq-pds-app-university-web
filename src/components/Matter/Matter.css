@@ -6,6 +6,6 @@
 }
 
 thead th,
-tbody td, tr {
+tbody tr, td {
     border: 3px solid rgb(107, 44, 44);
 }

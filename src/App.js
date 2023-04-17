@@ -10,7 +10,11 @@ import PageComponent from "./components/PageComponent";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import GetTeacher from "./components/GetTeacher/GetTeacher";
 import UpdateTeacher from "./components/UpdateTeacher";
-import GetAllMatters from "./components/GetAll/GetAllMatters";
+import GetAllMatters from "./components/Matter/GetAllMatters";
+import RegisterMatter from "./components/Matter/RegisterMatter";
+import DeleteMatter from "./components/Matter/DeleteMatter";
+import GetMatter from "./components/Matter/GetMatter";
+import UpdateMatter from "./components/Matter/UpdateMatter";
 
 const App = () => {
   return (
@@ -32,6 +36,10 @@ const App = () => {
              path="/matters"
              element={<PageComponent data={GetAllMatters} page="matter" />}
             />
+            <Route path="/matter/register" element={<RegisterMatter />} />
+            <Route path="/matter/get" element={<GetMatter />} />
+            <Route path="/matter/update" element={<UpdateMatter />} />
+            <Route path="/matter/delete" element={<DeleteMatter />} />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}
