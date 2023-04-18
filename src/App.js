@@ -16,6 +16,10 @@ import DeleteMatter from "./components/Matter/DeleteMatter";
 import GetMatter from "./components/Matter/GetMatter";
 import UpdateMatter from "./components/Matter/UpdateMatter";
 import GetAllStudents from "./components/Student/GetAllStudents";
+import RegisterStudent from "./components/Student/RegisterStudent";
+import GetStudent from "./components/Student/GetStudent";
+import UpdateStudent from "./components/Student/UpdateStudent";
+import DeleteStudent from "./components/Student/DeleteStudent";
 
 const App = () => {
   return (
@@ -45,6 +49,10 @@ const App = () => {
              path="/students"
              element={<PageComponent data={GetAllStudents} page="student" />}
             />
+            <Route path="/student/register" element={<RegisterStudent />} />
+            <Route path="/student/get" element={<GetStudent />} />
+            <Route path="/student/update" element={<UpdateStudent />} />
+            <Route path="/student/delete" element={<DeleteStudent />} />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

@@ -18,6 +18,14 @@ const updateMatter = (id, name) => axios.put(`${baseURL}/matters`, { id: id, nam
 const deleteMatter = (id) => axios.delete(`${baseURL}/matters?id=${id}`)
 const getAllMatters = () => axios.get(`${baseURL}/matters/getAll`)
 // STUDENTS
+const createStudent = (firstname, lastname, email) => axios.post(`${baseURL}/students`, {
+  firstName: firstname, lastName: lastname, email: email,
+})
+const getStudent = (id) => axios.get(`${baseURL}/students?id=${id}`)
+const updateStudent = (id, firstname, lastname, email) => axios.put(`${baseURL}/students`, {
+  id: id, firstName: firstname, lastName: lastname, email: email,
+})
+const deleteStudent = (id) => axios.delete(`${baseURL}/students?id=${id}`)
 const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
 
   export default {
@@ -30,5 +38,9 @@ const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
     updateMatter,
     deleteMatter,
     getAllMatters,
+    createStudent,
+    getStudent,
+    updateStudent,
+    deleteStudent,
     getAllStudents
   }
