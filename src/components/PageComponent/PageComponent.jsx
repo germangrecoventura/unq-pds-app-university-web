@@ -5,7 +5,7 @@ const PageComponent = (props) => {
   return (
     <div className="container">
       <Navbar></Navbar>
-      <div className="page-component ">
+      <div className="page-component " style={{textAlign: "center"}}>
         <Link to={{ pathname: `/${props.page}/register` }}>
           <button type="button" className="btn btn-primary m-2 btn-lg">
             Create {props.page}
