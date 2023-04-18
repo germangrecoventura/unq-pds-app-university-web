@@ -15,6 +15,7 @@ import RegisterMatter from "./components/Matter/RegisterMatter";
 import DeleteMatter from "./components/Matter/DeleteMatter";
 import GetMatter from "./components/Matter/GetMatter";
 import UpdateMatter from "./components/Matter/UpdateMatter";
+import GetAllStudents from "./components/Student/GetAllStudents";
 
 const App = () => {
   return (
@@ -40,6 +41,10 @@ const App = () => {
             <Route path="/matter/get" element={<GetMatter />} />
             <Route path="/matter/update" element={<UpdateMatter />} />
             <Route path="/matter/delete" element={<DeleteMatter />} />
+            <Route
+             path="/students"
+             element={<PageComponent data={GetAllStudents} page="student" />}
+            />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

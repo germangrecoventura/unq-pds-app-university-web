@@ -17,7 +17,9 @@ const getMatter = (id) => axios.get(`${baseURL}/matters?id=${id}`)
 const updateMatter = (id, name) => axios.put(`${baseURL}/matters`, { id: id, name: name })
 const deleteMatter = (id) => axios.delete(`${baseURL}/matters?id=${id}`)
 const getAllMatters = () => axios.get(`${baseURL}/matters/getAll`)
-  
+// STUDENTS
+const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
+
   export default {
     createTeacher,
     getTeacher,
@@ -27,5 +29,6 @@ const getAllMatters = () => axios.get(`${baseURL}/matters/getAll`)
     getMatter,
     updateMatter,
     deleteMatter,
-    getAllMatters
+    getAllMatters,
+    getAllStudents
   }
