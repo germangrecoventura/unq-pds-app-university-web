@@ -2,14 +2,15 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Banner from "./components/Banner/Banner";
-import DeleteTeacher from "./components/DeleteTeacher";
+import DeleteTeacher from "./components/Teacher/DeleteTeacher";
 import Home from "./components/Home/Home";
 import NotFound from "./components/NotFound/NotFound";
 import OperationCompleted from "./components/OperationCompleted";
 import PageComponent from "./components/PageComponent";
-import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
-import GetTeacher from "./components/GetTeacher/GetTeacher";
-import UpdateTeacher from "./components/UpdateTeacher";
+import GetAllTeachers from "./components/Teacher/GetAllTeachers";
+import RegisterTeacher from "./components/Teacher/RegisterTeacher";
+import GetTeacher from "./components/Teacher/GetTeacher";
+import UpdateTeacher from "./components/Teacher/UpdateTeacher";
 import GetAllMatters from "./components/Matter/GetAllMatters";
 import RegisterMatter from "./components/Matter/RegisterMatter";
 import DeleteMatter from "./components/Matter/DeleteMatter";
@@ -41,7 +42,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route
               path="/teachers"
-              element={<PageComponent data={GetAllMatters} page="teacher" />}
+              element={<PageComponent data={GetAllTeachers} page="teacher" />}
             />
             <Route path="/teacher/register" element={<RegisterTeacher />} />
             <Route path="/teacher/get" element={<GetTeacher />} />
