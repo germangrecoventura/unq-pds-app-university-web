@@ -25,6 +25,7 @@ import RegisterGroup from "./components/Group/RegisterGroup";
 import GetGroup from "./components/Group/GetGroup";
 import UpdateGroup from "./components/Group/UpdateGroup";
 import DeleteGroup from "./components/Group/DeleteGroup";
+import GetAllCommissions from "./components/Commission/GetAllCommissions";
 
 const App = () => {
   return (
@@ -66,6 +67,10 @@ const App = () => {
             <Route path="/group/get" element={<GetGroup />} />
             <Route path="/group/update" element={<UpdateGroup />} />
             <Route path="/group/delete" element={<DeleteGroup />} />
+            <Route
+             path="/commissions"
+             element={<PageComponent data={GetAllCommissions} page="commission" />}
+            />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

@@ -33,8 +33,10 @@ const getGroup = (id) => axios.get(`${baseURL}/groups?id=${id}`)
 const updateGroup = (id, name) => axios.put(`${baseURL}/groups`, { id: id, name: name })
 const deleteGroup = (id) => axios.delete(`${baseURL}/groups?id=${id}`)
 const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
+// COMMISSIONS
+const getAllCommissions = () => axios.get(`${baseURL}/commissions/getAll`)
 
-  export default {
+export default {
     createTeacher,
     getTeacher,
     updateTeacher,
@@ -53,5 +55,6 @@ const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
     getGroup,
     updateGroup,
     deleteGroup,
-    getAllGroups
-  }
+    getAllGroups,
+    getAllCommissions
+}
