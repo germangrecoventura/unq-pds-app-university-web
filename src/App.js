@@ -26,6 +26,10 @@ import GetGroup from "./components/Group/GetGroup";
 import UpdateGroup from "./components/Group/UpdateGroup";
 import DeleteGroup from "./components/Group/DeleteGroup";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
+import RegisterCommission from "./components/Commission/RegisterCommission";
+import GetCommission from "./components/Commission/GetCommission";
+import UpdateCommission from "./components/Commission/UpdateCommission";
+import DeleteCommission from "./components/Commission/DeleteCommission";
 
 const App = () => {
   return (
@@ -71,6 +75,10 @@ const App = () => {
              path="/commissions"
              element={<PageComponent data={GetAllCommissions} page="commission" />}
             />
+            <Route path="/commission/register" element={<RegisterCommission />} />
+            <Route path="/commission/get" element={<GetCommission />} />
+            <Route path="/commission/update" element={<UpdateCommission />} />
+            <Route path="/commission/delete" element={<DeleteCommission />} />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

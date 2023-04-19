@@ -34,6 +34,14 @@ const updateGroup = (id, name) => axios.put(`${baseURL}/groups`, { id: id, name:
 const deleteGroup = (id) => axios.delete(`${baseURL}/groups?id=${id}`)
 const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
 // COMMISSIONS
+const createCommission = (year, fourMonthPeriod, matterName) => axios.post(`${baseURL}/commissions`, {
+  year: year, fourMonthPeriod: fourMonthPeriod, matterName: matterName,
+})
+const getCommission = (id) => axios.get(`${baseURL}/commissions?id=${id}`)
+const updateCommission = (id, year, fourMonthPeriod, matter) => axios.put(`${baseURL}/commissions`, {
+  id: id, year: year, fourMonthPeriod: fourMonthPeriod, matter: matter,
+})
+const deleteCommission = (id) => axios.delete(`${baseURL}/commissions?id=${id}`)
 const getAllCommissions = () => axios.get(`${baseURL}/commissions/getAll`)
 
 export default {
@@ -56,5 +64,9 @@ export default {
     updateGroup,
     deleteGroup,
     getAllGroups,
+    createCommission,
+    getCommission,
+    updateCommission,
+    deleteCommission,
     getAllCommissions
 }
