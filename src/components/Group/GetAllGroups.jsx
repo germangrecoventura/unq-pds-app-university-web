@@ -31,7 +31,7 @@ export default function GetAllGroups() {
                             <td>{group.id}</td>
                             <td>{group.name}</td>
                             <td>{members(group)}</td>
-                            <td>{group.repository}</td>{console.log(group.members)}
+                            <td>{group.repository}</td>
                         </tr>
                     ))}
                 </thead>

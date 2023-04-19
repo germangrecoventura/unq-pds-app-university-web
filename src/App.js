@@ -21,6 +21,10 @@ import GetStudent from "./components/Student/GetStudent";
 import UpdateStudent from "./components/Student/UpdateStudent";
 import DeleteStudent from "./components/Student/DeleteStudent";
 import GetAllGroups from "./components/Group/GetAllGroups";
+import RegisterGroup from "./components/Group/RegisterGroup";
+import GetGroup from "./components/Group/GetGroup";
+import UpdateGroup from "./components/Group/UpdateGroup";
+import DeleteGroup from "./components/Group/DeleteGroup";
 
 const App = () => {
   return (
@@ -58,6 +62,10 @@ const App = () => {
              path="/groups"
              element={<PageComponent data={GetAllGroups} page="group" />}
             />
+            <Route path="/group/register" element={<RegisterGroup />} />
+            <Route path="/group/get" element={<GetGroup />} />
+            <Route path="/group/update" element={<UpdateGroup />} />
+            <Route path="/group/delete" element={<DeleteGroup />} />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}

@@ -28,6 +28,10 @@ const updateStudent = (id, firstname, lastname, email) => axios.put(`${baseURL}/
 const deleteStudent = (id) => axios.delete(`${baseURL}/students?id=${id}`)
 const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
 // GROUPS
+const createGroup = (name) => axios.post(`${baseURL}/groups`, { name: name })
+const getGroup = (id) => axios.get(`${baseURL}/groups?id=${id}`)
+const updateGroup = (id, name) => axios.put(`${baseURL}/groups`, { id: id, name: name })
+const deleteGroup = (id) => axios.delete(`${baseURL}/groups?id=${id}`)
 const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
 
   export default {
@@ -45,5 +49,9 @@ const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
     updateStudent,
     deleteStudent,
     getAllStudents,
+    createGroup,
+    getGroup,
+    updateGroup,
+    deleteGroup,
     getAllGroups
   }
