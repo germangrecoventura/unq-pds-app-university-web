@@ -27,6 +27,8 @@ const updateStudent = (id, firstname, lastname, email) => axios.put(`${baseURL}/
 })
 const deleteStudent = (id) => axios.delete(`${baseURL}/students?id=${id}`)
 const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
+// GROUPS
+const getAllGroups = () => axios.get(`${baseURL}/groups/getAll`)
 
   export default {
     createTeacher,
@@ -42,5 +44,6 @@ const getAllStudents = () => axios.get(`${baseURL}/students/getAll`)
     getStudent,
     updateStudent,
     deleteStudent,
-    getAllStudents
+    getAllStudents,
+    getAllGroups
   }

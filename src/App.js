@@ -20,6 +20,7 @@ import RegisterStudent from "./components/Student/RegisterStudent";
 import GetStudent from "./components/Student/GetStudent";
 import UpdateStudent from "./components/Student/UpdateStudent";
 import DeleteStudent from "./components/Student/DeleteStudent";
+import GetAllGroups from "./components/Group/GetAllGroups";
 
 const App = () => {
   return (
@@ -53,6 +54,10 @@ const App = () => {
             <Route path="/student/get" element={<GetStudent />} />
             <Route path="/student/update" element={<UpdateStudent />} />
             <Route path="/student/delete" element={<DeleteStudent />} />
+            <Route
+             path="/groups"
+             element={<PageComponent data={GetAllGroups} page="group" />}
+            />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}
