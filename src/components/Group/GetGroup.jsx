@@ -1,50 +1,60 @@
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
-import "./Group.css"
+import "./Group.css";
+import Cookies from "js-cookie";
 
 const GetGroup = (props) => {
-    const [idGroup, setIdGroup] = useState("");
-    const [group, setGroup] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isFind, setIsFind] = useState(false);
-    const [formErrors, setFormErrors] = useState("");
-  
-    const resetForm = () => {
-        setIdGroup("");
-        setFormErrors("");
-    };
+  const [idGroup, setIdGroup] = useState("");
+  const [group, setGroup] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFind, setIsFind] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  let cookies = Cookies.get("jwt");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setFormErrors("");
-        setIsFind(false);
-        setIsSubmitting(true);
-        API.getGroup(idGroup)
-          .then((response) => {
-            setGroup(response.data);
-            setIsFind(true);
-            resetForm();
-            setIsSubmitting(false);
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-    };
+  const resetForm = () => {
+    setIdGroup("");
+    setFormErrors("");
+  };
 
-    function members() {
-        return (
-            group.members.map(member => (<h6 key = {member.id}>{member.firstName} {member.lastName}</h6>))
-        )
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormErrors("");
+    setIsFind(false);
+    setIsSubmitting(true);
+    API.getGroup(idGroup)
+      .then((response) => {
+        setGroup(response.data);
+        setIsFind(true);
+        resetForm();
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setFormErrors(error.response.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
 
-    return (
-        <div className="container clearfix">
-          <Navbar></Navbar>
+  function members() {
+    return group.members.map((member) => (
+      <h6 key={member.id}>
+        {member.firstName} {member.lastName}
+      </h6>
+    ));
+  }
+
+  return (
+    <div className="container clearfix">
+      {!cookies && (
+        <div className="alert alert-danger" role="alert">
+          Please login to access resources
+        </div>
+      )}
+
+      {cookies && (
+        <>
           <h5 className="title">Group get form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
@@ -78,6 +88,7 @@ const GetGroup = (props) => {
               </button>
             </div>
           </form>
+
           {isFind && (
             <table className="TableGet">
               <thead>
@@ -96,8 +107,10 @@ const GetGroup = (props) => {
               </thead>
             </table>
           )}
-        </div>
-    );
+        </>
+      )}
+    </div>
+  );
 };
-    
+
 export default GetGroup;

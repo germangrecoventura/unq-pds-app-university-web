@@ -2,49 +2,59 @@ import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import Navbar from "../Navbar/Navbar";
-import "./Commission.css"
+import "./Commission.css";
+import Cookies from "js-cookie";
 
 const GetCommission = (props) => {
-    const [idCommission, setIdCommission] = useState("");
-    const [commission, setCommission] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isFind, setIsFind] = useState(false);
-    const [formErrors, setFormErrors] = useState("");
-  
-    const resetForm = () => {
-        setIdCommission("");
-        setFormErrors("");
-    };
+  const [idCommission, setIdCommission] = useState("");
+  const [commission, setCommission] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFind, setIsFind] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  let cookies = Cookies.get("jwt");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setFormErrors("");
-        setIsFind(false);
-        setIsSubmitting(true);
-        API.getCommission(idCommission)
-          .then((response) => {
-            setCommission(response.data);
-            setIsFind(true);
-            resetForm();
-            setIsSubmitting(false);
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-    };
+  const resetForm = () => {
+    setIdCommission("");
+    setFormErrors("");
+  };
 
-    function teachers() {
-        return (
-            commission.teachers.map(teacher => (<h6 key = {teacher.id}>{teacher.firstName} {teacher.lastName}</h6>))
-        )
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormErrors("");
+    setIsFind(false);
+    setIsSubmitting(true);
+    API.getCommission(idCommission)
+      .then((response) => {
+        setCommission(response.data);
+        setIsFind(true);
+        resetForm();
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setFormErrors(error.response.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
 
-    return (
-        <div className="container clearfix">
-          <Navbar></Navbar>
+  function teachers() {
+    return commission.teachers.map((teacher) => (
+      <h6 key={teacher.id}>
+        {teacher.firstName} {teacher.lastName}
+      </h6>
+    ));
+  }
+
+  return (
+    <div className="container clearfix">
+      {!cookies && (
+        <div className="alert alert-danger" role="alert">
+          Please login to access resources
+        </div>
+      )}
+      {cookies && (
+        <>
           <h5 className="title">Commission get form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
@@ -78,6 +88,7 @@ const GetCommission = (props) => {
               </button>
             </div>
           </form>
+
           {isFind && (
             <table className="TableGet">
               <thead>
@@ -98,8 +109,10 @@ const GetCommission = (props) => {
               </thead>
             </table>
           )}
-        </div>
-    );
+        </>
+      )}
+    </div>
+  );
 };
-    
+
 export default GetCommission;
