@@ -59,7 +59,7 @@ const LogIn = () => {
             </div>
             <div className="col-md-6">
               <input
-                type="text"
+                type="password"
                 id="inputPassword"
                 className="form-control"
                 required={true}

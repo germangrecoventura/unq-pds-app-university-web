@@ -82,9 +82,24 @@ const GetTeacher = (props) => {
           </form>
 
           {isFind && (
-            <p>
-              Teacher: {teacher.firstName} {teacher.lastName} {teacher.email}
-            </p>
+            <table className="TableGet">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Repositories</th>
+              </tr>
+              <tr>
+                <td>{teacher.id}</td>
+                <td>{teacher.firstName}</td>
+                <td>{teacher.lastName}</td>
+                <td>{teacher.email}</td>
+                <td>{teacher.repositories}</td>
+              </tr>
+            </thead>
+          </table>
           )}
         </>
       )}
