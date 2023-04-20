@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
 import Cookies from "js-cookie";
 
 const RegisterCommission = (props) => {

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
+import Cookies from "js-cookie";
 
 const RegisterTeacher = (props) => {
   const [firstname, setFirstname] = useState("");
@@ -11,6 +11,7 @@ const RegisterTeacher = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
+  let cookies = Cookies.get("jwt");
 
   const resetForm = () => {
     setFirstname("");
@@ -39,76 +40,84 @@ const RegisterTeacher = (props) => {
 
   return (
     <div className="container clearfix">
-      <Navbar></Navbar>
-      <h5 className="title">Teacher registration form</h5>
-      <form onSubmit={handleSubmit}>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputFirstname" className="col-form-label">
-                First name:
-              </label>
-            </div>
-            <div className="col-md-6">
-              <input
-                type="text"
-                id="inputFirstname"
-                className="form-control"
-                required={true}
-                onChange={(e) => setFirstname(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputLastname" className="col-form-label">
-                Last name:
-              </label>
-            </div>
-            <div className="col-md-6">
-              <input
-                type="text"
-                id="inputLastname"
-                className="form-control"
-                required={true}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputEmail" className="col-form-label">
-                Email:
-              </label>
-            </div>
-            <div className="col-md-6">
-              <input
-                type="email"
-                id="inputEmail"
-                className="form-control"
-                onChange={(e) => setEmail(e.target.value)}
-                required={true}
-              />
-            </div>
-          </div>
+      {!cookies && (
+        <div className="alert alert-danger" role="alert">
+          Please login to access resources
         </div>
+      )}
+      {cookies && (
+        <>
+          <h5 className="title">Teacher registration form</h5>
+          <form onSubmit={handleSubmit}>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputFirstname" className="col-form-label">
+                    First name:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="inputFirstname"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  />
+                </div>
+              </div>
 
-        <div className="mb-3">
-          <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-        </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputLastname" className="col-form-label">
+                    Last name:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="inputLastname"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setLastname(e.target.value)}
+                  />
+                </div>
+              </div>
 
-        <div className="modal-footer">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputEmail" className="col-form-label">
+                    Email:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    id="inputEmail"
+                    className="form-control"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
+            </div>
+
+            <div className="modal-footer">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };

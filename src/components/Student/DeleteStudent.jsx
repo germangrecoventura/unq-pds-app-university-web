@@ -2,40 +2,47 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
+import Cookies from "js-cookie";
 
 const DeleteStudent = (props) => {
-    const [idStudent, setIdStudent] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formErrors, setFormErrors] = useState("");
-    let navigate = useNavigate();
-  
-    const resetForm = () => {
-        setIdStudent("");
-        setFormErrors("");
-    };
+  const [idStudent, setIdStudent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  let navigate = useNavigate();
+  let cookies = Cookies.get("jwt");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setFormErrors("");
-        setIsSubmitting(true);
-        API.deleteStudent(idStudent)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-    };
+  const resetForm = () => {
+    setIdStudent("");
+    setFormErrors("");
+  };
 
-    return (
-        <div className="container clearfix">
-          <Navbar></Navbar>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormErrors("");
+    setIsSubmitting(true);
+    API.deleteStudent(idStudent)
+      .then((response) => {
+        resetForm();
+        setIsSubmitting(false);
+        navigate("/operation-completed");
+      })
+      .catch((error) => {
+        setFormErrors(error.response.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
+  return (
+    <div className="container clearfix">
+      {!cookies && (
+        <div className="alert alert-danger" role="alert">
+          Please login to access resources
+        </div>
+      )}
+      {cookies && (
+        <>
           <h5 className="title">Student delete form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
@@ -69,8 +76,10 @@ const DeleteStudent = (props) => {
               </button>
             </div>
           </form>
-        </div>
-    );
+        </>
+      )}
+    </div>
+  );
 };
-    
+
 export default DeleteStudent;

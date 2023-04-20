@@ -1,7 +1,6 @@
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
 import "./Commission.css";
 import Cookies from "js-cookie";
 
