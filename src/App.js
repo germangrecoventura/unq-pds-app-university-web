@@ -31,6 +31,7 @@ import GetCommission from "./components/Commission/GetCommission";
 import UpdateCommission from "./components/Commission/UpdateCommission";
 import DeleteCommission from "./components/Commission/DeleteCommission";
 import PageComponent from "./components/PageComponent/PageComponent";
+import PageDelete from "./components/PageDelete/PageDelete";
 
 const App = () => {
   return (
@@ -47,7 +48,11 @@ const App = () => {
             <Route path="/teacher/register" element={<RegisterTeacher />} />
             <Route path="/teacher/get" element={<GetTeacher />} />
             <Route path="/teacher/update" element={<UpdateTeacher />} />
-            <Route path="/teacher/delete" element={<DeleteTeacher />} />
+            {/* <Route path="/teacher/delete" element={<DeleteTeacher />} /> */}
+            <Route
+              path="/teacher/delete"
+              element={<PageDelete page={"Teacher"} />}
+            />
             <Route
               path="/matters"
               element={<PageComponent data={GetAllMatters} page="matter" />}
@@ -55,7 +60,11 @@ const App = () => {
             <Route path="/matter/register" element={<RegisterMatter />} />
             <Route path="/matter/get" element={<GetMatter />} />
             <Route path="/matter/update" element={<UpdateMatter />} />
-            <Route path="/matter/delete" element={<DeleteMatter />} />
+            {/* <Route path="/matter/delete" element={<DeleteMatter />} /> */}
+            <Route
+              path="/matter/delete"
+              element={<PageDelete page={"Matter"} />}
+            />
             <Route
               path="/students"
               element={<PageComponent data={GetAllStudents} page="student" />}
@@ -63,7 +72,11 @@ const App = () => {
             <Route path="/student/register" element={<RegisterStudent />} />
             <Route path="/student/get" element={<GetStudent />} />
             <Route path="/student/update" element={<UpdateStudent />} />
-            <Route path="/student/delete" element={<DeleteStudent />} />
+            {/* <Route path="/student/delete" element={<DeleteStudent />} /> */}
+            <Route
+              path="/student/delete"
+              element={<PageDelete page={"Student"} />}
+            />
             <Route
               path="/groups"
               element={<PageComponent data={GetAllGroups} page="group" />}
@@ -71,7 +84,11 @@ const App = () => {
             <Route path="/group/register" element={<RegisterGroup />} />
             <Route path="/group/get" element={<GetGroup />} />
             <Route path="/group/update" element={<UpdateGroup />} />
-            <Route path="/group/delete" element={<DeleteGroup />} />
+            {/*  <Route path="/group/delete" element={<DeleteGroup />} /> */}
+            <Route
+              path="/group/delete"
+              element={<PageDelete page={"Group"} />}
+            />
             <Route
               path="/commissions"
               element={
@@ -84,7 +101,11 @@ const App = () => {
             />
             <Route path="/commission/get" element={<GetCommission />} />
             <Route path="/commission/update" element={<UpdateCommission />} />
-            <Route path="/commission/delete" element={<DeleteCommission />} />
+            {/* <Route path="/commission/delete" element={<DeleteCommission />} /> */}
+            <Route
+              path="/commission/delete"
+              element={<PageDelete page={"Commission"} />}
+            />
             <Route
               path="/operation-completed"
               element={<OperationCompleted />}
