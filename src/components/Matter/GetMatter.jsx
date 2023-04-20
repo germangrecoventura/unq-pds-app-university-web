@@ -1,44 +1,51 @@
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
-import "./Matter.css"
+import "./Matter.css";
+import Cookies from "js-cookie";
 
 const GetMatter = (props) => {
-    const [idMatter, setIdMatter] = useState("");
-    const [matter, setMatter] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isFind, setIsFind] = useState(false);
-    const [formErrors, setFormErrors] = useState("");
-  
-    const resetForm = () => {
-        setIdMatter("");
-        setFormErrors("");
-    };
+  const [idMatter, setIdMatter] = useState("");
+  const [matter, setMatter] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFind, setIsFind] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  let cookies = Cookies.get("jwt");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setFormErrors("");
-        setIsFind(false);
-        setIsSubmitting(true);
-        API.getMatter(idMatter)
-          .then((response) => {
-            setMatter(response.data);
-            setIsFind(true);
-            resetForm();
-            setIsSubmitting(false);
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-    };
+  const resetForm = () => {
+    setIdMatter("");
+    setFormErrors("");
+  };
 
-    return (
-        <div className="container clearfix">
-          <Navbar></Navbar>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormErrors("");
+    setIsFind(false);
+    setIsSubmitting(true);
+    API.getMatter(idMatter)
+      .then((response) => {
+        setMatter(response.data);
+        setIsFind(true);
+        resetForm();
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setFormErrors(error.response.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
+  return (
+    <div className="container clearfix">
+      {!cookies && (
+        <div className="alert alert-danger" role="alert">
+          Please login to access resources
+        </div>
+      )}
+      {cookies && (
+        <>
           <h5 className="title">Matter get form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
@@ -86,8 +93,10 @@ const GetMatter = (props) => {
               </thead>
             </table>
           )}
-        </div>
-    );
+        </>
+      )}
+    </div>
+  );
 };
-    
+
 export default GetMatter;

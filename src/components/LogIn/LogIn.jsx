@@ -1,17 +1,16 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Navbar from "../Navbar/Navbar";
 
-const DeleteTeacher = (props) => {
-  const [idTeacher, setIdTeacher] = useState("");
+const LogIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  let navigate = useNavigate();
 
   const resetForm = () => {
-    setIdTeacher("");
+    setEmail("");
+    setPassword("");
     setFormErrors("");
   };
 
@@ -19,39 +18,52 @@ const DeleteTeacher = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.deleteTeacher(idTeacher)
+    API.login(email, password)
       .then((response) => {
         resetForm();
-        setIsSubmitting(false);
-        navigate("/operation-completed");
+        window.location.replace("");
       })
       .catch((error) => {
         setFormErrors(error.response.data);
-      })
-      .finally(() => {
         setIsSubmitting(false);
       });
   };
 
   return (
     <div className="container clearfix">
-      <Navbar></Navbar>
-      <h5 className="title">Teacher delete form</h5>
+      <h5 className="title">Please sign in</h5>
       <form onSubmit={handleSubmit}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-4">
-              <label htmlFor="inputIdTeacher" className="col-form-label">
-                Id teacher:
+              <label htmlFor="inputEmail" className="col-form-label">
+                Email:
               </label>
             </div>
             <div className="col-md-6">
               <input
-                type="number"
-                id="inputIdTeacher"
+                type="email"
+                id="inputEmail"
                 className="form-control"
                 required={true}
-                onChange={(e) => setIdTeacher(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-4">
+              <label htmlFor="inputPassword" className="col-form-label">
+                Password:
+              </label>
+            </div>
+            <div className="col-md-6">
+              <input
+                type="password"
+                id="inputPassword"
+                className="form-control"
+                required={true}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -61,7 +73,7 @@ const DeleteTeacher = (props) => {
           <FormErrors errors={Object.entries(formErrors)}></FormErrors>
         </div>
 
-        <div className="modal-footer">
+        <div className="form-footer">
           <button
             type="submit"
             disabled={isSubmitting}
@@ -75,4 +87,4 @@ const DeleteTeacher = (props) => {
   );
 };
 
-export default DeleteTeacher;
+export default LogIn;
