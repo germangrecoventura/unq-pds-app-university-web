@@ -1,28 +1,31 @@
-import Cookies from "js-cookie";
 import Card from "../Card/Card";
 import { useState, useEffect } from "react";
 import API from "../../services/API";
 
-const PageComponent = (props) => {
+const PageComponentTeacher = (props) => {
   const [user, setUser] = useState(null);
-  let cookies = Cookies.get("jwt");
+  const [isTeacher, setIsTeacher] = useState(false);
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
       })
-      .catch((error) => {})
+      .catch((error) => {
+        setIsTeacher(false);
+      })
       .finally(() => {});
   }, []);
   return (
     <>
-      {!cookies && (
+      {!user && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             <div className="col">
@@ -58,17 +61,6 @@ const PageComponent = (props) => {
                 image={"bi bi-person-x-fill"}
               ></Card>
             </div>
-
-            {user && (
-              <div className="col">
-                <Card
-                  title={"Add comments to student"}
-                  description={""}
-                  url={`/${props.page}/get`}
-                  image={"bi bi-clipboard-plus-fill"}
-                ></Card>
-              </div>
-            )}
           </div>
           <props.data />
         </>
@@ -77,4 +69,4 @@ const PageComponent = (props) => {
   );
 };
 
-export default PageComponent;
+export default PageComponentTeacher;
