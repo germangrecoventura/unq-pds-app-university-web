@@ -24,17 +24,39 @@ const PageComponentStudent = (props) => {
           Please login to access resources
         </div>
       )}
+
       {user && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            <div className="col">
-              <Card
-                title={`Add ${props.page}`}
-                description={""}
-                url={`/${props.page}/register`}
-                image={"bi bi-person-fill-add"}
-              ></Card>
-            </div>
+            {isTeacher && (
+              <>
+                <div className="col">
+                  <Card
+                    title={`Add ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/register`}
+                    image={"bi bi-person-fill-add"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Update ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/update`}
+                    image={"bi bi-person-fill-gear"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Delete ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/delete`}
+                    image={"bi bi-person-x-fill"}
+                  ></Card>
+                </div>
+              </>
+            )}
+
             <div className="col">
               <Card
                 title={`Get ${props.page}`}
@@ -43,26 +65,7 @@ const PageComponentStudent = (props) => {
                 image={"bi bi-person-vcard-fill"}
               ></Card>
             </div>
-            <div className="col">
-              <Card
-                title={`Update ${props.page}`}
-                description={""}
-                url={`/${props.page}/update`}
-                image={"bi bi-person-fill-gear"}
-              ></Card>
-            </div>
-
-            <div className="col">
-              <Card
-                title={`Delete ${props.page}`}
-                description={""}
-                url={`/${props.page}/delete`}
-                image={"bi bi-person-x-fill"}
-              ></Card>
-            </div>
-
-            {user &&
-              isTeacher &&
+            {isTeacher &&
               window.location.href === "http://localhost:3000/students" && (
                 <div className="col">
                   <Card
