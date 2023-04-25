@@ -32,7 +32,7 @@ const PageComponentStudent = (props) => {
               <>
                 <div className="col">
                   <Card
-                    title={`Add ${props.page}`}
+                    title={`Create ${props.page}`}
                     description={""}
                     url={`/${props.page}/register`}
                     image={"bi bi-person-fill-add"}

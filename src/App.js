@@ -53,7 +53,7 @@ const App = () => {
             <Route
               path="/matters"
               element={
-                <PageComponentTeacher data={GetAllMatters} page="matter" />
+                <PageComponentStudent data={GetAllMatters} page="matter" />
               }
             />
             <Route path="/matter/register" element={<RegisterMatter />} />

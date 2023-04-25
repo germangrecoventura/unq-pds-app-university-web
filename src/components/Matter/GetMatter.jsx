@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import "./Matter.css";
-import Cookies from "js-cookie";
 
 const GetMatter = (props) => {
   const [idMatter, setIdMatter] = useState("");
@@ -10,7 +9,16 @@ const GetMatter = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  let cookies = Cookies.get("jwt");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {})
+      .finally(() => {});
+  }, []);
 
   const resetForm = () => {
     setIdMatter("");
@@ -39,12 +47,13 @@ const GetMatter = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!user && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && (
         <>
           <h5 className="title">Matter get form</h5>
           <form onSubmit={handleSubmit}>

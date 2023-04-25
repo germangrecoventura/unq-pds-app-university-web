@@ -36,14 +36,6 @@ const Home = () => {
             </div>
             <div className="col">
               <Card
-                title={"Matters"}
-                description={"Operations related to matters"}
-                url={"/matters"}
-                image={"bi bi-collection-fill"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
                 title={"Commissions"}
                 description={"Operations related to commissions"}
                 url={"/commissions"}
@@ -85,6 +77,14 @@ const Home = () => {
                 description={"Operations related to repository"}
                 url={"/repositories"}
                 image={"bi bi-github"}
+              ></Card>
+            </div>
+            <div className="col">
+              <Card
+                title={"Matters"}
+                description={"Operations related to matters"}
+                url={"/matters"}
+                image={"bi bi-collection-fill"}
               ></Card>
             </div>
           </>

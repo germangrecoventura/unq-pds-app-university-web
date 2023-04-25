@@ -25,12 +25,18 @@ const PageComponentTeacher = (props) => {
         </div>
       )}
 
-      {user && (
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             <div className="col">
               <Card
-                title={`Add ${props.page}`}
+                title={`Create ${props.page}`}
                 description={""}
                 url={`/${props.page}/register`}
                 image={"bi bi-person-fill-add"}

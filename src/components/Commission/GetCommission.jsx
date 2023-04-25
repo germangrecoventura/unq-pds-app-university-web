@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import "./Commission.css";
-import Cookies from "js-cookie";
 
 const GetCommission = (props) => {
   const [idCommission, setIdCommission] = useState("");
@@ -10,7 +9,20 @@ const GetCommission = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  let cookies = Cookies.get("jwt");
+  const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
+      })
+      .catch((error) => {
+        setIsTeacher(false);
+      })
+      .finally(() => {});
+  }, []);
 
   const resetForm = () => {
     setIdCommission("");
@@ -47,12 +59,19 @@ const GetCommission = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!user && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <h5 className="title">Commission get form</h5>
           <form onSubmit={handleSubmit}>

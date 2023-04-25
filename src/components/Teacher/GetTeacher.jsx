@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import Cookies from "js-cookie";
 
 const GetTeacher = (props) => {
   const [idTeacher, setIdTeacher] = useState("");
@@ -9,7 +8,20 @@ const GetTeacher = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  let cookies = Cookies.get("jwt");
+  const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
+      })
+      .catch((error) => {
+        setIsTeacher(false);
+      })
+      .finally(() => {});
+  }, []);
 
   const resetForm = () => {
     setIdTeacher("");
@@ -38,12 +50,19 @@ const GetTeacher = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!user && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <h5 className="title">Teacher get form</h5>
           <form onSubmit={handleSubmit}>
@@ -83,23 +102,23 @@ const GetTeacher = (props) => {
 
           {isFind && (
             <table className="TableGet">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Email</th>
-                <th>Repositories</th>
-              </tr>
-              <tr>
-                <td>{teacher.id}</td>
-                <td>{teacher.firstName}</td>
-                <td>{teacher.lastName}</td>
-                <td>{teacher.email}</td>
-                <td>{teacher.repositories}</td>
-              </tr>
-            </thead>
-          </table>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+                  <th>Email</th>
+                  <th>Repositories</th>
+                </tr>
+                <tr>
+                  <td>{teacher.id}</td>
+                  <td>{teacher.firstName}</td>
+                  <td>{teacher.lastName}</td>
+                  <td>{teacher.email}</td>
+                  <td>{teacher.repositories}</td>
+                </tr>
+              </thead>
+            </table>
           )}
         </>
       )}
