@@ -106,6 +106,34 @@ const PageDelete = (props) => {
             setIsSubmitting(false);
           });
         break;
+      case "Repository":
+        API.deleteRepository(id)
+          .then((response) => {
+            resetForm();
+            setIsSubmitting(false);
+            navigate("/operation-completed");
+          })
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
+        break;
+      default:
+        API.deleteProject(id)
+          .then((response) => {
+            resetForm();
+            setIsSubmitting(false);
+            navigate("/operation-completed");
+          })
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
+        break;
     }
   };
 
