@@ -1,15 +1,17 @@
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../../services/API";
 import "./Banner.css";
 
 const Banner = () => {
+  let navigate = useNavigate();
+
   const logout = (event) => {
     event.preventDefault();
     API.logout()
       .then((response) => {
         Cookies.remove("jwt");
-        window.location.replace("");
+        return navigate("/");
       })
       .catch((error) => {});
   };
