@@ -15,7 +15,8 @@ const Home = () => {
       .then((response) => {
         setUser(response.data);
         console.log(response.data)
-        setIsTeacher(response.data.role === "TEACHER");
+        setIsTeacher(response.data.role == "TEACHER");
+        console.log(isTeacher)
       })
       .catch((error) => {
         setIsTeacher(false);
