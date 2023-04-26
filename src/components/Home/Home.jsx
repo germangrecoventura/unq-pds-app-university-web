@@ -3,10 +3,12 @@ import LogIn from "../LogIn/LogIn";
 import "./Home.css";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -23,7 +25,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      {!user && <LogIn></LogIn>}
+      {!cookies && <LogIn></LogIn>}
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {user && isTeacher && (
           <>

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
+import Cookies from "js-cookie";
 
 const RegisterCommission = (props) => {
   const [year, setYear] = useState("");
@@ -11,6 +12,7 @@ const RegisterCommission = (props) => {
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const RegisterCommission = (props) => {
 
   return (
     <div className="container clearfix">
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

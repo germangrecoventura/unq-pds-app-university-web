@@ -3,6 +3,7 @@ import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 const UpdateGroup = (props) => {
   const [idGroup, setIdGroup] = useState("");
@@ -11,6 +12,7 @@ const UpdateGroup = (props) => {
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const UpdateGroup = (props) => {
 
   return (
     <div className="container clearfix">
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

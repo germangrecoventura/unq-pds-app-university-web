@@ -1,10 +1,12 @@
 import Card from "../Card/Card";
 import { useState, useEffect } from "react";
 import API from "../../services/API";
+import Cookies from "js-cookie";
 
 const PageComponentStudent = (props) => {
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -19,7 +21,7 @@ const PageComponentStudent = (props) => {
   }, []);
   return (
     <>
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

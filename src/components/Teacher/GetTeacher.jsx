@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
+import Cookies from "js-cookie";
 
 const GetTeacher = (props) => {
   const [idTeacher, setIdTeacher] = useState("");
@@ -10,6 +11,7 @@ const GetTeacher = (props) => {
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -50,7 +52,7 @@ const GetTeacher = (props) => {
 
   return (
     <div className="container clearfix">
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

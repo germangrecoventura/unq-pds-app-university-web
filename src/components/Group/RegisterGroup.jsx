@@ -3,6 +3,7 @@ import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 const RegisterGroup = (props) => {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ const RegisterGroup = (props) => {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -49,7 +51,7 @@ const RegisterGroup = (props) => {
 
   return (
     <div className="container clearfix">
-       {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import "./Matter.css";
+import Cookies from "js-cookie";
 
 const GetMatter = (props) => {
   const [idMatter, setIdMatter] = useState("");
@@ -10,6 +11,7 @@ const GetMatter = (props) => {
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -47,7 +49,7 @@ const GetMatter = (props) => {
 
   return (
     <div className="container clearfix">
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
+import Cookies from "js-cookie";
 
 const UpdateTeacher = (props) => {
   const [idTeacher, setIdTeacher] = useState("");
@@ -13,6 +14,7 @@ const UpdateTeacher = (props) => {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
+  let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
@@ -54,7 +56,7 @@ const UpdateTeacher = (props) => {
 
   return (
     <div className="container clearfix">
-      {!user && (
+      {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
