@@ -22,7 +22,6 @@ const LogIn = () => {
     setIsSubmitting(true);
     API.login(email, password, role)
       .then((response) => {
-        {console.log(role)}
         resetForm();
         window.location.replace("");
       })

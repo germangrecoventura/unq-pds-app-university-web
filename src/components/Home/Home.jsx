@@ -14,13 +14,9 @@ const Home = () => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        console.log(response.data);
         setIsTeacher(response.data.role === "TEACHER");
-        console.log(isTeacher);
       })
-      .catch((error) => {
-        setIsTeacher(false);
-      })
+      .catch((error) => {})
       .finally(() => {});
   }, []);
 
