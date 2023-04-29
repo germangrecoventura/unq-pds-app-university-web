@@ -1,18 +1,22 @@
-import Cookies from "js-cookie";
 import Card from "../Card/Card";
 import { useState, useEffect } from "react";
 import API from "../../services/API";
+import Cookies from "js-cookie";
 
-const PageComponent = (props) => {
+const PageComponentTeacher = (props) => {
   const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
       })
-      .catch((error) => {})
+      .catch((error) => {
+        setIsTeacher(false);
+      })
       .finally(() => {});
   }, []);
   return (
@@ -22,12 +26,19 @@ const PageComponent = (props) => {
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             <div className="col">
               <Card
-                title={`Add ${props.page}`}
+                title={`Create ${props.page}`}
                 description={""}
                 url={`/${props.page}/register`}
                 image={"bi bi-person-fill-add"}
@@ -58,17 +69,6 @@ const PageComponent = (props) => {
                 image={"bi bi-person-x-fill"}
               ></Card>
             </div>
-
-            {user && (
-              <div className="col">
-                <Card
-                  title={"Add comments to student"}
-                  description={""}
-                  url={`/${props.page}/get`}
-                  image={"bi bi-clipboard-plus-fill"}
-                ></Card>
-              </div>
-            )}
           </div>
           <props.data />
         </>
@@ -77,4 +77,4 @@ const PageComponent = (props) => {
   );
 };
 
-export default PageComponent;
+export default PageComponentTeacher;

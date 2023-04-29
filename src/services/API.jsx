@@ -68,12 +68,13 @@ const API = {
     }),
   deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`),
   getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`),
-  login: (email, password) =>
+  login: (email, password, role) =>
     axios.post(
       `${baseURL}/login`,
       {
         email: email,
         password: password,
+        role: role,
       },
       { withCredentials: true }
     ),

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
+import "./Teacher.css";
 import Cookies from "js-cookie";
 
 const GetTeacher = (props) => {
@@ -83,23 +84,23 @@ const GetTeacher = (props) => {
 
           {isFind && (
             <table className="TableGet">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Email</th>
-                <th>Repositories</th>
-              </tr>
-              <tr>
-                <td>{teacher.id}</td>
-                <td>{teacher.firstName}</td>
-                <td>{teacher.lastName}</td>
-                <td>{teacher.email}</td>
-                <td>{teacher.repositories}</td>
-              </tr>
-            </thead>
-          </table>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+                  <th>Email</th>
+                  <th>Repositories</th>
+                </tr>
+                <tr>
+                  <td>{teacher.id}</td>
+                  <td>{teacher.firstName}</td>
+                  <td>{teacher.lastName}</td>
+                  <td>{teacher.email}</td>
+                  <td>{teacher.repositories}</td>
+                </tr>
+              </thead>
+            </table>
           )}
         </>
       )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import "./Group.css";
@@ -10,7 +10,21 @@ const GetGroup = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
+  const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
+      })
+      .catch((error) => {
+        setIsTeacher(false);
+      })
+      .finally(() => {});
+  }, []);
 
   const resetForm = () => {
     setIdGroup("");
@@ -53,7 +67,13 @@ const GetGroup = (props) => {
         </div>
       )}
 
-      {cookies && (
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <h5 className="title">Group get form</h5>
           <form onSubmit={handleSubmit}>

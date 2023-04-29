@@ -9,7 +9,7 @@ const Banner = () => {
     API.logout()
       .then((response) => {
         Cookies.remove("jwt");
-        window.location.replace("");
+        window.location.replace("/");
       })
       .catch((error) => {});
   };

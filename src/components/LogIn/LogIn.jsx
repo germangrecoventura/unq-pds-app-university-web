@@ -5,6 +5,7 @@ import API from "../../services/API";
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
 
@@ -12,13 +13,14 @@ const LogIn = () => {
     setEmail("");
     setPassword("");
     setFormErrors("");
+    setRole("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.login(email, password)
+    API.login(email, password, role)
       .then((response) => {
         resetForm();
         window.location.replace("");
@@ -67,12 +69,47 @@ const LogIn = () => {
               />
             </div>
           </div>
+
+          <div className="row">
+            <div className="col-md-4">
+              <label htmlFor="inputRole" className="col-form-label">
+                Role:
+              </label>
+            </div>
+            <div className="col-md-6">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  value={"STUDENT"}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  STUDENT
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  value={"TEACHER"}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  TEACHER
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mb-3">
           <FormErrors errors={Object.entries(formErrors)}></FormErrors>
         </div>
-
         <div className="form-footer">
           <button
             type="submit"

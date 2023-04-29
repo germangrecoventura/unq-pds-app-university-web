@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
+import { useEffect } from "react";
 import Cookies from "js-cookie";
 
 const UpdateGroup = (props) => {
@@ -9,8 +10,22 @@ const UpdateGroup = (props) => {
   const [name, setName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  let navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
+      })
+      .catch((error) => {
+        setIsTeacher(false);
+      })
+      .finally(() => {});
+  }, []);
 
   const resetForm = () => {
     setIdGroup("");
@@ -43,7 +58,14 @@ const UpdateGroup = (props) => {
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
           <h5 className="title">Group update form</h5>
           <form onSubmit={handleSubmit}>
