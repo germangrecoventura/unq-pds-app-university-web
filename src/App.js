@@ -40,7 +40,7 @@ const App = () => {
             <Route
               path="/teachers"
               element={
-                <PageComponentTeacher data={GetAllTeachers} page="teacher" />
+                <PageComponentStudent data={GetAllTeachers} page="teacher" />
               }
             />
             <Route path="/teacher/register" element={<RegisterTeacher />} />
@@ -92,7 +92,7 @@ const App = () => {
             <Route
               path="/commissions"
               element={
-                <PageComponentTeacher
+                <PageComponentStudent
                   data={GetAllCommissions}
                   page="commission"
                 />

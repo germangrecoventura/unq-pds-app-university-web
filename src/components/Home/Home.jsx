@@ -24,7 +24,7 @@ const Home = () => {
     <div className="container">
       {!cookies && <LogIn></LogIn>}
       <div className="row row-cols-1 row-cols-md-3 g-4">
-        {user && isTeacher && (
+        {user && (
           <>
             <div className="col">
               <Card
@@ -36,13 +36,40 @@ const Home = () => {
             </div>
             <div className="col">
               <Card
+                title={"Student"}
+                description={"Operations related to students"}
+                url={"/students"}
+                image={"bi bi-person-fill-gear"}
+              ></Card>
+            </div>
+            <div className="col">
+              <Card
                 title={"Commissions"}
                 description={"Operations related to commissions"}
                 url={"/commissions"}
                 image={"bi bi-c-square-fill"}
               ></Card>
             </div>
-
+            <div className="col">
+              <Card
+                title={"Matters"}
+                description={"Operations related to matters"}
+                url={"/matters"}
+                image={"bi bi-collection-fill"}
+              ></Card>
+            </div>
+            <div className="col">
+              <Card
+                title={"Repositories"}
+                description={"Operations related to repository"}
+                url={"/repositories"}
+                image={"bi bi-github"}
+              ></Card>
+            </div>
+          </>
+        )}
+        {user && isTeacher && (
+          <>
             <div className="col">
               <Card
                 title={"Groups"}
@@ -57,34 +84,6 @@ const Home = () => {
                 description={"Operations related to projects"}
                 url={"/projects"}
                 image={"bi bi-file-earmark-ppt-fill"}
-              ></Card>
-            </div>
-          </>
-        )}
-        {user && (
-          <>
-            <div className="col">
-              <Card
-                title={"Student"}
-                description={"Operations related to students"}
-                url={"/students"}
-                image={"bi bi-person-fill-gear"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Repositories"}
-                description={"Operations related to repository"}
-                url={"/repositories"}
-                image={"bi bi-github"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Matters"}
-                description={"Operations related to matters"}
-                url={"/matters"}
-                image={"bi bi-collection-fill"}
               ></Card>
             </div>
           </>
