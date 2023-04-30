@@ -24,7 +24,7 @@ const RegisterCommission = (props) => {
       .catch((error) => {
         setIsTeacher(false);
       })
-      .finally(() => {});
+      .finally(() => { });
   }, []);
 
   const resetForm = () => {
@@ -38,18 +38,23 @@ const RegisterCommission = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.createCommission(year, fourMonthPeriod, matterName)
-      .then((response) => {
-        resetForm();
-        setIsSubmitting(false);
-        navigate("/operation-completed");
-      })
-      .catch((error) => {
-        setFormErrors(error.response.data);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+    if (fourMonthPeriod === "") {
+      setFormErrors({ "message": "Please select a four month period" });
+      setIsSubmitting(false);
+    } else {
+      API.createCommission(year, fourMonthPeriod, matterName)
+        .then((response) => {
+          resetForm();
+          setIsSubmitting(false);
+          navigate("/operation-completed");
+        })
+        .catch((error) => {
+          setFormErrors(error.response.data);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
   };
 
   return (
@@ -97,13 +102,32 @@ const RegisterCommission = (props) => {
                   </label>
                 </div>
                 <div className="col-md-6">
-                  <input
-                    type="text"
-                    id="inputFourMonthPeriod"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setFourMonthPeriod(e.target.value)}
-                  />
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault1"
+                      value={"FIRST_PERIOD"}
+                      onChange={(e) => setFourMonthPeriod(e.target.value)}
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      FIRST_PERIOD
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault2"
+                      value={"SECOND_PERIOD"}
+                      onChange={(e) => setFourMonthPeriod(e.target.value)}
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      SECOND_PERIOD
+                    </label>
+                  </div>
                 </div>
               </div>
               <div className="row">
