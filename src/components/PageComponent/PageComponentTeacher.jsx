@@ -90,6 +90,14 @@ const PageComponentTeacher = (props) => {
                 </div>
                 <div className="col">
                   <Card
+                    title={`Remove member`}
+                    description={""}
+                    url={`/${props.page}/removeMember`}
+                    image={"bi bi-clipboard-x-fill"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
                     title={`Add project`}
                     description={""}
                     url={`/${props.page}/addProject`}

@@ -29,6 +29,7 @@ import RegisterProject from "./components/Project/RegisterProject";
 import UpdateProject from "./components/Project/UpdateProject";
 import GetAllProjects from "./components/Project/GetAllProjects";
 import PageAdd from "./components/PageAdd/PageAdd";
+import PageRemove from "./components/PageRemove/PageRemove";
 
 const App = () => {
   return (
@@ -91,6 +92,7 @@ const App = () => {
               element={<PageDelete page={"Group"} />}
             />
             <Route path="/group/addMember" element={<PageAdd entityA="Group" entityB="Student" />} />
+            <Route path="/group/removeMember" element={<PageRemove entityA="Group" entityB="Student" />} />
             <Route path="/group/addProject" element={<PageAdd entityA="Group" entityB="Project" />} />
             <Route
               path="/commissions"
