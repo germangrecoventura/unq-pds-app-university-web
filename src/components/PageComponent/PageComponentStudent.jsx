@@ -40,14 +40,15 @@ const PageComponentStudent = (props) => {
                     image={"bi bi-person-fill-add"}
                   ></Card>
                 </div>
-                <div className="col">
-                  <Card
-                    title={`Update ${props.page}`}
-                    description={""}
-                    url={`/${props.page}/update`}
-                    image={"bi bi-person-fill-gear"}
-                  ></Card>
-                </div>
+                { window.location.href !== "http://localhost:3000/commissions" && (
+                  <div className="col">
+                    <Card
+                      title={`Update ${props.page}`}
+                      description={""}
+                      url={`/${props.page}/update`}
+                      image={"bi bi-person-fill-gear"}
+                    ></Card>
+                </div>)}
                 <div className="col">
                   <Card
                     title={`Delete ${props.page}`}

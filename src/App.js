@@ -109,7 +109,6 @@ const App = () => {
               element={<RegisterCommission />}
             />
             <Route path="/commission/get" element={<PageGet page={"Commission"} />} />
-            <Route path="/commission/update" element={<UpdateCommission />} />
             <Route
               path="/commission/delete"
               element={<PageDelete page={"Commission"} />}
