@@ -101,6 +101,14 @@ const PageComponentStudent = (props) => {
                   </div>
                   <div className="col">
                     <Card
+                      title={"Remove student"}
+                      description={""}
+                      url={`/${props.page}/removeStudent`}
+                      image={"bi bi-clipboard-x-fill"}
+                    ></Card>
+                  </div>
+                  <div className="col">
+                    <Card
                       title={"Add teacher"}
                       description={""}
                       url={`/${props.page}/addTeacher`}

@@ -53,18 +53,22 @@ const PageRemove = (props) => {
           });
         break;
       default:
-        API.removeMember(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
+        switch (props.entityB) {
+          default:
+            API.removeStudent(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+        }
         break;
     }
   };

@@ -74,6 +74,8 @@ const API = {
   getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`),
   addStudent: (commissionId, studentId) => 
     axios.put(`${baseURL}/commissions/addStudent/${commissionId}/${studentId}`),
+  removeStudent: (commissionId, studentId) => 
+    axios.put(`${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`),
   addTeacher: (commissionId, teacherId) => 
     axios.put(`${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`),
   addGroup: (commissionId, groupId) => 
