@@ -68,6 +68,16 @@ const PageComponentTeacher = (props) => {
                 image={"bi bi-person-vcard-fill"}
               ></Card>
             </div>
+            {window.location.href === "http://localhost:3000/projects" && (
+              <div className="col">
+                <Card
+                  title={`Add repository`}
+                  description={""}
+                  url={`/${props.page}/addRepository`}
+                  image={"bi bi-clipboard-plus-fill"}
+                ></Card>
+              </div>
+            )}
           </div>
           <props.data />
         </>

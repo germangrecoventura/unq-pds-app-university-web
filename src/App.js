@@ -28,6 +28,7 @@ import PageGet from "./components/PageGet/PageGet";
 import RegisterProject from "./components/Project/RegisterProject";
 import UpdateProject from "./components/Project/UpdateProject";
 import GetAllProjects from "./components/Project/GetAllProjects";
+import PageAdd from "./components/PageAdd/PageAdd";
 
 const App = () => {
   return (
@@ -138,6 +139,7 @@ const App = () => {
               path="/project/delete"
               element={<PageDelete page={"Project"} />}
             />
+            <Route path="project/addRepository" element={<PageAdd entityA="Project" entityB="Repository" />} />
 
             <Route
               path="/operation-completed"

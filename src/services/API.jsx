@@ -75,6 +75,7 @@ const API = {
     axios.put(`${baseURL}/projects`, { id: id, name: name }),
   deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`),
   getAllProjects: () => axios.get(`${baseURL}/projects/getAll`),
+  addRepository: (projectId, repositoryId) => axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`),
   // USERS
   login: (email, password, role) =>
     axios.post(
