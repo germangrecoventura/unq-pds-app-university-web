@@ -7,7 +7,6 @@ import NotFound from "./components/NotFound/NotFound";
 import OperationCompleted from "./components/OperationCompleted";
 import GetAllTeachers from "./components/Teacher/GetAllTeachers";
 import RegisterTeacher from "./components/Teacher/RegisterTeacher";
-import GetTeacher from "./components/Teacher/GetTeacher";
 import UpdateTeacher from "./components/Teacher/UpdateTeacher";
 import GetAllMatters from "./components/Matter/GetAllMatters";
 import RegisterMatter from "./components/Matter/RegisterMatter";
@@ -128,7 +127,7 @@ const App = () => {
               path="/repository/register"
               element={<RegisterTeacher />}
             />
-            <Route path="/repository/get" element={<GetTeacher />} />
+            <Route path="/repository/get" element={<PageGet page={"Repository"} />} />
             <Route path="/repository/update" element={<UpdateTeacher />} />
             <Route
               path="/repository/delete"
