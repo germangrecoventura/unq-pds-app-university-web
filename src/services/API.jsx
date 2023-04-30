@@ -68,6 +68,14 @@ const API = {
     }),
   deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`),
   getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`),
+  // PROJECTS
+  createProject: (name) => axios.post(`${baseURL}/projects`, { name: name }),
+  getProject: (id) => axios.get(`${baseURL}/projects?id=${id}`),
+  updateProject: (id, name) =>
+    axios.put(`${baseURL}/projects`, { id: id, name: name }),
+  deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`),
+  getAllProjects: () => axios.get(`${baseURL}/projects/getAll`),
+  // USERS
   login: (email, password, role) =>
     axios.post(
       `${baseURL}/login`,

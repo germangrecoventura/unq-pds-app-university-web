@@ -11,24 +11,23 @@ import GetTeacher from "./components/Teacher/GetTeacher";
 import UpdateTeacher from "./components/Teacher/UpdateTeacher";
 import GetAllMatters from "./components/Matter/GetAllMatters";
 import RegisterMatter from "./components/Matter/RegisterMatter";
-import GetMatter from "./components/Matter/GetMatter";
 import UpdateMatter from "./components/Matter/UpdateMatter";
 import GetAllStudents from "./components/Student/GetAllStudents";
 import RegisterStudent from "./components/Student/RegisterStudent";
-import GetStudent from "./components/Student/GetStudent";
 import UpdateStudent from "./components/Student/UpdateStudent";
 import GetAllGroups from "./components/Group/GetAllGroups";
 import RegisterGroup from "./components/Group/RegisterGroup";
-import GetGroup from "./components/Group/GetGroup";
 import UpdateGroup from "./components/Group/UpdateGroup";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
-import GetCommission from "./components/Commission/GetCommission";
 import UpdateCommission from "./components/Commission/UpdateCommission";
 import PageDelete from "./components/PageDelete/PageDelete";
 import PageComponentStudent from "./components/PageComponent/PageComponentStudent";
 import PageComponentTeacher from "./components/PageComponent/PageComponentTeacher";
 import PageGet from "./components/PageGet/PageGet";
+import RegisterProject from "./components/Project/RegisterProject";
+import UpdateProject from "./components/Project/UpdateProject";
+import GetAllProjects from "./components/Project/GetAllProjects";
 
 const App = () => {
   return (
@@ -129,12 +128,12 @@ const App = () => {
             <Route
               path="/projects"
               element={
-                <PageComponentTeacher data={GetAllTeachers} page="project" />
+                <PageComponentTeacher data={GetAllProjects} page="project" />
               }
             />
-            <Route path="/project/register" element={<RegisterTeacher />} />
-            <Route path="/project/get" element={<GetTeacher />} />
-            <Route path="/project/update" element={<UpdateTeacher />} />
+            <Route path="/project/register" element={<RegisterProject />} />
+            <Route path="/project/get" element={<PageGet page={"Project"} />} />
+            <Route path="/project/update" element={<UpdateProject />} />
             <Route
               path="/project/delete"
               element={<PageDelete page={"Project"} />}
