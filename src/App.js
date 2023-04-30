@@ -20,15 +20,15 @@ import RegisterGroup from "./components/Group/RegisterGroup";
 import UpdateGroup from "./components/Group/UpdateGroup";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
-import PageDelete from "./components/PageDelete/PageDelete";
+import PageDelete from "./components/ParameterizedPage/PageDelete";
 import PageComponentStudent from "./components/PageComponent/PageComponentStudent";
 import PageComponentTeacher from "./components/PageComponent/PageComponentTeacher";
-import PageGet from "./components/PageGet/PageGet";
+import PageGet from "./components/ParameterizedPage/PageGet";
 import RegisterProject from "./components/Project/RegisterProject";
 import UpdateProject from "./components/Project/UpdateProject";
 import GetAllProjects from "./components/Project/GetAllProjects";
-import PageAdd from "./components/PageAdd/PageAdd";
-import PageRemove from "./components/PageRemove/PageRemove";
+import PageAdd from "./components/ParameterizedPage/PageAdd";
+import PageRemove from "./components/ParameterizedPage/PageRemove";
 
 const App = () => {
   return (
