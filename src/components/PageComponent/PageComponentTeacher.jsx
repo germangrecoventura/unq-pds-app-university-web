@@ -57,7 +57,7 @@ const PageComponentTeacher = (props) => {
                 title={`Delete ${props.page}`}
                 description={""}
                 url={`/${props.page}/delete`}
-                image={"bi bi-person-x-fill"}
+                image={"bi bi-person-fill-x"}
               ></Card>
             </div>
             <div className="col">
@@ -74,7 +74,7 @@ const PageComponentTeacher = (props) => {
                   title={`Add repository`}
                   description={""}
                   url={`/${props.page}/addRepository`}
-                  image={"bi bi-clipboard-plus-fill"}
+                  image={"bi bi-journal-plus"}
                 ></Card>
               </div>
             )}
@@ -85,7 +85,7 @@ const PageComponentTeacher = (props) => {
                     title={`Add member`}
                     description={""}
                     url={`/${props.page}/addMember`}
-                    image={"bi bi-clipboard-plus-fill"}
+                    image={"bi bi-person-add"}
                   ></Card>
                 </div>
                 <div className="col">
@@ -93,7 +93,7 @@ const PageComponentTeacher = (props) => {
                     title={`Remove member`}
                     description={""}
                     url={`/${props.page}/removeMember`}
-                    image={"bi bi-clipboard-x-fill"}
+                    image={"bi bi-person-x"}
                   ></Card>
                 </div>
                 <div className="col">
@@ -101,7 +101,7 @@ const PageComponentTeacher = (props) => {
                     title={`Add project`}
                     description={""}
                     url={`/${props.page}/addProject`}
-                    image={"bi bi-clipboard-plus-fill"}
+                    image={"bi bi-file-earmark-plus-fill"}
                   ></Card>
                 </div>
               </>

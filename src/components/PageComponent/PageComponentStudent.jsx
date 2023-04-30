@@ -54,7 +54,7 @@ const PageComponentStudent = (props) => {
                     title={`Delete ${props.page}`}
                     description={""}
                     url={`/${props.page}/delete`}
-                    image={"bi bi-person-x-fill"}
+                    image={"bi bi-person-fill-x"}
                   ></Card>
                 </div>
               </>
@@ -76,7 +76,7 @@ const PageComponentStudent = (props) => {
                       title={"Add project"}
                       description={""}
                       url={`/${props.page}/addProject`}
-                      image={"bi bi-clipboard-plus-fill"}
+                      image={"bi bi-file-earmark-plus-fill"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -97,7 +97,7 @@ const PageComponentStudent = (props) => {
                       title={"Add student"}
                       description={""}
                       url={`/${props.page}/addStudent`}
-                      image={"bi bi-clipboard-plus-fill"}
+                      image={"bi bi-person-add"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -105,7 +105,7 @@ const PageComponentStudent = (props) => {
                       title={"Remove student"}
                       description={""}
                       url={`/${props.page}/removeStudent`}
-                      image={"bi bi-clipboard-x-fill"}
+                      image={"bi bi-person-x"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -113,7 +113,7 @@ const PageComponentStudent = (props) => {
                       title={"Add teacher"}
                       description={""}
                       url={`/${props.page}/addTeacher`}
-                      image={"bi bi-clipboard-plus-fill"}
+                      image={"bi bi-person-plus-fill"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -121,7 +121,7 @@ const PageComponentStudent = (props) => {
                       title={"Remove teacher"}
                       description={""}
                       url={`/${props.page}/removeTeacher`}
-                      image={"bi bi-clipboard-x-fill"}
+                      image={"bi bi-person-x-fill"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -129,7 +129,7 @@ const PageComponentStudent = (props) => {
                       title={"Add group"}
                       description={""}
                       url={`/${props.page}/addGroup`}
-                      image={"bi bi-clipboard-plus-fill"}
+                      image={"bi bi-folder-plus"}
                     ></Card>
                   </div>
                   <div className="col">
@@ -137,7 +137,7 @@ const PageComponentStudent = (props) => {
                       title={"Remove group"}
                       description={""}
                       url={`/${props.page}/removeGroup`}
-                      image={"bi bi-clipboard-x-fill"}
+                      image={"bi bi-folder-x"}
                     ></Card>
                   </div>
                 </>
