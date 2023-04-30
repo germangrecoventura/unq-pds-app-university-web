@@ -4,19 +4,21 @@ const baseURL = "http://localhost:8080";
 
 const API = {
   //TEACHERS
-  createTeacher: (firstname, lastname, email) =>
+  createTeacher: (firstname, lastname, email, password) =>
     axios.post(`${baseURL}/teachers`, {
       firstName: firstname,
       lastName: lastname,
       email: email,
+      password: password,
     }),
   getTeacher: (id) => axios.get(`${baseURL}/teachers?id=${id}`),
-  updateTeacher: (id, firstname, lastname, email) =>
+  updateTeacher: (id, firstname, lastname, email, password) =>
     axios.put(`${baseURL}/teachers`, {
       id: id,
       firstName: firstname,
       lastName: lastname,
       email: email,
+      password: password,
     }),
   deleteTeacher: (id) => axios.delete(`${baseURL}/teachers?id=${id}`),
   getAllTeachers: () => axios.get(`${baseURL}/teachers/getAll`),
@@ -28,19 +30,23 @@ const API = {
   deleteMatter: (id) => axios.delete(`${baseURL}/matters?id=${id}`),
   getAllMatters: () => axios.get(`${baseURL}/matters/getAll`),
   // STUDENTS
-  createStudent: (firstname, lastname, email) =>
+  createStudent: (firstname, lastname, email, password, githubuser) =>
     axios.post(`${baseURL}/students`, {
       firstName: firstname,
       lastName: lastname,
       email: email,
+      password: password,
+      ownerGithub: githubuser,
     }),
   getStudent: (id) => axios.get(`${baseURL}/students?id=${id}`),
-  updateStudent: (id, firstname, lastname, email) =>
+  updateStudent: (id, firstname, lastname, email, password, githubuser) =>
     axios.put(`${baseURL}/students`, {
       id: id,
       firstName: firstname,
       lastName: lastname,
       email: email,
+      password: password,
+      ownerGithub: githubuser,
     }),
   deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`),
   getAllStudents: () => axios.get(`${baseURL}/students/getAll`),
