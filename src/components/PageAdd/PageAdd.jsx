@@ -99,18 +99,36 @@ const PageAdd = (props) => {
         }
         break;
       default:
-        API.addStudent(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
+        switch (props.entityB) {
+            case "Student":
+                API.addStudent(idEntityA, idEntityB)
+                .then((response) => {
+                  resetForm();
+                  setIsSubmitting(false);
+                  navigate("/operation-completed");
+                })
+                .catch((error) => {
+                  setFormErrors(error.response.data);
+                })
+                .finally(() => {
+                  setIsSubmitting(false);
+                });
+                break;
+            default:
+                API.addTeacher(idEntityA, idEntityB)
+                .then((response) => {
+                  resetForm();
+                  setIsSubmitting(false);
+                  navigate("/operation-completed");
+                })
+                .catch((error) => {
+                  setFormErrors(error.response.data);
+                })
+                .finally(() => {
+                  setIsSubmitting(false);
+                });
+                break;
+        }
         break;
     }
   };
