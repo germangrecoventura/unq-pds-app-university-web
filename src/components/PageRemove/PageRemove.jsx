@@ -54,8 +54,22 @@ const PageRemove = (props) => {
         break;
       default:
         switch (props.entityB) {
-          default:
+          case "Student":
             API.removeStudent(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+          default:
+            API.removeTeacher(idEntityA, idEntityB)
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
@@ -89,7 +103,7 @@ const PageRemove = (props) => {
 
       {user && isTeacher && (
         <>
-          <h5 className="title">Remove {props.entityB} to {props.entityA} form</h5>
+          <h5 className="title">Remove {props.entityB} from {props.entityA} form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
               <div className="row">
