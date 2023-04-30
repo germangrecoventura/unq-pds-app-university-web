@@ -131,6 +131,14 @@ const PageComponentStudent = (props) => {
                       image={"bi bi-clipboard-plus-fill"}
                     ></Card>
                   </div>
+                  <div className="col">
+                    <Card
+                      title={"Remove group"}
+                      description={""}
+                      url={`/${props.page}/removeGroup`}
+                      image={"bi bi-clipboard-x-fill"}
+                    ></Card>
+                  </div>
                 </>
               )}
           </div>

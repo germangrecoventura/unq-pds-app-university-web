@@ -82,6 +82,8 @@ const API = {
     axios.put(`${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`),
   addGroup: (commissionId, groupId) => 
     axios.put(`${baseURL}/commissions/addGroup/${commissionId}/${groupId}`),
+  removeGroup: (commissionId, groupId) => 
+    axios.put(`${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`),
   // PROJECTS
   createProject: (name) => axios.post(`${baseURL}/projects`, { name: name }),
   getProject: (id) => axios.get(`${baseURL}/projects?id=${id}`),

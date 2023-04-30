@@ -68,8 +68,22 @@ const PageRemove = (props) => {
                 setIsSubmitting(false);
               });
               break;
-          default:
+          case "Teacher":
             API.removeTeacher(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+          default:
+            API.removeGroup(idEntityA, idEntityB)
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);

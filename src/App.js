@@ -119,6 +119,7 @@ const App = () => {
             <Route path="/commission/addTeacher" element={<PageAdd entityA="Commission" entityB="Teacher" />} />
             <Route path="/commission/removeTeacher" element={<PageRemove entityA="Commission" entityB="Teacher" />} />
             <Route path="/commission/addGroup" element={<PageAdd entityA="Commission" entityB="Group" />} />
+            <Route path="/commission/removeGroup" element={<PageRemove entityA="Commission" entityB="Group" />} />
             <Route
               path="/repositories"
               element={
