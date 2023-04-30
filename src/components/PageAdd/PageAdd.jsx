@@ -99,7 +99,7 @@ const PageAdd = (props) => {
         }
         break;
       default:
-        API.addRepository(idEntityA, idEntityB)
+        API.addStudent(idEntityA, idEntityB)
           .then((response) => {
             resetForm();
             setIsSubmitting(false);

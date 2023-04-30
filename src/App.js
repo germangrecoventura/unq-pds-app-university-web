@@ -114,6 +114,7 @@ const App = () => {
               path="/commission/delete"
               element={<PageDelete page={"Commission"} />}
             />
+            <Route path="/commission/addStudent" element={<PageAdd entityA="Commission" entityB="Student" />} />
             <Route
               path="/repositories"
               element={
