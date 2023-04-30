@@ -107,6 +107,14 @@ const PageComponentStudent = (props) => {
                       image={"bi bi-clipboard-plus-fill"}
                     ></Card>
                   </div>
+                  <div className="col">
+                    <Card
+                      title={"Add group"}
+                      description={""}
+                      url={`/${props.page}/addGroup`}
+                      image={"bi bi-clipboard-plus-fill"}
+                    ></Card>
+                  </div>
                 </>
               )}
           </div>

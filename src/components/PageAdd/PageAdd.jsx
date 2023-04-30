@@ -70,64 +70,78 @@ const PageAdd = (props) => {
         switch (props.entityB) {
             case "Student":
                 API.addMember(idEntityA, idEntityB)
-                .then((response) => {
-                  resetForm();
-                  setIsSubmitting(false);
-                  navigate("/operation-completed");
-                })
-                .catch((error) => {
-                  setFormErrors(error.response.data);
-                })
-                .finally(() => {
-                  setIsSubmitting(false);
-                });
-                break;
+                  .then((response) => {
+                    resetForm();
+                    setIsSubmitting(false);
+                    navigate("/operation-completed");
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
+                  break;
             default:
                 API.addProjectInGroup(idEntityA, idEntityB)
-                .then((response) => {
-                  resetForm();
-                  setIsSubmitting(false);
-                  navigate("/operation-completed");
-                })
-                .catch((error) => {
-                  setFormErrors(error.response.data);
-                })
-                .finally(() => {
-                  setIsSubmitting(false);
-                });
-                break;
+                  .then((response) => {
+                    resetForm();
+                    setIsSubmitting(false);
+                    navigate("/operation-completed");
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
+                  break;
         }
         break;
       default:
         switch (props.entityB) {
             case "Student":
                 API.addStudent(idEntityA, idEntityB)
-                .then((response) => {
-                  resetForm();
-                  setIsSubmitting(false);
-                  navigate("/operation-completed");
-                })
-                .catch((error) => {
-                  setFormErrors(error.response.data);
-                })
-                .finally(() => {
-                  setIsSubmitting(false);
-                });
-                break;
-            default:
+                  .then((response) => {
+                    resetForm();
+                    setIsSubmitting(false);
+                    navigate("/operation-completed");
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
+                  break;
+            case "Teacher":
                 API.addTeacher(idEntityA, idEntityB)
-                .then((response) => {
-                  resetForm();
-                  setIsSubmitting(false);
-                  navigate("/operation-completed");
-                })
-                .catch((error) => {
-                  setFormErrors(error.response.data);
-                })
-                .finally(() => {
-                  setIsSubmitting(false);
-                });
-                break;
+                  .then((response) => {
+                    resetForm();
+                    setIsSubmitting(false);
+                    navigate("/operation-completed");
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
+                  break;
+            default:
+                API.addGroup(idEntityA, idEntityB)
+                  .then((response) => {
+                    resetForm();
+                    setIsSubmitting(false);
+                    navigate("/operation-completed");
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
+                  break;
         }
         break;
     }
