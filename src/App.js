@@ -20,7 +20,6 @@ import RegisterGroup from "./components/Group/RegisterGroup";
 import UpdateGroup from "./components/Group/UpdateGroup";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
-import UpdateCommission from "./components/Commission/UpdateCommission";
 import PageDelete from "./components/PageDelete/PageDelete";
 import PageComponentStudent from "./components/PageComponent/PageComponentStudent";
 import PageComponentTeacher from "./components/PageComponent/PageComponentTeacher";
