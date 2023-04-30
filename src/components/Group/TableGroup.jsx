@@ -10,6 +10,14 @@ const TableGroup = (props) => {
         ));
     }
 
+    function projects() {
+      return props.entity.projects.map((project) => (
+        <h6 key={project.id}>
+          {project.name}
+        </h6>
+      ));
+    }
+
     return (
         <table className="TableGet">
               <thead>
@@ -17,13 +25,13 @@ const TableGroup = (props) => {
                   <th>Id</th>
                   <th>Name</th>
                   <th>Members</th>
-                  <th>Repository</th>
+                  <th>Projects</th>
                 </tr>
                 <tr>
                   <td>{props.entity.id}</td>
                   <td>{props.entity.name}</td>
                   <td>{members()}</td>
-                  <td>{props.entity.repository}</td>
+                  <td>{projects()}</td>
                 </tr>
               </thead>
             </table>

@@ -51,6 +51,9 @@ const API = {
     axios.put(`${baseURL}/groups`, { id: id, name: name }),
   deleteGroup: (id) => axios.delete(`${baseURL}/groups?id=${id}`),
   getAllGroups: () => axios.get(`${baseURL}/groups/getAll`),
+  addMember: (groupId, studentId) => axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`),
+  removeMember: (groupId, studentId) => axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`),
+  addProject: (groupId, projectId) => axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`),
   // COMMISSIONS
   createCommission: (year, fourMonthPeriod, matterName) =>
     axios.post(`${baseURL}/commissions`, {

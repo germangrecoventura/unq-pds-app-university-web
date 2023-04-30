@@ -78,6 +78,26 @@ const PageComponentTeacher = (props) => {
                 ></Card>
               </div>
             )}
+            {window.location.href === "http://localhost:3000/groups" && (
+              <>
+                <div className="col">
+                  <Card
+                    title={`Add member`}
+                    description={""}
+                    url={`/${props.page}/addMember`}
+                    image={"bi bi-clipboard-plus-fill"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Add project`}
+                    description={""}
+                    url={`/${props.page}/addProject`}
+                    image={"bi bi-clipboard-plus-fill"}
+                  ></Card>
+                </div>
+              </>
+            )}
           </div>
           <props.data />
         </>

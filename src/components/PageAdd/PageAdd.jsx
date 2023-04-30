@@ -95,18 +95,36 @@ const PageAdd = (props) => {
           });
         break;
       case "Group":
-        API.addRepository(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
+        switch (props.entityB) {
+            case "Student":
+                API.addMember(idEntityA, idEntityB)
+                .then((response) => {
+                  resetForm();
+                  setIsSubmitting(false);
+                  navigate("/operation-completed");
+                })
+                .catch((error) => {
+                  setFormErrors(error.response.data);
+                })
+                .finally(() => {
+                  setIsSubmitting(false);
+                });
+                break;
+            default:
+                API.addProject(idEntityA, idEntityB)
+                .then((response) => {
+                  resetForm();
+                  setIsSubmitting(false);
+                  navigate("/operation-completed");
+                })
+                .catch((error) => {
+                  setFormErrors(error.response.data);
+                })
+                .finally(() => {
+                  setIsSubmitting(false);
+                });
+                break;
+        }
         break;
       case "Repository":
         API.addRepository(idEntityA, idEntityB)
