@@ -1,6 +1,15 @@
 import "./Student.css";
 
 const TableStudent = (props) => {
+
+    function projects() {
+      return props.entity.projects.map((project) => (
+        <h6 key={project.id}>
+          {project.name}
+        </h6>
+      ));
+    }
+
     return (
         <table className="TableGet">
               <thead>
@@ -9,14 +18,14 @@ const TableStudent = (props) => {
                   <th>FirstName</th>
                   <th>LastName</th>
                   <th>Email</th>
-                  <th>Repositories</th>
+                  <th>Projects</th>
                 </tr>
                 <tr>
                   <td>{props.entity.id}</td>
                   <td>{props.entity.firstName}</td>
                   <td>{props.entity.lastName}</td>
                   <td>{props.entity.email}</td>
-                  <td>{props.entity.repositories}</td>
+                  <td>{projects()}</td>
                 </tr>
               </thead>
             </table>

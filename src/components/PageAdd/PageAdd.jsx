@@ -53,35 +53,7 @@ const PageAdd = (props) => {
           });
         break;
       case "Student":
-        API.addRepository(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-        break;
-      case "Matter":
-        API.addRepository(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
-        break;
-      case "Commission":
-        API.addRepository(idEntityA, idEntityB)
+        API.addProjectInStudent(idEntityA, idEntityB)
           .then((response) => {
             resetForm();
             setIsSubmitting(false);
@@ -111,7 +83,7 @@ const PageAdd = (props) => {
                 });
                 break;
             default:
-                API.addProject(idEntityA, idEntityB)
+                API.addProjectInGroup(idEntityA, idEntityB)
                 .then((response) => {
                   resetForm();
                   setIsSubmitting(false);
@@ -125,20 +97,6 @@ const PageAdd = (props) => {
                 });
                 break;
         }
-        break;
-      case "Repository":
-        API.addRepository(idEntityA, idEntityB)
-          .then((response) => {
-            resetForm();
-            setIsSubmitting(false);
-            navigate("/operation-completed");
-          })
-          .catch((error) => {
-            setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
         break;
       default:
         API.addRepository(idEntityA, idEntityB)

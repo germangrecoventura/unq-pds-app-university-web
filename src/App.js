@@ -78,6 +78,7 @@ const App = () => {
               path="/student/delete"
               element={<PageDelete page={"Student"} />}
             />
+            <Route path="student/addProject" element={<PageAdd entityA="Student" entityB="Project" />} />
             <Route
               path="/groups"
               element={

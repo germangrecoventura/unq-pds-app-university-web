@@ -69,14 +69,24 @@ const PageComponentStudent = (props) => {
             </div>
             {isTeacher &&
               window.location.href === "http://localhost:3000/students" && (
-                <div className="col">
-                  <Card
-                    title={"Add comments to student"}
-                    description={""}
-                    url={`/${props.page}/get`}
-                    image={"bi bi-clipboard-plus-fill"}
-                  ></Card>
-                </div>
+                <>
+                  <div className="col">
+                    <Card
+                      title={"Add project"}
+                      description={""}
+                      url={`/${props.page}/addProject`}
+                      image={"bi bi-clipboard-plus-fill"}
+                    ></Card>
+                  </div>
+                  <div className="col">
+                    <Card
+                      title={"Add comments to student"}
+                      description={""}
+                      url={`/${props.page}/get`}
+                      image={"bi bi-clipboard-plus-fill"}
+                    ></Card>
+                  </div>
+                </>
               )}
           </div>
           <props.data />

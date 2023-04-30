@@ -44,6 +44,7 @@ const API = {
     }),
   deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`),
   getAllStudents: () => axios.get(`${baseURL}/students/getAll`),
+  addProjectInStudent: (studentId, projectId) => axios.put(`${baseURL}/students/addProject/${studentId}/${projectId}`),
   // GROUPS
   createGroup: (name) => axios.post(`${baseURL}/groups`, { name: name }),
   getGroup: (id) => axios.get(`${baseURL}/groups?id=${id}`),
@@ -53,7 +54,7 @@ const API = {
   getAllGroups: () => axios.get(`${baseURL}/groups/getAll`),
   addMember: (groupId, studentId) => axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`),
   removeMember: (groupId, studentId) => axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`),
-  addProject: (groupId, projectId) => axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`),
+  addProjectInGroup: (groupId, projectId) => axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`),
   // COMMISSIONS
   createCommission: (year, fourMonthPeriod, matterName) =>
     axios.post(`${baseURL}/commissions`, {
