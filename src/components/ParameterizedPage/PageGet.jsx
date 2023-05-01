@@ -208,31 +208,31 @@ const PageGet = (props) => {
           </form>
 
           { isFind && props.page === "Student" && (
-            <TableStudent entity={entity} />
+            <TableStudent student={entity} />
           )}
 
           { isFind && props.page === "Teacher" && (
-            <TableTeacher entity={entity} />
+            <TableTeacher teacher={entity} />
           )}
 
           { isFind && props.page === "Matter" && (
-            <TableMatter entity={entity} />
+            <TableMatter matter={entity} />
           )}
 
           { isFind && props.page === "Group" && (
-            <TableGroup entity={entity} />
+            <TableGroup group={entity} />
           )}
 
           { isFind && props.page === "Commission" && (
-            <TableCommission entity={entity} />
+            <TableCommission commission={entity} />
           )}
 
           { isFind && props.page === "Project" && (
-            <TableProject entity={entity} />
+            <TableProject project={entity} />
           )}
 
           { isFind && props.page === "Repository" && (
-            <TableRepository entity={entity} />
+            <TableRepository repository={entity} />
           )}
         </>
       )}

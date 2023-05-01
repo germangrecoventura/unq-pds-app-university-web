@@ -11,8 +11,8 @@ const TableRepository = (props) => {
                   <th>Name</th>
                 </tr>
                 <tr>
-                  <td>{props.entity.id}</td>
-                  <td><Link to={props.entity.url}>{props.entity.name}</Link></td>
+                  <td>{props.repository.id}</td>
+                  <td><Link to={props.repository.url}>{props.repository.name}</Link></td>
                 </tr>
               </thead>
             </table>

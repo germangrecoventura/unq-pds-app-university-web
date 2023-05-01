@@ -9,8 +9,8 @@ const TableMatter = (props) => {
                   <th>Name</th>
                 </tr>
                 <tr>
-                  <td>{props.entity.id}</td>
-                  <td>{props.entity.name}</td>
+                  <td>{props.matter.id}</td>
+                  <td>{props.matter.name}</td>
                 </tr>
               </thead>
             </table>

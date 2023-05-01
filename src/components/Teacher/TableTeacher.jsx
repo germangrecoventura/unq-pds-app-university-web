@@ -12,11 +12,11 @@ const TableTeacher = (props) => {
                   <th>Repositories</th>
                 </tr>
                 <tr>
-                  <td>{props.entity.id}</td>
-                  <td>{props.entity.firstName}</td>
-                  <td>{props.entity.lastName}</td>
-                  <td>{props.entity.email}</td>
-                  <td>{props.entity.repositories}</td>
+                  <td>{props.teacher.id}</td>
+                  <td>{props.teacher.firstName}</td>
+                  <td>{props.teacher.lastName}</td>
+                  <td>{props.teacher.email}</td>
+                  <td>{props.teacher.repositories}</td>
                 </tr>
               </thead>
             </table>
