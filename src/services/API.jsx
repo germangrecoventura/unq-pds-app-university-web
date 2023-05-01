@@ -30,16 +30,17 @@ const API = {
   deleteMatter: (id) => axios.delete(`${baseURL}/matters?id=${id}`),
   getAllMatters: () => axios.get(`${baseURL}/matters/getAll`),
   // STUDENTS
-  createStudent: (firstname, lastname, email, password, githubuser) =>
+  createStudent: (firstname, lastname, email, password, githubuser, githubtoken) =>
     axios.post(`${baseURL}/students`, {
       firstName: firstname,
       lastName: lastname,
       email: email,
       password: password,
       ownerGithub: githubuser,
+      tokenGithub: githubtoken,
     }),
   getStudent: (id) => axios.get(`${baseURL}/students?id=${id}`),
-  updateStudent: (id, firstname, lastname, email, password, githubuser) =>
+  updateStudent: (id, firstname, lastname, email, password, githubuser, githubtoken) =>
     axios.put(`${baseURL}/students`, {
       id: id,
       firstName: firstname,
@@ -47,6 +48,7 @@ const API = {
       email: email,
       password: password,
       ownerGithub: githubuser,
+      tokenGithub: githubtoken,
     }),
   deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`),
   getAllStudents: () => axios.get(`${baseURL}/students/getAll`),

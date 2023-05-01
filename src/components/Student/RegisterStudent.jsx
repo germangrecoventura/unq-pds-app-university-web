@@ -10,6 +10,7 @@ const RegisterStudent = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [githubUser, setGithubUser] = useState("");
+  const [githubToken, setGithubToken] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
@@ -35,6 +36,7 @@ const RegisterStudent = (props) => {
     setEmail("");
     setPassword("");
     setGithubUser("");
+    setGithubToken(null);
     setFormErrors("");
   };
 
@@ -42,7 +44,7 @@ const RegisterStudent = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.createStudent(firstname, lastname, email, password, githubUser)
+    API.createStudent(firstname, lastname, email, password, githubUser, githubToken)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
@@ -152,6 +154,21 @@ const RegisterStudent = (props) => {
                     className="form-control"
                     required={false}
                     onChange={(e) => setGithubUser(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputGithubToken" className="col-form-label">
+                    Github Token:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="password"
+                    id="inputGithubToken"
+                    className="form-control"
+                    onChange={(e) => setGithubToken(e.target.value)}
                   />
                 </div>
               </div>
