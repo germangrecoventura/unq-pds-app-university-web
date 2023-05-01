@@ -109,6 +109,7 @@ const API = {
     owner: owner
   }),
   deleteRepository: (id) => axios.delete(`${baseURL}/repositories?id=${id}`),
+  getAllRepositories: () => axios.get(`${baseURL}/repositories/getAll`),
   // USERS
   login: (email, password, role) =>
     axios.post(

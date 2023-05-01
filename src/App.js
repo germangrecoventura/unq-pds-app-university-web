@@ -29,6 +29,7 @@ import GetAllProjects from "./components/Project/GetAllProjects";
 import PageAdd from "./components/ParameterizedPage/PageAdd";
 import PageRemove from "./components/ParameterizedPage/PageRemove";
 import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdateRepository";
+import GetAllRepositories from "./components/Repository/GetAllRepositories";
 
 const App = () => {
   return (
@@ -121,7 +122,7 @@ const App = () => {
             <Route
               path="/repositories"
               element={
-                <PageComponentStudent data={GetAllTeachers} page="repository" />
+                <PageComponentStudent data={GetAllRepositories} page="repository" />
               }
             />
             <Route
