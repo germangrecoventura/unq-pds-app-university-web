@@ -1,11 +1,12 @@
 import "./Project.css";
+import { Link } from "react-router-dom";
 
 const TableProject = (props) => {
 
     function repositories() {
       return props.entity.repositories.map((repository) => (
         <h6 key={repository.id}>
-          {repository.name}
+          <Link to={repository.url}>{repository.name}</Link>
         </h6>
       ));
     }

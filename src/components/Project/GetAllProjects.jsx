@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Project.css";
+import { Link } from "react-router-dom";
 
 export default function GetAllProjects() {
   const [projects, setProjects] = useState([]);
@@ -8,7 +9,7 @@ export default function GetAllProjects() {
   function repositories(project) {
     return project.repositories.map((repository) => (
       <h6 key={repository.id}>
-        {repository.name}
+        <Link to={repository.url}>{repository.name}</Link>
       </h6>
     ));
   }
