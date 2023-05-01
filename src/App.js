@@ -6,30 +6,22 @@ import Home from "./components/Home/Home";
 import NotFound from "./components/NotFound/NotFound";
 import OperationCompleted from "./components/OperationCompleted";
 import GetAllTeachers from "./components/Teacher/GetAllTeachers";
-import RegisterTeacher from "./components/Teacher/RegisterTeacher";
-import UpdateTeacher from "./components/Teacher/UpdateTeacher";
 import GetAllMatters from "./components/Matter/GetAllMatters";
-import RegisterMatter from "./components/Matter/RegisterMatter";
-import UpdateMatter from "./components/Matter/UpdateMatter";
 import GetAllStudents from "./components/Student/GetAllStudents";
-import RegisterStudent from "./components/Student/RegisterStudent";
-import UpdateStudent from "./components/Student/UpdateStudent";
 import GetAllGroups from "./components/Group/GetAllGroups";
-import RegisterGroup from "./components/Group/RegisterGroup";
-import UpdateGroup from "./components/Group/UpdateGroup";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
 import PageDelete from "./components/ParameterizedPage/PageDelete";
 import PageComponentStudent from "./components/PageComponent/PageComponentStudent";
 import PageComponentTeacher from "./components/PageComponent/PageComponentTeacher";
 import PageGet from "./components/ParameterizedPage/PageGet";
-import RegisterProject from "./components/Project/RegisterProject";
-import UpdateProject from "./components/Project/UpdateProject";
 import GetAllProjects from "./components/Project/GetAllProjects";
 import PageAdd from "./components/ParameterizedPage/PageAdd";
 import PageRemove from "./components/ParameterizedPage/PageRemove";
 import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdateRepository";
 import GetAllRepositories from "./components/Repository/GetAllRepositories";
+import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
+import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 
 const App = () => {
   return (
@@ -45,9 +37,9 @@ const App = () => {
                 <PageComponentStudent data={GetAllTeachers} page="teacher" />
               }
             />
-            <Route path="/teacher/register" element={<RegisterTeacher />} />
+            <Route path="/teacher/register" element={<PageRegisterOrUpdateUser operation="registration" entity="Teacher" />} />
             <Route path="/teacher/get" element={<PageGet page={"Teacher"} />} />
-            <Route path="/teacher/update" element={<UpdateTeacher />} />
+            <Route path="/teacher/update" element={<PageRegisterOrUpdateUser operation="update" entity="Teacher" />} />
             <Route
               path="/teacher/delete"
               element={<PageDelete page={"Teacher"} />}
@@ -58,9 +50,9 @@ const App = () => {
                 <PageComponentStudent data={GetAllMatters} page="matter" />
               }
             />
-            <Route path="/matter/register" element={<RegisterMatter />} />
+            <Route path="/matter/register" element={<PageRegisterOrUpdate operation="registration" entity="Matter" />} />
             <Route path="/matter/get" element={<PageGet page={"Matter"} />} />
-            <Route path="/matter/update" element={<UpdateMatter />} />
+            <Route path="/matter/update" element={<PageRegisterOrUpdate operation="update" entity="Matter" />} />
             <Route
               path="/matter/delete"
               element={<PageDelete page={"Matter"} />}
@@ -71,9 +63,9 @@ const App = () => {
                 <PageComponentStudent data={GetAllStudents} page="student" />
               }
             />
-            <Route path="/student/register" element={<RegisterStudent />} />
+            <Route path="/student/register" element={<PageRegisterOrUpdateUser operation="registration" entity="Student" />} />
             <Route path="/student/get" element={<PageGet page={"Student"} />} />
-            <Route path="/student/update" element={<UpdateStudent />} />
+            <Route path="/student/update" element={<PageRegisterOrUpdateUser operation="update" entity="Student" />} />
             <Route
               path="/student/delete"
               element={<PageDelete page={"Student"} />}
@@ -85,9 +77,9 @@ const App = () => {
                 <PageComponentTeacher data={GetAllGroups} page="group" />
               }
             />
-            <Route path="/group/register" element={<RegisterGroup />} />
+            <Route path="/group/register" element={<PageRegisterOrUpdate operation="registration" entity="Group" />} />
             <Route path="/group/get" element={<PageGet page={"Group"} />} />
-            <Route path="/group/update" element={<UpdateGroup />} />
+            <Route path="/group/update" element={<PageRegisterOrUpdate operation="update" entity="Group" />} />
             <Route
               path="/group/delete"
               element={<PageDelete page={"Group"} />}
@@ -143,9 +135,9 @@ const App = () => {
                 <PageComponentTeacher data={GetAllProjects} page="project" />
               }
             />
-            <Route path="/project/register" element={<RegisterProject />} />
+            <Route path="/project/register" element={<PageRegisterOrUpdate operation="registration" entity="Project" />} />
             <Route path="/project/get" element={<PageGet page={"Project"} />} />
-            <Route path="/project/update" element={<UpdateProject />} />
+            <Route path="/project/update" element={<PageRegisterOrUpdate operation="update" entity="Project" />} />
             <Route
               path="/project/delete"
               element={<PageDelete page={"Project"} />}

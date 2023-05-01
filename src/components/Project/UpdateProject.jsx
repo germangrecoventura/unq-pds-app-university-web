@@ -43,7 +43,6 @@ const UpdateProject = (props) => {
         navigate("/operation-completed");
       })
       .catch((error) => {
-        console.log(error)
         setFormErrors(error.response.data);
       })
       .finally(() => {
