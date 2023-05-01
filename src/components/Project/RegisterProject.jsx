@@ -1,33 +1,44 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import FormErrors from "../FormErrors";
 import API from "../../services/API";
-import "./Teacher.css";
 import Cookies from "js-cookie";
 
-const GetTeacher = (props) => {
-  const [idTeacher, setIdTeacher] = useState("");
-  const [teacher, setTeacher] = useState(null);
+const RegisterProject = (props) => {
+  const [name, setName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
+  let navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
 
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setUser(response.data);
+        setIsTeacher(response.data.role === "TEACHER");
+      })
+      .catch((error) => {
+        setIsTeacher(false);
+      })
+      .finally(() => {});
+  }, []);
+
   const resetForm = () => {
-    setIdTeacher("");
+    setName("");
     setFormErrors("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors("");
-    setIsFind(false);
     setIsSubmitting(true);
-    API.getTeacher(idTeacher)
+    API.createProject(name)
       .then((response) => {
-        setTeacher(response.data);
-        setIsFind(true);
         resetForm();
         setIsSubmitting(false);
+        navigate("/operation-completed");
       })
       .catch((error) => {
         setFormErrors(error.response.data);
@@ -44,33 +55,38 @@ const GetTeacher = (props) => {
           Please login to access resources
         </div>
       )}
-      {cookies && (
+
+      {user && !isTeacher && (
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
+
+      {user && isTeacher && (
         <>
-          <h5 className="title">Teacher get form</h5>
+          <h5 className="title">Project registration form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
               <div className="row">
                 <div className="col-md-4">
-                  <label htmlFor="inputIdTeacher" className="col-form-label">
-                    Id teacher:
+                  <label htmlFor="inputName" className="col-form-label">
+                    Name:
                   </label>
                 </div>
                 <div className="col-md-6">
                   <input
-                    type="number"
-                    id="inputIdTeacher"
+                    type="text"
+                    id="inputName"
                     className="form-control"
                     required={true}
-                    onChange={(e) => setIdTeacher(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
             </div>
-
             <div className="mb-3">
               <FormErrors errors={Object.entries(formErrors)}></FormErrors>
             </div>
-
             <div className="modal-footer">
               <button
                 type="submit"
@@ -81,31 +97,10 @@ const GetTeacher = (props) => {
               </button>
             </div>
           </form>
-
-          {isFind && (
-            <table className="TableGet">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
-                  <th>Email</th>
-                  <th>Repositories</th>
-                </tr>
-                <tr>
-                  <td>{teacher.id}</td>
-                  <td>{teacher.firstName}</td>
-                  <td>{teacher.lastName}</td>
-                  <td>{teacher.email}</td>
-                  <td>{teacher.repositories}</td>
-                </tr>
-              </thead>
-            </table>
-          )}
         </>
       )}
     </div>
   );
 };
 
-export default GetTeacher;
+export default RegisterProject;

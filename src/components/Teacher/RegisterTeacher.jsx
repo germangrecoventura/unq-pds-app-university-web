@@ -8,6 +8,7 @@ const RegisterTeacher = (props) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
@@ -31,6 +32,7 @@ const RegisterTeacher = (props) => {
     setFirstname("");
     setLastname("");
     setEmail("");
+    setPassword("");
     setFormErrors("");
   };
 
@@ -38,7 +40,7 @@ const RegisterTeacher = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.createTeacher(firstname, lastname, email)
+    API.createTeacher(firstname, lastname, email, password)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
@@ -118,6 +120,23 @@ const RegisterTeacher = (props) => {
                     className="form-control"
                     onChange={(e) => setEmail(e.target.value)}
                     required={true}
+                  />
+                </div>
+              </div>
+              
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputPassword" className="col-form-label">
+                    Password:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="password"
+                    id="inputPassword"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>

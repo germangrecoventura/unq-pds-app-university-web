@@ -46,29 +46,66 @@ const PageComponentTeacher = (props) => {
             </div>
             <div className="col">
               <Card
-                title={`Get ${props.page}`}
-                description={""}
-                url={`/${props.page}/get`}
-                image={"bi bi-person-vcard-fill"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
                 title={`Update ${props.page}`}
                 description={""}
                 url={`/${props.page}/update`}
                 image={"bi bi-person-fill-gear"}
               ></Card>
             </div>
-
             <div className="col">
               <Card
                 title={`Delete ${props.page}`}
                 description={""}
                 url={`/${props.page}/delete`}
-                image={"bi bi-person-x-fill"}
+                image={"bi bi-person-fill-x"}
               ></Card>
             </div>
+            <div className="col">
+              <Card
+                title={`Get ${props.page}`}
+                description={""}
+                url={`/${props.page}/get`}
+                image={"bi bi-person-vcard-fill"}
+              ></Card>
+            </div>
+            {window.location.href === "http://localhost:3000/projects" && (
+              <div className="col">
+                <Card
+                  title={`Add repository`}
+                  description={""}
+                  url={`/${props.page}/addRepository`}
+                  image={"bi bi-journal-plus"}
+                ></Card>
+              </div>
+            )}
+            {window.location.href === "http://localhost:3000/groups" && (
+              <>
+                <div className="col">
+                  <Card
+                    title={`Add member`}
+                    description={""}
+                    url={`/${props.page}/addMember`}
+                    image={"bi bi-person-add"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Remove member`}
+                    description={""}
+                    url={`/${props.page}/removeMember`}
+                    image={"bi bi-person-x"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Add project`}
+                    description={""}
+                    url={`/${props.page}/addProject`}
+                    image={"bi bi-file-earmark-plus-fill"}
+                  ></Card>
+                </div>
+              </>
+            )}
           </div>
           <props.data />
         </>

@@ -8,6 +8,8 @@ const RegisterStudent = (props) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [githubUser, setGithubUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
@@ -31,6 +33,8 @@ const RegisterStudent = (props) => {
     setFirstname("");
     setLastname("");
     setEmail("");
+    setPassword("");
+    setGithubUser("");
     setFormErrors("");
   };
 
@@ -38,7 +42,7 @@ const RegisterStudent = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.createStudent(firstname, lastname, email)
+    API.createStudent(firstname, lastname, email, password, githubUser)
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
@@ -116,6 +120,38 @@ const RegisterStudent = (props) => {
                     className="form-control"
                     onChange={(e) => setEmail(e.target.value)}
                     required={true}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputPassword" className="col-form-label">
+                    Password:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="password"
+                    id="inputPassword"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputGithubUser" className="col-form-label">
+                    Github User:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="inputGithubUser"
+                    className="form-control"
+                    required={false}
+                    onChange={(e) => setGithubUser(e.target.value)}
                   />
                 </div>
               </div>

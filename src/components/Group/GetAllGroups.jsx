@@ -13,6 +13,14 @@ export default function GetAllGroups() {
     ));
   }
 
+  function projects(group) {
+    return group.projects.map((project) => (
+      <h6 key={project.id}>
+        {project.name}
+      </h6>
+    ));
+  }
+
   useEffect(() => {
     API.getAllGroups().then((response) => setGroups(response.data));
   }, []);
@@ -26,7 +34,7 @@ export default function GetAllGroups() {
               <th>Id</th>
               <th>Name</th>
               <th>Members</th>
-              <th>Repository</th>
+              <th>Projects</th>
             </tr>
             {groups.sort(function (a, b) {
               return a.id - b.id;
@@ -36,7 +44,7 @@ export default function GetAllGroups() {
                   <td>{group.id}</td>
                   <td>{group.name}</td>
                   <td>{members(group)}</td>
-                  <td>{group.repository}</td>
+                  <td>{projects(group)}</td>
                 </tr>
               ))}
           </thead>

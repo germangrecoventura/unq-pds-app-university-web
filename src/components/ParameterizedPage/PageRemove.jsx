@@ -4,11 +4,9 @@ import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import Cookies from "js-cookie";
 
-const UpdateCommission = (props) => {
-  const [idCommission, setIdCommission] = useState("");
-  const [year, setYear] = useState("");
-  const [fourMonthPeriod, setFourMonthPeriod] = useState("");
-  const [matterName, setMatterName] = useState("");
+const PageRemove = (props) => {
+  const [idEntityA, setIdEntityA] = useState("");
+  const [idEntityB, setIdEntityB] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
@@ -29,33 +27,78 @@ const UpdateCommission = (props) => {
   }, []);
 
   const resetForm = () => {
-    setIdCommission("");
-    setYear("");
-    setFourMonthPeriod("");
-    setMatterName("");
+    setIdEntityA("");
+    setIdEntityB("");
     setFormErrors("");
   };
 
   const handleSubmit = (event) => {
-    var matter = {
-      name: matterName,
-    };
-    var jsonMatter = JSON.stringify(matter);
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
-    API.updateCommission(idCommission, year, fourMonthPeriod, jsonMatter)
-      .then((response) => {
-        resetForm();
-        setIsSubmitting(false);
-        navigate("/operation-completed");
-      })
-      .catch((error) => {
-        setFormErrors(error.response.data);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+
+    switch (props.entityA) {
+      case "Group":
+        API.removeMember(idEntityA, idEntityB)
+          .then((response) => {
+            resetForm();
+            setIsSubmitting(false);
+            navigate("/operation-completed");
+          })
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
+        break;
+      default:
+        switch (props.entityB) {
+          case "Student":
+            API.removeStudent(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+          case "Teacher":
+            API.removeTeacher(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+          default:
+            API.removeGroup(idEntityA, idEntityB)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
+              })
+              .catch((error) => {
+                setFormErrors(error.response.data);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+              break;
+        }
+        break;
+    }
   };
 
   return (
@@ -74,80 +117,47 @@ const UpdateCommission = (props) => {
 
       {user && isTeacher && (
         <>
-          <h5 className="title">Commission update form</h5>
+          <h5 className="title">Remove {props.entityB} from {props.entityA} form</h5>
           <form onSubmit={handleSubmit}>
             <div className="container-fluid">
               <div className="row">
                 <div className="col-md-4">
-                  <label htmlFor="inputIdCommission" className="col-form-label">
-                    Id commission:
+                  <label htmlFor="inputIdEntityA" className="col-form-label">
+                    Id {props.entityA}:
                   </label>
                 </div>
                 <div className="col-md-6">
                   <input
                     type="number"
-                    id="inputIdCommission"
+                    id="inputIdEntityA"
                     className="form-control"
                     required={true}
-                    onChange={(e) => setIdCommission(e.target.value)}
+                    onChange={(e) => setIdEntityA(e.target.value)}
                   />
                 </div>
               </div>
               <div className="row">
                 <div className="col-md-4">
-                  <label htmlFor="inputYear" className="col-form-label">
-                    Year:
+                  <label htmlFor="inputIdEntityB" className="col-form-label">
+                    Id {props.entityB}:
                   </label>
                 </div>
                 <div className="col-md-6">
                   <input
                     type="number"
-                    id="inputYear"
+                    id="inputIdEntityB"
                     className="form-control"
                     required={true}
-                    onChange={(e) => setYear(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label
-                    htmlFor="inputFourMonthPeriod"
-                    className="col-form-label"
-                  >
-                    Four month period:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="text"
-                    id="inputFourMonthPeriod"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setFourMonthPeriod(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputMatterName" className="col-form-label">
-                    Matter name:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="text"
-                    id="inputMatterName"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setMatterName(e.target.value)}
+                    onChange={(e) => setIdEntityB(e.target.value)}
                   />
                 </div>
               </div>
             </div>
+
             <div className="mb-3">
               <FormErrors errors={Object.entries(formErrors)}></FormErrors>
             </div>
+
             <div className="modal-footer">
               <button
                 type="submit"
@@ -164,4 +174,4 @@ const UpdateCommission = (props) => {
   );
 };
 
-export default UpdateCommission;
+export default PageRemove;
