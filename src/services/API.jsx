@@ -98,6 +98,17 @@ const API = {
   deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`),
   getAllProjects: () => axios.get(`${baseURL}/projects/getAll`),
   addRepository: (projectId, repositoryId) => axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`),
+  // REPOSITORIES
+  createRepository: (name, owner) => axios.post(`${baseURL}/repositories`, { 
+    name: name,
+    owner: owner,
+  }),
+  getRepository: (id) => axios.get(`${baseURL}/repositories?id=${id}`),
+  updateRepository: (name, owner) => axios.put(`${baseURL}/repositories`, {
+    name: name,
+    owner: owner
+  }),
+  deleteRepository: (id) => axios.delete(`${baseURL}/repositories?id=${id}`),
   // USERS
   login: (email, password, role) =>
     axios.post(

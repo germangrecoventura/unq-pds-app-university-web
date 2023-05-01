@@ -28,6 +28,7 @@ import UpdateProject from "./components/Project/UpdateProject";
 import GetAllProjects from "./components/Project/GetAllProjects";
 import PageAdd from "./components/ParameterizedPage/PageAdd";
 import PageRemove from "./components/ParameterizedPage/PageRemove";
+import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdateRepository";
 
 const App = () => {
   return (
@@ -125,10 +126,11 @@ const App = () => {
             />
             <Route
               path="/repository/register"
-              element={<RegisterTeacher />}
+              element={<RegisterOrUpdateRepository operation="registration" />}
             />
             <Route path="/repository/get" element={<PageGet page={"Repository"} />} />
-            <Route path="/repository/update" element={<UpdateTeacher />} />
+            <Route path="/repository/update" 
+              element={<RegisterOrUpdateRepository operation="update" />} />
             <Route
               path="/repository/delete"
               element={<PageDelete page={"Repository"} />}

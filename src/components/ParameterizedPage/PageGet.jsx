@@ -8,6 +8,7 @@ import TableMatter from "../Matter/TableMatter";
 import TableGroup from "../Group/TableGroup";
 import TableCommission from "../Commission/TableCommission";
 import TableProject from "../Project/TableProject";
+import TableRepository from "../Repository/TableRepository";
 
 const PageGet = (props) => {
   const [id, setId] = useState("");
@@ -225,8 +226,13 @@ const PageGet = (props) => {
           { isFind && props.page === "Commission" && (
             <TableCommission entity={entity} />
           )}
+
           { isFind && props.page === "Project" && (
             <TableProject entity={entity} />
+          )}
+
+          { isFind && props.page === "Repository" && (
+            <TableRepository entity={entity} />
           )}
         </>
       )}
