@@ -10,8 +10,10 @@ const API = {
       lastName: lastname,
       email: email,
       password: password,
-    }),
-  getTeacher: (id) => axios.get(`${baseURL}/teachers?id=${id}`),
+    },
+      { withCredentials: true }
+    ),
+  getTeacher: (id) => axios.get(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
   updateTeacher: (id, firstname, lastname, email, password) =>
     axios.put(`${baseURL}/teachers`, {
       id: id,
@@ -19,16 +21,18 @@ const API = {
       lastName: lastname,
       email: email,
       password: password,
-    }),
-  deleteTeacher: (id) => axios.delete(`${baseURL}/teachers?id=${id}`),
-  getAllTeachers: () => axios.get(`${baseURL}/teachers/getAll`),
+    },
+      { withCredentials: true }
+    ),
+  deleteTeacher: (id) => axios.delete(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
+  getAllTeachers: () => axios.get(`${baseURL}/teachers/getAll`, { withCredentials: true }),
   // MATTERS
-  createMatter: (name) => axios.post(`${baseURL}/matters`, { name: name }),
-  getMatter: (id) => axios.get(`${baseURL}/matters?id=${id}`),
+  createMatter: (name) => axios.post(`${baseURL}/matters`, { name: name }, { withCredentials: true }),
+  getMatter: (id) => axios.get(`${baseURL}/matters?id=${id}`, { withCredentials: true }),
   updateMatter: (id, name) =>
-    axios.put(`${baseURL}/matters`, { id: id, name: name }),
-  deleteMatter: (id) => axios.delete(`${baseURL}/matters?id=${id}`),
-  getAllMatters: () => axios.get(`${baseURL}/matters/getAll`),
+    axios.put(`${baseURL}/matters`, { id: id, name: name }, { withCredentials: true }),
+  deleteMatter: (id) => axios.delete(`${baseURL}/matters?id=${id}`, { withCredentials: true }),
+  getAllMatters: () => axios.get(`${baseURL}/matters/getAll`, { withCredentials: true }),
   // STUDENTS
   createStudent: (firstname, lastname, email, password, githubuser, githubtoken) =>
     axios.post(`${baseURL}/students`, {
@@ -38,8 +42,10 @@ const API = {
       password: password,
       ownerGithub: githubuser,
       tokenGithub: githubtoken,
-    }),
-  getStudent: (id) => axios.get(`${baseURL}/students?id=${id}`),
+    },
+      { withCredentials: true }
+    ),
+  getStudent: (id) => axios.get(`${baseURL}/students?id=${id}`, { withCredentials: true }),
   updateStudent: (id, firstname, lastname, email, password, githubuser, githubtoken) =>
     axios.put(`${baseURL}/students`, {
       id: id,
@@ -49,69 +55,83 @@ const API = {
       password: password,
       ownerGithub: githubuser,
       tokenGithub: githubtoken,
-    }),
-  deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`),
-  getAllStudents: () => axios.get(`${baseURL}/students/getAll`),
-  addProjectInStudent: (studentId, projectId) => axios.put(`${baseURL}/students/addProject/${studentId}/${projectId}`),
+    },
+      { withCredentials: true }
+    ),
+  deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
+  getAllStudents: () => axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
+  addProjectInStudent: (studentId, projectId) =>
+    axios.put(`${baseURL}/students/addProject/${studentId}/${projectId}`, { withCredentials: true }),
   // GROUPS
-  createGroup: (name) => axios.post(`${baseURL}/groups`, { name: name }),
-  getGroup: (id) => axios.get(`${baseURL}/groups?id=${id}`),
+  createGroup: (name) => axios.post(`${baseURL}/groups`, { name: name }, { withCredentials: true }),
+  getGroup: (id) => axios.get(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
   updateGroup: (id, name) =>
-    axios.put(`${baseURL}/groups`, { id: id, name: name }),
-  deleteGroup: (id) => axios.delete(`${baseURL}/groups?id=${id}`),
-  getAllGroups: () => axios.get(`${baseURL}/groups/getAll`),
-  addMember: (groupId, studentId) => axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`),
-  removeMember: (groupId, studentId) => axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`),
-  addProjectInGroup: (groupId, projectId) => axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`),
+    axios.put(`${baseURL}/groups`, { id: id, name: name }, { withCredentials: true }),
+  deleteGroup: (id) => axios.delete(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
+  getAllGroups: () => axios.get(`${baseURL}/groups/getAll`, { withCredentials: true }),
+  addMember: (groupId, studentId) =>
+    axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`, { withCredentials: true }),
+  removeMember: (groupId, studentId) =>
+    axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`, { withCredentials: true }),
+  addProjectInGroup: (groupId, projectId) =>
+    axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`, { withCredentials: true }),
   // COMMISSIONS
   createCommission: (year, fourMonthPeriod, matterName) =>
     axios.post(`${baseURL}/commissions`, {
       year: year,
       fourMonthPeriod: fourMonthPeriod,
       matterName: matterName,
-    }),
-  getCommission: (id) => axios.get(`${baseURL}/commissions?id=${id}`),
+    },
+      { withCredentials: true }
+    ),
+  getCommission: (id) => axios.get(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
   updateCommission: (id, year, fourMonthPeriod, matter) =>
     axios.put(`${baseURL}/commissions`, {
       id: id,
       year: year,
       fourMonthPeriod: fourMonthPeriod,
       matter: matter,
-    }),
-  deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`),
-  getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`),
-  addStudent: (commissionId, studentId) => 
-    axios.put(`${baseURL}/commissions/addStudent/${commissionId}/${studentId}`),
-  removeStudent: (commissionId, studentId) => 
-    axios.put(`${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`),
-  addTeacher: (commissionId, teacherId) => 
-    axios.put(`${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`),
-  removeTeacher: (commissionId, teacherId) => 
-    axios.put(`${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`),
-  addGroup: (commissionId, groupId) => 
-    axios.put(`${baseURL}/commissions/addGroup/${commissionId}/${groupId}`),
-  removeGroup: (commissionId, groupId) => 
-    axios.put(`${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`),
+    },
+      { withCredentials: true }
+    ),
+  deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
+  getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`, { withCredentials: true }),
+  addStudent: (commissionId, studentId) =>
+    axios.put(`${baseURL}/commissions/addStudent/${commissionId}/${studentId}`, { withCredentials: true }),
+  removeStudent: (commissionId, studentId) =>
+    axios.put(`${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`, { withCredentials: true }),
+  addTeacher: (commissionId, teacherId) =>
+    axios.put(`${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`, { withCredentials: true }),
+  removeTeacher: (commissionId, teacherId) =>
+    axios.put(`${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`, { withCredentials: true }),
+  addGroup: (commissionId, groupId) =>
+    axios.put(`${baseURL}/commissions/addGroup/${commissionId}/${groupId}`, { withCredentials: true }),
+  removeGroup: (commissionId, groupId) =>
+    axios.put(`${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`, { withCredentials: true }),
   // PROJECTS
-  createProject: (name) => axios.post(`${baseURL}/projects`, { name: name }),
-  getProject: (id) => axios.get(`${baseURL}/projects?id=${id}`),
+  createProject: (name) => axios.post(`${baseURL}/projects`, { name: name }, { withCredentials: true }),
+  getProject: (id) => axios.get(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
   updateProject: (id, name) =>
-    axios.put(`${baseURL}/projects`, { id: id, name: name }),
-  deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`),
-  getAllProjects: () => axios.get(`${baseURL}/projects/getAll`),
-  addRepository: (projectId, repositoryId) => axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`),
+    axios.put(`${baseURL}/projects`, { id: id, name: name }, { withCredentials: true }),
+  deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
+  getAllProjects: () => axios.get(`${baseURL}/projects/getAll`, { withCredentials: true }),
+  addRepository: (projectId, repositoryId) =>
+    axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`, { withCredentials: true }),
   // REPOSITORIES
-  createRepository: (name, owner) => axios.post(`${baseURL}/repositories`, { 
+  createRepository: (name, owner) => axios.post(`${baseURL}/repositories`, {
     name: name,
     owner: owner,
-  }),
-  getRepository: (id) => axios.get(`${baseURL}/repositories?id=${id}`),
+  },
+    { withCredentials: true }
+  ),
+  getRepository: (id) => axios.get(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
   updateRepository: (name, owner) => axios.put(`${baseURL}/repositories`, {
     name: name,
     owner: owner
-  }),
-  deleteRepository: (id) => axios.delete(`${baseURL}/repositories?id=${id}`),
-  getAllRepositories: () => axios.get(`${baseURL}/repositories/getAll`),
+  },
+    { withCredentials: true }),
+  deleteRepository: (id) => axios.delete(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
+  getAllRepositories: () => axios.get(`${baseURL}/repositories/getAll`, { withCredentials: true }),
   // USERS
   login: (email, password, role) =>
     axios.post(
