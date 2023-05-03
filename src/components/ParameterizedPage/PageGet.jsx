@@ -17,19 +17,13 @@ const PageGet = (props) => {
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsTeacher(response.data.role === "TEACHER");
       })
-      .catch((error) => {
-        setIsTeacher(false);
-      })
-      .finally(() => {});
   }, []);
 
   const resetForm = () => {
@@ -160,16 +154,7 @@ const PageGet = (props) => {
         </div>
       )}
 
-      {user && !isTeacher && 
-      (window.location.href === "http://localhost:3000/project/get" 
-      || window.location.href === "http://localhost:3000/group/get") && (
-        <div className="alert alert-danger" role="alert">
-          You do not have permissions to access this resource
-        </div>
-      )}
-
-      {((user && props.page !== "Group" && props.page !== "Project") || 
-       (user && isTeacher && (props.page === "Group" || props.page === "Project"))) && (
+      {user && (
         <>
           <h5 className="title">{props.page} get form</h5>
           <form onSubmit={handleSubmit}>

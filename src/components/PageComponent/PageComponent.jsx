@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import API from "../../services/API";
 import Cookies from "js-cookie";
 
-const PageComponentStudent = (props) => {
+const PageComponent = (props) => {
   const [user, setUser] = useState(null);
   const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
@@ -17,7 +17,7 @@ const PageComponentStudent = (props) => {
       .catch((error) => {
         setIsTeacher(false);
       })
-      .finally(() => {});
+      .finally(() => { });
   }, []);
   return (
     <>
@@ -40,7 +40,7 @@ const PageComponentStudent = (props) => {
                     image={"bi bi-person-fill-add"}
                   ></Card>
                 </div>
-                { window.location.href !== "http://localhost:3000/commissions" && (
+                {window.location.href !== "http://localhost:3000/commissions" && (
                   <div className="col">
                     <Card
                       title={`Update ${props.page}`}
@@ -48,7 +48,7 @@ const PageComponentStudent = (props) => {
                       url={`/${props.page}/update`}
                       image={"bi bi-person-fill-gear"}
                     ></Card>
-                </div>)}
+                  </div>)}
                 <div className="col">
                   <Card
                     title={`Delete ${props.page}`}
@@ -59,7 +59,6 @@ const PageComponentStudent = (props) => {
                 </div>
               </>
             )}
-
             <div className="col">
               <Card
                 title={`Get ${props.page}`}
@@ -88,7 +87,7 @@ const PageComponentStudent = (props) => {
                     ></Card>
                   </div>
                 </>
-            )}
+              )}
             {isTeacher &&
               window.location.href === "http://localhost:3000/commissions" && (
                 <>
@@ -142,6 +141,46 @@ const PageComponentStudent = (props) => {
                   </div>
                 </>
               )}
+            {isTeacher &&
+              window.location.href === "http://localhost:3000/projects" && (
+                <div className="col">
+                  <Card
+                    title={`Add repository`}
+                    description={""}
+                    url={`/${props.page}/addRepository`}
+                    image={"bi bi-journal-plus"}
+                  ></Card>
+                </div>
+              )}
+            {isTeacher &&
+              window.location.href === "http://localhost:3000/groups" && (
+                <>
+                  <div className="col">
+                    <Card
+                      title={`Add member`}
+                      description={""}
+                      url={`/${props.page}/addMember`}
+                      image={"bi bi-person-add"}
+                    ></Card>
+                  </div>
+                  <div className="col">
+                    <Card
+                      title={`Remove member`}
+                      description={""}
+                      url={`/${props.page}/removeMember`}
+                      image={"bi bi-person-x"}
+                    ></Card>
+                  </div>
+                  <div className="col">
+                    <Card
+                      title={`Add project`}
+                      description={""}
+                      url={`/${props.page}/addProject`}
+                      image={"bi bi-file-earmark-plus-fill"}
+                    ></Card>
+                  </div>
+                </>
+              )}
           </div>
           <props.data />
         </>
@@ -150,4 +189,4 @@ const PageComponentStudent = (props) => {
   );
 };
 
-export default PageComponentStudent;
+export default PageComponent;

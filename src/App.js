@@ -12,8 +12,7 @@ import GetAllGroups from "./components/Group/GetAllGroups";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
 import PageDelete from "./components/ParameterizedPage/PageDelete";
-import PageComponentStudent from "./components/PageComponent/PageComponentStudent";
-import PageComponentTeacher from "./components/PageComponent/PageComponentTeacher";
+import PageComponent from "./components/PageComponent/PageComponent";
 import PageGet from "./components/ParameterizedPage/PageGet";
 import GetAllProjects from "./components/Project/GetAllProjects";
 import PageAdd from "./components/ParameterizedPage/PageAdd";
@@ -34,7 +33,7 @@ const App = () => {
             <Route
               path="/teachers"
               element={
-                <PageComponentStudent data={GetAllTeachers} page="teacher" />
+                <PageComponent data={GetAllTeachers} page="teacher" />
               }
             />
             <Route path="/teacher/register" element={<PageRegisterOrUpdateUser operation="registration" entity="Teacher" />} />
@@ -47,7 +46,7 @@ const App = () => {
             <Route
               path="/matters"
               element={
-                <PageComponentStudent data={GetAllMatters} page="matter" />
+                <PageComponent data={GetAllMatters} page="matter" />
               }
             />
             <Route path="/matter/register" element={<PageRegisterOrUpdate operation="registration" entity="Matter" />} />
@@ -60,7 +59,7 @@ const App = () => {
             <Route
               path="/students"
               element={
-                <PageComponentStudent data={GetAllStudents} page="student" />
+                <PageComponent data={GetAllStudents} page="student" />
               }
             />
             <Route path="/student/register" element={<PageRegisterOrUpdateUser operation="registration" entity="Student" />} />
@@ -74,7 +73,7 @@ const App = () => {
             <Route
               path="/groups"
               element={
-                <PageComponentTeacher data={GetAllGroups} page="group" />
+                <PageComponent data={GetAllGroups} page="group" />
               }
             />
             <Route path="/group/register" element={<PageRegisterOrUpdate operation="registration" entity="Group" />} />
@@ -90,7 +89,7 @@ const App = () => {
             <Route
               path="/commissions"
               element={
-                <PageComponentStudent
+                <PageComponent
                   data={GetAllCommissions}
                   page="commission"
                 />
@@ -114,7 +113,7 @@ const App = () => {
             <Route
               path="/repositories"
               element={
-                <PageComponentStudent data={GetAllRepositories} page="repository" />
+                <PageComponent data={GetAllRepositories} page="repository" />
               }
             />
             <Route
@@ -132,7 +131,7 @@ const App = () => {
             <Route
               path="/projects"
               element={
-                <PageComponentTeacher data={GetAllProjects} page="project" />
+                <PageComponent data={GetAllProjects} page="project" />
               }
             />
             <Route path="/project/register" element={<PageRegisterOrUpdate operation="registration" entity="Project" />} />
