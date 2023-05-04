@@ -25,7 +25,9 @@ const PageRegisterOrUpdateUser = (props) => {
             .then((response) => {
                 setUser(response.data);
                 setIsTeacher(response.data.role === "TEACHER");
-                if (response.data.role === "STUDENT") {
+                if (response.data.role === "STUDENT" ||
+                    (response.data.role === "TEACHER" &&
+                        window.location.href === "http://localhost:3000/teacher/update")) {
                     setId(response.data.id);
                     setFirstname(response.data.firstName);
                     setLastname(response.data.lastName);
@@ -150,7 +152,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                             Id {props.entity}:
                                         </label>
                                     </div>
-                                    {isTeacher && (
+                                    {isTeacher && props.entity === "Student" && (
                                         <div className="col-md-6">
                                             <input
                                                 type="number"
@@ -160,7 +162,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                                 onChange={(e) => setId(e.target.value)}
                                             />
                                         </div>)}
-                                    {!isTeacher && (
+                                    {(!isTeacher || (isTeacher && props.entity === "Teacher")) && (
                                         <div className="col-md-6">
                                             <input
                                                 type="number"
