@@ -25,6 +25,14 @@ const PageRegisterOrUpdateUser = (props) => {
             .then((response) => {
                 setUser(response.data);
                 setIsTeacher(response.data.role === "TEACHER");
+                if (response.data.role === "STUDENT") {
+                    setId(response.data.id);
+                    setFirstname(response.data.firstName);
+                    setLastname(response.data.lastName);
+                    setEmail(response.data.email);
+                    setGithubUser(response.data.ownerGithub);
+                    setGithubToken(response.data.tokenGithub);
+                }
             })
             .catch((error) => {
                 setIsTeacher(false);
@@ -124,13 +132,13 @@ const PageRegisterOrUpdateUser = (props) => {
                 </div>
             )}
 
-            {user && !isTeacher && (
+            {user && !isTeacher && window.location.href !== "http://localhost:3000/student/update" && (
                 <div className="alert alert-danger" role="alert">
                     You do not have permissions to access this resource
                 </div>
             )}
 
-            {user && isTeacher && (
+            {((user && isTeacher) || window.location.href === "http://localhost:3000/student/update") && (
                 <>
                     <h5 className="title">{props.entity} {props.operation} form</h5>
                     <form onSubmit={handleSubmit}>
@@ -142,15 +150,27 @@ const PageRegisterOrUpdateUser = (props) => {
                                             Id {props.entity}:
                                         </label>
                                     </div>
-                                    <div className="col-md-6">
-                                        <input
-                                            type="number"
-                                            id="inputId"
-                                            className="form-control"
-                                            required={true}
-                                            onChange={(e) => setId(e.target.value)}
-                                        />
-                                    </div>
+                                    {isTeacher && (
+                                        <div className="col-md-6">
+                                            <input
+                                                type="number"
+                                                id="inputId"
+                                                className="form-control"
+                                                required={true}
+                                                onChange={(e) => setId(e.target.value)}
+                                            />
+                                        </div>)}
+                                    {!isTeacher && (
+                                        <div className="col-md-6">
+                                            <input
+                                                type="number"
+                                                id="inputId"
+                                                className="form-control-plaintext"
+                                                required={true}
+                                                value={id}
+                                                readOnly
+                                            />
+                                        </div>)}
                                 </div>)}
                             <div className="row">
                                 <div className="col-md-4">
@@ -164,6 +184,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                         id="inputFirstname"
                                         className="form-control"
                                         required={true}
+                                        value={firstname}
                                         onChange={(e) => setFirstname(e.target.value)}
                                     />
                                 </div>
@@ -180,6 +201,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                         id="inputLastname"
                                         className="form-control"
                                         required={true}
+                                        value={lastname}
                                         onChange={(e) => setLastname(e.target.value)}
                                     />
                                 </div>
@@ -195,8 +217,9 @@ const PageRegisterOrUpdateUser = (props) => {
                                         type="email"
                                         id="inputEmail"
                                         className="form-control"
-                                        onChange={(e) => setEmail(e.target.value)}
                                         required={true}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -212,6 +235,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                         id="inputPassword"
                                         className="form-control"
                                         required={true}
+                                        value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
@@ -230,6 +254,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                                 id="inputGithubUser"
                                                 className="form-control"
                                                 required={false}
+                                                value={githubUser}
                                                 onChange={(e) => setGithubUser(e.target.value)}
                                             />
                                         </div>
@@ -245,6 +270,7 @@ const PageRegisterOrUpdateUser = (props) => {
                                                 type="password"
                                                 id="inputGithubToken"
                                                 className="form-control"
+                                                value={githubToken}
                                                 onChange={(e) => setGithubToken(e.target.value)}
                                             />
                                         </div>
