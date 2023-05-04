@@ -30,16 +30,26 @@ const PageComponent = (props) => {
       {user && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
+            {window.location.href === "http://localhost:3000/repositories" && (
+              <div className="col">
+                <Card
+                  title={`Create ${props.page}`}
+                  description={""}
+                  url={`/${props.page}/register`}
+                  image={"bi bi-person-fill-add"}
+                ></Card>
+              </div>)}
             {isTeacher && (
               <>
-                <div className="col">
-                  <Card
-                    title={`Create ${props.page}`}
-                    description={""}
-                    url={`/${props.page}/register`}
-                    image={"bi bi-person-fill-add"}
-                  ></Card>
-                </div>
+                {window.location.href !== "http://localhost:3000/repositories" && (
+                  <div className="col">
+                    <Card
+                      title={`Create ${props.page}`}
+                      description={""}
+                      url={`/${props.page}/register`}
+                      image={"bi bi-person-fill-add"}
+                    ></Card>
+                  </div>)}
                 <div className="col">
                   <Card
                     title={`Delete ${props.page}`}
@@ -49,7 +59,8 @@ const PageComponent = (props) => {
                   ></Card>
                 </div>
                 {window.location.href !== "http://localhost:3000/commissions" &&
-                  window.location.href !== "http://localhost:3000/students" && (
+                  window.location.href !== "http://localhost:3000/students" &&
+                  window.location.href !== "http://localhost:3000/repositories" && (
                     <div className="col">
                       <Card
                         title={`Update ${props.page}`}
@@ -60,15 +71,16 @@ const PageComponent = (props) => {
                     </div>)}
               </>
             )}
-            {window.location.href === "http://localhost:3000/students" && (
-              <div className="col">
-                <Card
-                  title={`Update ${props.page}`}
-                  description={""}
-                  url={`/${props.page}/update`}
-                  image={"bi bi-person-fill-gear"}
-                ></Card>
-              </div>)}
+            {(window.location.href === "http://localhost:3000/students" ||
+              window.location.href === "http://localhost:3000/repositories") && (
+                <div className="col">
+                  <Card
+                    title={`Update ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/update`}
+                    image={"bi bi-person-fill-gear"}
+                  ></Card>
+                </div>)}
             <div className="col">
               <Card
                 title={`Get ${props.page}`}

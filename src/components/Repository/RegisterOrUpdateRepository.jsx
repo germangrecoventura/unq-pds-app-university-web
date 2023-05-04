@@ -19,6 +19,9 @@ const RegisterOrUpdateRepository = (props) => {
             .then((response) => {
                 setUser(response.data);
                 setIsTeacher(response.data.role === "TEACHER");
+                if (response.data.role === "STUDENT") {
+                    setOwner(response.data.ownerGithub);
+                }
             })
             .catch((error) => {
                 setIsTeacher(false);
@@ -76,13 +79,7 @@ const RegisterOrUpdateRepository = (props) => {
                 </div>
             )}
 
-            {user && !isTeacher && (
-                <div className="alert alert-danger" role="alert">
-                    You do not have permissions to access this resource
-                </div>
-            )}
-
-            {user && isTeacher && (
+            {user && (
                 <>
                     <h5 className="title">Repository {props.operation} form</h5>
                     <form onSubmit={handleSubmit}>
@@ -109,15 +106,27 @@ const RegisterOrUpdateRepository = (props) => {
                                         Owner:
                                     </label>
                                 </div>
-                                <div className="col-md-6">
-                                    <input
-                                        type="text"
-                                        id="inputOwner"
-                                        className="form-control"
-                                        required={true}
-                                        onChange={(e) => setOwner(e.target.value)}
-                                    />
-                                </div>
+                                {isTeacher && (
+                                    <div className="col-md-6">
+                                        <input
+                                            type="text"
+                                            id="inputOwner"
+                                            className="form-control"
+                                            required={true}
+                                            onChange={(e) => setOwner(e.target.value)}
+                                        />
+                                    </div>)}
+                                {!isTeacher && (
+                                    <div className="col-md-6">
+                                        <input
+                                            type="text"
+                                            id="inputOwner"
+                                            className="form-control-plaintext"
+                                            required={true}
+                                            value={owner}
+                                            readOnly
+                                        />
+                                    </div>)}
                             </div>
                         </div>
                         <div className="mb-3">
