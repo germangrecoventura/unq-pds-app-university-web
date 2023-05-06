@@ -3,7 +3,7 @@ import "./Commission.css";
 const TableCommission = (props) => {
 
     function teachers() {
-        return props.entity.teachers.map((teacher) => (
+        return props.commission.teachers.map((teacher) => (
           <h6 key={teacher.id}>
             {teacher.firstName} {teacher.lastName}
           </h6>
@@ -21,10 +21,10 @@ const TableCommission = (props) => {
                   <th>Teachers</th>
                 </tr>
                 <tr>
-                  <td>{props.entity.id}</td>
-                  <td>{props.entity.year}</td>
-                  <td>{props.entity.fourMonthPeriod}</td>
-                  <td>{props.entity.matter.name}</td>
+                  <td>{props.commission.id}</td>
+                  <td>{props.commission.year}</td>
+                  <td>{props.commission.fourMonthPeriod}</td>
+                  <td>{props.commission.matter.name}</td>
                   <td>{teachers()}</td>
                 </tr>
               </thead>

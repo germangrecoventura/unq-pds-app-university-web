@@ -1,6 +1,8 @@
-import "./Matter.css";
+import "./Repository.css";
+import { Link } from "react-router-dom";
 
-const TableMatter = (props) => {
+const TableRepository = (props) => {
+
     return (
         <table className="TableGet">
               <thead>
@@ -9,12 +11,12 @@ const TableMatter = (props) => {
                   <th>Name</th>
                 </tr>
                 <tr>
-                  <td>{props.matter.id}</td>
-                  <td>{props.matter.name}</td>
+                  <td>{props.repository.id}</td>
+                  <td><Link to={props.repository.url}>{props.repository.name}</Link></td>
                 </tr>
               </thead>
             </table>
     );
 };
 
-export default TableMatter;
+export default TableRepository;

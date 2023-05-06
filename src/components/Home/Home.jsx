@@ -7,17 +7,13 @@ import Cookies from "js-cookie";
 
 const Home = () => {
   const [user, setUser] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsTeacher(response.data.role === "TEACHER");
       })
-      .catch((error) => {})
-      .finally(() => {});
   }, []);
 
   return (
@@ -44,10 +40,10 @@ const Home = () => {
             </div>
             <div className="col">
               <Card
-                title={"Commissions"}
-                description={"Operations related to commissions"}
-                url={"/commissions"}
-                image={"bi bi-c-square-fill"}
+                title={"Groups"}
+                description={"Operations related to groups"}
+                url={"/groups"}
+                image={"bi bi-folder-fill"}
               ></Card>
             </div>
             <div className="col">
@@ -60,22 +56,18 @@ const Home = () => {
             </div>
             <div className="col">
               <Card
+                title={"Commissions"}
+                description={"Operations related to commissions"}
+                url={"/commissions"}
+                image={"bi bi-c-square-fill"}
+              ></Card>
+            </div>
+            <div className="col">
+              <Card
                 title={"Repositories"}
                 description={"Operations related to repository"}
                 url={"/repositories"}
                 image={"bi bi-github"}
-              ></Card>
-            </div>
-          </>
-        )}
-        {user && isTeacher && (
-          <>
-            <div className="col">
-              <Card
-                title={"Groups"}
-                description={"Operations related to groups"}
-                url={"/groups"}
-                image={"bi bi-folder-fill"}
               ></Card>
             </div>
             <div className="col">

@@ -3,7 +3,7 @@ import "./Student.css";
 const TableStudent = (props) => {
 
     function projects() {
-      return props.entity.projects.map((project) => (
+      return props.student.projects.map((project) => (
         <h6 key={project.id}>
           {project.name}
         </h6>
@@ -21,10 +21,10 @@ const TableStudent = (props) => {
                   <th>Projects</th>
                 </tr>
                 <tr>
-                  <td>{props.entity.id}</td>
-                  <td>{props.entity.firstName}</td>
-                  <td>{props.entity.lastName}</td>
-                  <td>{props.entity.email}</td>
+                  <td>{props.student.id}</td>
+                  <td>{props.student.firstName}</td>
+                  <td>{props.student.lastName}</td>
+                  <td>{props.student.email}</td>
                   <td>{projects()}</td>
                 </tr>
               </thead>

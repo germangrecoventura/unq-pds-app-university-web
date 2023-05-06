@@ -8,6 +8,7 @@ import TableMatter from "../Matter/TableMatter";
 import TableGroup from "../Group/TableGroup";
 import TableCommission from "../Commission/TableCommission";
 import TableProject from "../Project/TableProject";
+import TableRepository from "../Repository/TableRepository";
 
 const PageGet = (props) => {
   const [id, setId] = useState("");
@@ -16,19 +17,13 @@ const PageGet = (props) => {
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsTeacher(response.data.role === "TEACHER");
       })
-      .catch((error) => {
-        setIsTeacher(false);
-      })
-      .finally(() => {});
   }, []);
 
   const resetForm = () => {
@@ -159,16 +154,7 @@ const PageGet = (props) => {
         </div>
       )}
 
-      {user && !isTeacher && 
-      (window.location.href === "http://localhost:3000/project/get" 
-      || window.location.href === "http://localhost:3000/group/get") && (
-        <div className="alert alert-danger" role="alert">
-          You do not have permissions to access this resource
-        </div>
-      )}
-
-      {((user && props.page !== "Group" && props.page !== "Project") || 
-       (user && isTeacher && (props.page === "Group" || props.page === "Project"))) && (
+      {user && (
         <>
           <h5 className="title">{props.page} get form</h5>
           <form onSubmit={handleSubmit}>
@@ -207,26 +193,31 @@ const PageGet = (props) => {
           </form>
 
           { isFind && props.page === "Student" && (
-            <TableStudent entity={entity} />
+            <TableStudent student={entity} />
           )}
 
           { isFind && props.page === "Teacher" && (
-            <TableTeacher entity={entity} />
+            <TableTeacher teacher={entity} />
           )}
 
           { isFind && props.page === "Matter" && (
-            <TableMatter entity={entity} />
+            <TableMatter matter={entity} />
           )}
 
           { isFind && props.page === "Group" && (
-            <TableGroup entity={entity} />
+            <TableGroup group={entity} />
           )}
 
           { isFind && props.page === "Commission" && (
-            <TableCommission entity={entity} />
+            <TableCommission commission={entity} />
           )}
+
           { isFind && props.page === "Project" && (
-            <TableProject entity={entity} />
+            <TableProject project={entity} />
+          )}
+
+          { isFind && props.page === "Repository" && (
+            <TableRepository repository={entity} />
           )}
         </>
       )}
