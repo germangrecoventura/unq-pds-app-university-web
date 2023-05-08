@@ -85,15 +85,6 @@ const API = {
       { withCredentials: true }
     ),
   getCommission: (id) => axios.get(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
-  updateCommission: (id, year, fourMonthPeriod, matter) =>
-    axios.put(`${baseURL}/commissions`, {
-      id: id,
-      year: year,
-      fourMonthPeriod: fourMonthPeriod,
-      matter: matter,
-    },
-      { withCredentials: true }
-    ),
   deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
   getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`, { withCredentials: true }),
   addStudent: (commissionId, studentId) =>
