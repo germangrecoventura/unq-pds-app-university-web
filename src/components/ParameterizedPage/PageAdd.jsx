@@ -21,6 +21,11 @@ const PageAdd = (props) => {
         setIsAdmin(response.data.role === "ADMIN");
         setIsTeacher(response.data.role === "TEACHER");
         setIsStudent(response.data.role === "STUDENT");
+        if (response.data.role === "STUDENT" &&
+          props.entityA === "Student" &&
+          props.entityB === "Project") {
+          setIdEntityA(response.data.id);
+        }
       })
       .catch((error) => {
         setIsAdmin(false);
@@ -186,15 +191,31 @@ const PageAdd = (props) => {
                       Id {props.entityA}:
                     </label>
                   </div>
-                  <div className="col-md-6">
-                    <input
-                      type="number"
-                      id="inputIdEntityA"
-                      className="form-control"
-                      required={true}
-                      onChange={(e) => setIdEntityA(e.target.value)}
-                    />
-                  </div>
+                  {(!isStudent || (isStudent && (props.entityA !== "Student" ||
+                    props.entityB !== "Project"))) && (
+                      <div className="col-md-6">
+                        <input
+                          type="number"
+                          id="inputIdEntityA"
+                          className="form-control"
+                          required={true}
+                          onChange={(e) => setIdEntityA(e.target.value)}
+                        />
+                      </div>
+                    )}
+                  {isStudent && props.entityA === "Student" &&
+                    props.entityB === "Project" && (
+                      <div className="col-md-6">
+                        <input
+                          type="number"
+                          id="inputIdEntityA"
+                          className="form-control-plaintext"
+                          required={true}
+                          value={idEntityA}
+                          readOnly
+                        />
+                      </div>
+                    )}
                 </div>
                 <div className="row">
                   <div className="col-md-4">
