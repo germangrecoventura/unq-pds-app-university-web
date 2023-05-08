@@ -103,6 +103,19 @@ const LogIn = () => {
                   TEACHER
                 </label>
               </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault3"
+                  value={"ADMIN"}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <label class="form-check-label" for="flexRadioDefault3">
+                  ADMIN
+                </label>
+              </div>
             </div>
           </div>
         </div>
