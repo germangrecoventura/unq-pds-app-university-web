@@ -10,17 +10,17 @@ const PageDelete = (props) => {
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsTeacher(response.data.role === "TEACHER");
+        setIsAdmin(response.data.role === "ADMIN");
       })
       .catch((error) => {
-        setIsTeacher(false);
+        setIsAdmin(false);
       })
       .finally(() => {});
   }, []);
@@ -145,13 +145,13 @@ const PageDelete = (props) => {
         </div>
       )}
 
-      {user && !isTeacher && (
+      {user && !isAdmin && (
         <div className="alert alert-danger" role="alert">
           You do not have permissions to access this resource
         </div>
       )}
 
-      {user && isTeacher && (
+      {user && isAdmin && (
         <>
           <h5 className="title">{props.page} delete form</h5>
           <form onSubmit={handleSubmit}>

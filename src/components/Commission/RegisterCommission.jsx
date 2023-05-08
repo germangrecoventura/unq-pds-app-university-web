@@ -11,7 +11,7 @@ const RegisterCommission = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   let cookies = Cookies.get("jwt");
   let navigate = useNavigate();
 
@@ -19,10 +19,10 @@ const RegisterCommission = (props) => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsTeacher(response.data.role === "TEACHER");
+        setIsAdmin(response.data.role === "ADMIN");
       })
       .catch((error) => {
-        setIsTeacher(false);
+        setIsAdmin(false);
       })
       .finally(() => { });
   }, []);
@@ -65,13 +65,13 @@ const RegisterCommission = (props) => {
         </div>
       )}
 
-      {user && !isTeacher && (
+      {user && !isAdmin && (
         <div className="alert alert-danger" role="alert">
           You do not have permissions to access this resource
         </div>
       )}
 
-      {user && isTeacher && (
+      {user && isAdmin && (
         <>
           <h5 className="title">Commission registration form</h5>
           <form onSubmit={handleSubmit}>

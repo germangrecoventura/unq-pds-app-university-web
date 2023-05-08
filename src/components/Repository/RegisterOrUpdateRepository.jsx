@@ -11,20 +11,20 @@ const RegisterOrUpdateRepository = (props) => {
     const [formErrors, setFormErrors] = useState("");
     let navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const [isTeacher, setIsTeacher] = useState(false);
+    const [isStudent, setIsStudent] = useState(false);
     let cookies = Cookies.get("jwt");
 
     useEffect(() => {
         API.getUser()
             .then((response) => {
                 setUser(response.data);
-                setIsTeacher(response.data.role === "TEACHER");
+                setIsStudent(response.data.role === "STUDENT");
                 if (response.data.role === "STUDENT") {
                     setOwner(response.data.ownerGithub);
                 }
             })
             .catch((error) => {
-                setIsTeacher(false);
+                setIsStudent(false);
             })
             .finally(() => { });
     }, []);
@@ -106,7 +106,7 @@ const RegisterOrUpdateRepository = (props) => {
                                         Owner:
                                     </label>
                                 </div>
-                                {isTeacher && (
+                                {!isStudent && (
                                     <div className="col-md-6">
                                         <input
                                             type="text"
@@ -116,7 +116,7 @@ const RegisterOrUpdateRepository = (props) => {
                                             onChange={(e) => setOwner(e.target.value)}
                                         />
                                     </div>)}
-                                {!isTeacher && (
+                                {isStudent && (
                                     <div className="col-md-6">
                                         <input
                                             type="text"
