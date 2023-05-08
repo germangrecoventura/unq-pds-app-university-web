@@ -2,14 +2,6 @@ import "./Student.css";
 
 const TableStudent = (props) => {
 
-    function projects() {
-      return props.student.projects.map((project) => (
-        <h6 key={project.id}>
-          {project.name}
-        </h6>
-      ));
-    }
-
     return (
         <table className="TableGet">
               <thead>
@@ -25,7 +17,7 @@ const TableStudent = (props) => {
                   <td>{props.student.firstName}</td>
                   <td>{props.student.lastName}</td>
                   <td>{props.student.email}</td>
-                  <td>{projects()}</td>
+                  <td>{props.student.projects.length}</td>
                 </tr>
               </thead>
             </table>

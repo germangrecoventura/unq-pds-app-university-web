@@ -18,6 +18,11 @@ export default function GetAllRepositories() {
             <tr>
               <th>Id</th>
               <th>Name</th>
+              <th>Branches</th>
+              <th>Commits</th>
+              <th>Issues</th>
+              <th>Pull requests</th>
+              <th>Tags</th>
             </tr>
             {repositories.sort(function (a, b) {
               return a.id - b.id;
@@ -26,6 +31,11 @@ export default function GetAllRepositories() {
                 <tr key={repository.id}>
                   <td>{repository.id}</td>
                   <td><Link to={repository.url}>{repository.name}</Link></td>
+                  <td>{repository.branches.length}</td>
+                  <td>{repository.commits.length}</td>
+                  <td>{repository.issues.length}</td>
+                  <td>{repository.pullRequests.length}</td>
+                  <td>{repository.tags.length}</td>
                 </tr>
               ))}
           </thead>

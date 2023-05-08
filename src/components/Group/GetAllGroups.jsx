@@ -5,22 +5,6 @@ import "./Group.css";
 export default function GetAllGroups() {
   const [groups, setGroups] = useState([]);
 
-  function members(group) {
-    return group.members.map((member) => (
-      <h6 key={member.id}>
-        {member.firstName} {member.lastName}
-      </h6>
-    ));
-  }
-
-  function projects(group) {
-    return group.projects.map((project) => (
-      <h6 key={project.id}>
-        {project.name}
-      </h6>
-    ));
-  }
-
   useEffect(() => {
     API.getAllGroups().then((response) => setGroups(response.data));
   }, []);
@@ -43,8 +27,8 @@ export default function GetAllGroups() {
                 <tr key={group.id}>
                   <td>{group.id}</td>
                   <td>{group.name}</td>
-                  <td>{members(group)}</td>
-                  <td>{projects(group)}</td>
+                  <td>{group.members.length}</td>
+                  <td>{group.projects.length}</td>
                 </tr>
               ))}
           </thead>
