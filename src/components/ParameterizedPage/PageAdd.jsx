@@ -33,7 +33,7 @@ const PageAdd = (props) => {
         setIsStudent(false);
       })
       .finally(() => { });
-  }, []);
+  }, [props.entityA, props.entityB]);
 
   const resetForm = () => {
     setIdEntityA("");
