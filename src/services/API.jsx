@@ -61,7 +61,7 @@ const API = {
   deleteStudent: (id) => axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
   getAllStudents: () => axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
   addProjectInStudent: (studentId, projectId) =>
-    axios.put(`${baseURL}/students/addProject/${studentId}/${projectId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/students/addProject/${studentId}/${projectId}`, {}, { withCredentials: true }),
   // GROUPS
   createGroup: (name) => axios.post(`${baseURL}/groups`, { name: name }, { withCredentials: true }),
   getGroup: (id) => axios.get(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
@@ -70,11 +70,11 @@ const API = {
   deleteGroup: (id) => axios.delete(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
   getAllGroups: () => axios.get(`${baseURL}/groups/getAll`, { withCredentials: true }),
   addMember: (groupId, studentId) =>
-    axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/groups/addMember/${groupId}/${studentId}`, {}, { withCredentials: true }),
   removeMember: (groupId, studentId) =>
-    axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/groups/removeMember/${groupId}/${studentId}`, {}, { withCredentials: true }),
   addProjectInGroup: (groupId, projectId) =>
-    axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/groups/addProject/${groupId}/${projectId}`, {}, { withCredentials: true }),
   // COMMISSIONS
   createCommission: (year, fourMonthPeriod, matterName) =>
     axios.post(`${baseURL}/commissions`, {
@@ -88,17 +88,17 @@ const API = {
   deleteCommission: (id) => axios.delete(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
   getAllCommissions: () => axios.get(`${baseURL}/commissions/getAll`, { withCredentials: true }),
   addStudent: (commissionId, studentId) =>
-    axios.put(`${baseURL}/commissions/addStudent/${commissionId}/${studentId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/addStudent/${commissionId}/${studentId}`, {}, { withCredentials: true }),
   removeStudent: (commissionId, studentId) =>
-    axios.put(`${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`, {}, { withCredentials: true }),
   addTeacher: (commissionId, teacherId) =>
-    axios.put(`${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`, {}, { withCredentials: true }),
   removeTeacher: (commissionId, teacherId) =>
-    axios.put(`${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`, {}, { withCredentials: true }),
   addGroup: (commissionId, groupId) =>
-    axios.put(`${baseURL}/commissions/addGroup/${commissionId}/${groupId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/addGroup/${commissionId}/${groupId}`, {}, { withCredentials: true }),
   removeGroup: (commissionId, groupId) =>
-    axios.put(`${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`, {}, { withCredentials: true }),
   // PROJECTS
   createProject: (name) => axios.post(`${baseURL}/projects`, { name: name }, { withCredentials: true }),
   getProject: (id) => axios.get(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
@@ -107,7 +107,7 @@ const API = {
   deleteProject: (id) => axios.delete(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
   getAllProjects: () => axios.get(`${baseURL}/projects/getAll`, { withCredentials: true }),
   addRepository: (projectId, repositoryId) =>
-    axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`, { withCredentials: true }),
+    axios.put(`${baseURL}/projects/addRepository/${projectId}/${repositoryId}`, {}, { withCredentials: true }),
   // REPOSITORIES
   createRepository: (name, owner) => axios.post(`${baseURL}/repositories`, {
     name: name,
