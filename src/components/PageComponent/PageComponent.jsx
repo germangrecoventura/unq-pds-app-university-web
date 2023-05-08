@@ -5,17 +5,23 @@ import Cookies from "js-cookie";
 
 const PageComponent = (props) => {
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
+        setIsAdmin(response.data.role === "ADMIN");
         setIsTeacher(response.data.role === "TEACHER");
+        setIsStudent(response.data.role === "STUDENT");
       })
       .catch((error) => {
+        setIsAdmin(false);
         setIsTeacher(false);
+        setIsStudent(false);
       })
       .finally(() => { });
   }, []);
@@ -30,26 +36,30 @@ const PageComponent = (props) => {
       {user && (
         <>
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            {window.location.href === "http://localhost:3000/repositories" && (
-              <div className="col">
-                <Card
-                  title={`Create ${props.page}`}
-                  description={""}
-                  url={`/${props.page}/register`}
-                  image={"bi bi-person-fill-add"}
-                ></Card>
-              </div>)}
-            {isTeacher && (
+            {(window.location.href === "http://localhost:3000/repositories" ||
+              window.location.href === "http://localhost:3000/projects" ||
+              window.location.href === "http://localhost:3000/groups") && (
+                <div className="col">
+                  <Card
+                    title={`Create ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/register`}
+                    image={"bi bi-person-fill-add"}
+                  ></Card>
+                </div>)}
+            {isAdmin && (
               <>
-                {window.location.href !== "http://localhost:3000/repositories" && (
-                  <div className="col">
-                    <Card
-                      title={`Create ${props.page}`}
-                      description={""}
-                      url={`/${props.page}/register`}
-                      image={"bi bi-person-fill-add"}
-                    ></Card>
-                  </div>)}
+                {window.location.href !== "http://localhost:3000/repositories" &&
+                  window.location.href !== "http://localhost:3000/projects" &&
+                  window.location.href !== "http://localhost:3000/groups" && (
+                    <div className="col">
+                      <Card
+                        title={`Create ${props.page}`}
+                        description={""}
+                        url={`/${props.page}/register`}
+                        image={"bi bi-person-fill-add"}
+                      ></Card>
+                    </div>)}
                 <div className="col">
                   <Card
                     title={`Delete ${props.page}`}
@@ -58,21 +68,22 @@ const PageComponent = (props) => {
                     image={"bi bi-person-fill-x"}
                   ></Card>
                 </div>
-                {window.location.href !== "http://localhost:3000/commissions" &&
-                  window.location.href !== "http://localhost:3000/students" &&
-                  window.location.href !== "http://localhost:3000/repositories" && (
-                    <div className="col">
-                      <Card
-                        title={`Update ${props.page}`}
-                        description={""}
-                        url={`/${props.page}/update`}
-                        image={"bi bi-person-fill-gear"}
-                      ></Card>
-                    </div>)}
+                {window.location.href === "http://localhost:3000/matters" && (
+                  <div className="col">
+                    <Card
+                      title={`Update ${props.page}`}
+                      description={""}
+                      url={`/${props.page}/update`}
+                      image={"bi bi-person-fill-gear"}
+                    ></Card>
+                  </div>)}
               </>
             )}
-            {(window.location.href === "http://localhost:3000/students" ||
-              window.location.href === "http://localhost:3000/repositories") && (
+            {(window.location.href === "http://localhost:3000/repositories" ||
+              window.location.href === "http://localhost:3000/groups" ||
+              (!isTeacher && (window.location.href === "http://localhost:3000/projects" ||
+                window.location.href === "http://localhost:3000/students")) ||
+              (!isStudent && window.location.href === "http://localhost:3000/teachers")) && (
                 <div className="col">
                   <Card
                     title={`Update ${props.page}`}
@@ -89,9 +100,9 @@ const PageComponent = (props) => {
                 image={"bi bi-person-vcard-fill"}
               ></Card>
             </div>
-            {isTeacher &&
-              window.location.href === "http://localhost:3000/students" && (
-                <>
+            {window.location.href === "http://localhost:3000/students" && (
+              <>
+                {!isTeacher && (
                   <div className="col">
                     <Card
                       title={"Add project"}
@@ -100,6 +111,8 @@ const PageComponent = (props) => {
                       image={"bi bi-file-earmark-plus-fill"}
                     ></Card>
                   </div>
+                )}
+                {!isStudent && (
                   <div className="col">
                     <Card
                       title={"Add comments to student"}
@@ -108,9 +121,10 @@ const PageComponent = (props) => {
                       image={"bi bi-clipboard-plus-fill"}
                     ></Card>
                   </div>
-                </>
-              )}
-            {isTeacher &&
+                )}
+              </>
+            )}
+            {!isStudent &&
               window.location.href === "http://localhost:3000/commissions" && (
                 <>
                   <div className="col">
@@ -129,22 +143,26 @@ const PageComponent = (props) => {
                       image={"bi bi-person-x"}
                     ></Card>
                   </div>
-                  <div className="col">
-                    <Card
-                      title={"Add teacher"}
-                      description={""}
-                      url={`/${props.page}/addTeacher`}
-                      image={"bi bi-person-plus-fill"}
-                    ></Card>
-                  </div>
-                  <div className="col">
-                    <Card
-                      title={"Remove teacher"}
-                      description={""}
-                      url={`/${props.page}/removeTeacher`}
-                      image={"bi bi-person-x-fill"}
-                    ></Card>
-                  </div>
+                  {isAdmin && (
+                    <>
+                      <div className="col">
+                        <Card
+                          title={"Add teacher"}
+                          description={""}
+                          url={`/${props.page}/addTeacher`}
+                          image={"bi bi-person-plus-fill"}
+                        ></Card>
+                      </div>
+                      <div className="col">
+                        <Card
+                          title={"Remove teacher"}
+                          description={""}
+                          url={`/${props.page}/removeTeacher`}
+                          image={"bi bi-person-x-fill"}
+                        ></Card>
+                      </div>
+                    </>
+                  )}
                   <div className="col">
                     <Card
                       title={"Add group"}
@@ -163,7 +181,7 @@ const PageComponent = (props) => {
                   </div>
                 </>
               )}
-            {isTeacher &&
+            {!isTeacher &&
               window.location.href === "http://localhost:3000/projects" && (
                 <div className="col">
                   <Card
@@ -174,35 +192,34 @@ const PageComponent = (props) => {
                   ></Card>
                 </div>
               )}
-            {isTeacher &&
-              window.location.href === "http://localhost:3000/groups" && (
-                <>
-                  <div className="col">
-                    <Card
-                      title={`Add member`}
-                      description={""}
-                      url={`/${props.page}/addMember`}
-                      image={"bi bi-person-add"}
-                    ></Card>
-                  </div>
-                  <div className="col">
-                    <Card
-                      title={`Remove member`}
-                      description={""}
-                      url={`/${props.page}/removeMember`}
-                      image={"bi bi-person-x"}
-                    ></Card>
-                  </div>
-                  <div className="col">
-                    <Card
-                      title={`Add project`}
-                      description={""}
-                      url={`/${props.page}/addProject`}
-                      image={"bi bi-file-earmark-plus-fill"}
-                    ></Card>
-                  </div>
-                </>
-              )}
+            {window.location.href === "http://localhost:3000/groups" && (
+              <>
+                <div className="col">
+                  <Card
+                    title={`Add member`}
+                    description={""}
+                    url={`/${props.page}/addMember`}
+                    image={"bi bi-person-add"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Remove member`}
+                    description={""}
+                    url={`/${props.page}/removeMember`}
+                    image={"bi bi-person-x"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Add project`}
+                    description={""}
+                    url={`/${props.page}/addProject`}
+                    image={"bi bi-file-earmark-plus-fill"}
+                  ></Card>
+                </div>
+              </>
+            )}
           </div>
           <props.data />
         </>
