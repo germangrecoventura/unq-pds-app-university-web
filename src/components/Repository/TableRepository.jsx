@@ -52,7 +52,7 @@ const TableRepository = (props) => {
   function pullRequests() {
     return props.repository.pullRequests.map((pr) => (
       <h6 key={pr.id}>
-        <Link to={pr.url}>{pr.id}</Link>
+        <Link to={pr.url}>{pr.title}</Link>
       </h6>
     ));
   }
