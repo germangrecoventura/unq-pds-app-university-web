@@ -124,7 +124,7 @@ const PageAddComment = (props) => {
                                     </label>
                                 </div>
                                 <div className="col-md-6">
-                                    <input
+                                    <textarea
                                         type="text"
                                         id="inputComment"
                                         className="form-control"
