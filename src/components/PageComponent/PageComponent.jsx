@@ -117,7 +117,7 @@ const PageComponent = (props) => {
                     <Card
                       title={"Add comments to student"}
                       description={""}
-                      url={`/${props.page}/get`}
+                      url={`/${props.page}/addComment`}
                       image={"bi bi-clipboard-plus-fill"}
                     ></Card>
                   </div>
@@ -218,6 +218,16 @@ const PageComponent = (props) => {
                     image={"bi bi-file-earmark-plus-fill"}
                   ></Card>
                 </div>
+                {!isStudent && (
+                  <div className="col">
+                    <Card
+                      title={"Add comments to group"}
+                      description={""}
+                      url={`/${props.page}/addComment`}
+                      image={"bi bi-clipboard-plus-fill"}
+                    ></Card>
+                  </div>
+                )}
               </>
             )}
           </div>

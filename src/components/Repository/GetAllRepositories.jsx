@@ -23,6 +23,7 @@ export default function GetAllRepositories() {
               <th>Issues</th>
               <th>Pull requests</th>
               <th>Tags</th>
+              <th>Comments</th>
             </tr>
             {repositories.sort(function (a, b) {
               return a.id - b.id;
@@ -36,6 +37,7 @@ export default function GetAllRepositories() {
                   <td>{repository.issues.length}</td>
                   <td>{repository.pullRequests.length}</td>
                   <td>{repository.tags.length}</td>
+                  <td>{repository.commentsTeacher.length}</td>
                 </tr>
               ))}
           </thead>

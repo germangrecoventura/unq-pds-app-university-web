@@ -73,6 +73,14 @@ const TableRepository = (props) => {
     ));
   }
 
+  function comments() {
+    return props.repository.commentsTeacher.map((comment) => (
+      <h6 key={comment.id}>
+        {comment.comment}
+      </h6>
+    ));
+  }
+
   return (
     <>
       <table className="TableGet">
@@ -85,6 +93,7 @@ const TableRepository = (props) => {
             <th>Issues</th>
             <th>Pull requests</th>
             <th>Tags</th>
+            <th>Comments</th>
           </tr>
           <tr>
             <td>{props.repository.id}</td>
@@ -94,6 +103,7 @@ const TableRepository = (props) => {
             <td>{props.repository.issues.length}</td>
             <td>{props.repository.pullRequests.length}</td>
             <td>{props.repository.tags.length}</td>
+            <td>{props.repository.commentsTeacher.length}</td>
           </tr>
         </thead>
       </table>
@@ -165,6 +175,16 @@ const TableRepository = (props) => {
           )}
         </>
       )}
+      <table className="TableData">
+        <thead>
+          <tr>
+            <th>Comments</th>
+          </tr>
+          <tr>
+            <td>{comments()}</td>
+          </tr>
+        </thead>
+      </table>
     </>
   );
 };
