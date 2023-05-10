@@ -10,20 +10,24 @@ const PageRemove = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
-        setUser(response.data);
+        setIsAdmin(response.data.role === "ADMIN");
         setIsTeacher(response.data.role === "TEACHER");
+        setIsStudent(response.data.role === "STUDENT");
       })
       .catch((error) => {
+        setIsAdmin(false);
         setIsTeacher(false);
+        setIsStudent(false);
       })
-      .finally(() => {});
+      .finally(() => { });
   }, []);
 
   const resetForm = () => {
@@ -67,7 +71,7 @@ const PageRemove = (props) => {
               .finally(() => {
                 setIsSubmitting(false);
               });
-              break;
+            break;
           case "Teacher":
             API.removeTeacher(idEntityA, idEntityB)
               .then((response) => {
@@ -81,7 +85,7 @@ const PageRemove = (props) => {
               .finally(() => {
                 setIsSubmitting(false);
               });
-              break;
+            break;
           default:
             API.removeGroup(idEntityA, idEntityB)
               .then((response) => {
@@ -95,7 +99,7 @@ const PageRemove = (props) => {
               .finally(() => {
                 setIsSubmitting(false);
               });
-              break;
+            break;
         }
         break;
     }
@@ -109,67 +113,71 @@ const PageRemove = (props) => {
         </div>
       )}
 
-      {user && !isTeacher && (
-        <div className="alert alert-danger" role="alert">
-          You do not have permissions to access this resource
-        </div>
-      )}
+      {((!isAdmin && window.location.href === "http://localhost:3000/commission/removeTeacher") ||
+        (isStudent && (window.location.href === "http://localhost:3000/commission/removeStudent" ||
+          window.location.href === "http://localhost:3000/commission/removeGroup"))) && (
+          <div className="alert alert-danger" role="alert">
+            You do not have permissions to access this resource
+          </div>
+        )}
 
-      {user && isTeacher && (
-        <>
-          <h5 className="title">Remove {props.entityB} from {props.entityA} form</h5>
-          <form onSubmit={handleSubmit}>
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputIdEntityA" className="col-form-label">
-                    Id {props.entityA}:
-                  </label>
+      {(isAdmin ||
+        (isTeacher && window.location.href !== "http://localhost:3000/commission/removeTeacher") ||
+        (isStudent && window.location.href === "http://localhost:3000/group/removeMember")) && (
+          <>
+            <h5 className="title">Remove {props.entityB} from {props.entityA} form</h5>
+            <form onSubmit={handleSubmit}>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputIdEntityA" className="col-form-label">
+                      Id {props.entityA}:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="number"
+                      id="inputIdEntityA"
+                      className="form-control"
+                      required={true}
+                      onChange={(e) => setIdEntityA(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div className="col-md-6">
-                  <input
-                    type="number"
-                    id="inputIdEntityA"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setIdEntityA(e.target.value)}
-                  />
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputIdEntityB" className="col-form-label">
+                      Id {props.entityB}:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="number"
+                      id="inputIdEntityB"
+                      className="form-control"
+                      required={true}
+                      onChange={(e) => setIdEntityB(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputIdEntityB" className="col-form-label">
-                    Id {props.entityB}:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="number"
-                    id="inputIdEntityB"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setIdEntityB(e.target.value)}
-                  />
-                </div>
+
+              <div className="mb-3">
+                <FormErrors errors={Object.entries(formErrors)}></FormErrors>
               </div>
-            </div>
 
-            <div className="mb-3">
-              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-            </div>
-
-            <div className="modal-footer">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn btn-primary"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </>
-      )}
+              <div className="modal-footer">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </>
+        )}
     </div>
   );
 };

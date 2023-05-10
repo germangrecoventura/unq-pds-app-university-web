@@ -21,6 +21,7 @@ import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdate
 import GetAllRepositories from "./components/Repository/GetAllRepositories";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
+import PageAddComment from "./components/ParameterizedPage/PageAddComment";
 
 const App = () => {
   return (
@@ -69,7 +70,8 @@ const App = () => {
               path="/student/delete"
               element={<PageDelete page={"Student"} />}
             />
-            <Route path="student/addProject" element={<PageAdd entityA="Student" entityB="Project" />} />
+            <Route path="/student/addProject" element={<PageAdd entityA="Student" entityB="Project" />} />
+            <Route path="/student/addComment" element={<PageAddComment entityToComment="Student" />} />
             <Route
               path="/groups"
               element={
@@ -86,6 +88,7 @@ const App = () => {
             <Route path="/group/addMember" element={<PageAdd entityA="Group" entityB="Student" />} />
             <Route path="/group/removeMember" element={<PageRemove entityA="Group" entityB="Student" />} />
             <Route path="/group/addProject" element={<PageAdd entityA="Group" entityB="Project" />} />
+            <Route path="/group/addComment" element={<PageAddComment entityToComment="Group" />} />
             <Route
               path="/commissions"
               element={

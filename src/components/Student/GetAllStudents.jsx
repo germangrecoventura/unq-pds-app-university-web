@@ -5,14 +5,6 @@ import "./Student.css";
 export default function GetAllStudents() {
     const [students, setStudents] = useState([]);
 
-    function projects(student) {
-        return student.projects.map((project) => (
-          <h6 key={project.id}>
-            {project.name}
-          </h6>
-        ));
-    }
-
     useEffect(() => {
         API.getAllStudents().then(response => setStudents(response.data));
     }, []);
@@ -35,7 +27,7 @@ export default function GetAllStudents() {
                             <td>{student.firstName}</td>
                             <td>{student.lastName}</td>
                             <td>{student.email}</td>
-                            <td>{projects(student)}</td>
+                            <td>{student.projects.length}</td>
                         </tr>
                     ))}
                 </thead>

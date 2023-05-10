@@ -4,24 +4,20 @@ import FormErrors from "../FormErrors";
 import API from "../../services/API";
 import Cookies from "js-cookie";
 
-const RegisterOrUpdateRepository = (props) => {
-    const [name, setName] = useState("");
-    const [owner, setOwner] = useState("");
+const PageAddComment = (props) => {
+    const [idToComment, setIdToComment] = useState("");
+    const [nameRepository, setNameRepository] = useState("");
+    const [comment, setComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrors, setFormErrors] = useState("");
     let navigate = useNavigate();
-    const [user, setUser] = useState(null);
     const [isStudent, setIsStudent] = useState(false);
     let cookies = Cookies.get("jwt");
 
     useEffect(() => {
         API.getUser()
             .then((response) => {
-                setUser(response.data);
                 setIsStudent(response.data.role === "STUDENT");
-                if (response.data.role === "STUDENT") {
-                    setOwner(response.data.ownerGithub);
-                }
             })
             .catch((error) => {
                 setIsStudent(false);
@@ -30,18 +26,19 @@ const RegisterOrUpdateRepository = (props) => {
     }, []);
 
     const resetForm = () => {
-        setName("");
-        setOwner("");
-        setFormErrors("");
+        setIdToComment("");
+        setNameRepository("");
+        setComment("");
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setFormErrors("");
         setIsSubmitting(true);
-        switch (props.operation) {
-            case "registration":
-                API.createRepository(name, owner)
+
+        switch (props.entityToComment) {
+            case "Student":
+                API.addCommentToStudent(idToComment, nameRepository, comment)
                     .then((response) => {
                         resetForm();
                         setIsSubmitting(false);
@@ -55,7 +52,7 @@ const RegisterOrUpdateRepository = (props) => {
                     });
                 break;
             default:
-                API.updateRepository(name, owner)
+                API.addCommentToGroup(idToComment, nameRepository, comment)
                     .then((response) => {
                         resetForm();
                         setIsSubmitting(false);
@@ -78,55 +75,63 @@ const RegisterOrUpdateRepository = (props) => {
                     Please login to access resources
                 </div>
             )}
-
-            {user && (
+            {isStudent && (
+                <div className="alert alert-danger" role="alert">
+                    You do not have permissions to access this resource
+                </div>
+            )}
+            {!isStudent && (
                 <>
-                    <h5 className="title">Repository {props.operation} form</h5>
+                    <h5 className="title">Add comment to {props.entityToComment} form</h5>
                     <form onSubmit={handleSubmit}>
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-md-4">
-                                    <label htmlFor="inputName" className="col-form-label">
-                                        Name:
+                                    <label htmlFor="inputIdToComment" className="col-form-label">
+                                        Id {props.entityToComment}:
                                     </label>
                                 </div>
                                 <div className="col-md-6">
                                     <input
-                                        type="text"
-                                        id="inputName"
+                                        type="number"
+                                        id="inputIdToComment"
                                         className="form-control"
                                         required={true}
-                                        onChange={(e) => setName(e.target.value)}
+                                        onChange={(e) => setIdToComment(e.target.value)}
                                     />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-4">
-                                    <label htmlFor="inputOwner" className="col-form-label">
-                                        Owner:
+                                    <label htmlFor="inputNameRepository" className="col-form-label">
+                                        Name Repository:
                                     </label>
                                 </div>
-                                {!isStudent && (
-                                    <div className="col-md-6">
-                                        <input
-                                            type="text"
-                                            id="inputOwner"
-                                            className="form-control"
-                                            required={true}
-                                            onChange={(e) => setOwner(e.target.value)}
-                                        />
-                                    </div>)}
-                                {isStudent && (
-                                    <div className="col-md-6">
-                                        <input
-                                            type="text"
-                                            id="inputOwner"
-                                            className="form-control-plaintext"
-                                            required={true}
-                                            value={owner}
-                                            readOnly
-                                        />
-                                    </div>)}
+                                <div className="col-md-6">
+                                    <input
+                                        type="text"
+                                        id="inputNameRepository"
+                                        className="form-control"
+                                        required={true}
+                                        onChange={(e) => setNameRepository(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <label htmlFor="inputComment" className="col-form-label">
+                                        Comment:
+                                    </label>
+                                </div>
+                                <div className="col-md-6">
+                                    <textarea
+                                        type="text"
+                                        id="inputComment"
+                                        className="form-control"
+                                        required={true}
+                                        onChange={(e) => setComment(e.target.value)}
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className="mb-3">
@@ -148,4 +153,4 @@ const RegisterOrUpdateRepository = (props) => {
     );
 };
 
-export default RegisterOrUpdateRepository;
+export default PageAddComment;

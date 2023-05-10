@@ -5,14 +5,6 @@ import "./Commission.css";
 export default function GetAllCommissions() {
   const [commissions, setCommissions] = useState([]);
 
-  function teachers(commission) {
-    return commission.teachers.map((teacher) => (
-      <h6 key={teacher.id}>
-        {teacher.firstName} {teacher.lastName}
-      </h6>
-    ));
-  }
-
   useEffect(() => {
     API.getAllCommissions().then((response) => setCommissions(response.data));
   }, []);
@@ -27,7 +19,9 @@ export default function GetAllCommissions() {
               <th>Year</th>
               <th>Four month period</th>
               <th>Matter</th>
+              <th>Students</th>
               <th>Teachers</th>
+              <th>Groups</th>
             </tr>
             {commissions.sort(function (a, b) {
               return a.id - b.id;
@@ -38,7 +32,9 @@ export default function GetAllCommissions() {
                   <td>{commission.year}</td>
                   <td>{commission.fourMonthPeriod}</td>
                   <td>{commission.matter.name}</td>
-                  <td>{teachers(commission)}</td>
+                  <td>{commission.students.length}</td>
+                  <td>{commission.teachers.length}</td>
+                  <td>{commission.groupsStudents.length}</td>
                 </tr>
               ))}
           </thead>
