@@ -140,13 +140,12 @@ const API = {
   deleteRepository: (id) => axios.delete(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
   getAllRepositories: () => axios.get(`${baseURL}/repositories/getAll`, { withCredentials: true }),
   // USERS
-  login: (email, password, role) =>
+  login: (email, password) =>
     axios.post(
       `${baseURL}/login`,
       {
         email: email,
         password: password,
-        role: role,
       },
       { withCredentials: true }
     ),
