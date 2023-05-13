@@ -210,7 +210,7 @@ const PageGet = (props) => {
             <TableRepository repository={entity} />
           )} */}
 
-          {isFind && props.page === "Repository" && <GetRepositoryPaginated />}
+          {isFind && props.page === "Repository" && <GetRepositoryPaginated repository={entity}/>}
         </>
       )}
     </div>

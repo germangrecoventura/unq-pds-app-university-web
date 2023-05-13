@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import API from "../../services/API";
 import { Link } from "react-router-dom";
 
-const GetRepositoryPaginated = () => {
+const GetRepositoryPaginated = (props) => {
   const [user, setUser] = useState(null);
-  const [pageCommit, setPageCommit] = useState(null);
+  const [pageCommitActual, setPageCommitActual] = useState(null);
+  const [numberPageCommitActual, setNumberPageCommitActual] = useState(0);
+  const [numberPagesCommit, setNumberPagesCommit] = useState(null);
+
+  const [pageIssueActual, setPageIssueActual] = useState(null);
+  const [numberPageIssueActual, setNumberPageIssueActual] = useState(0);
+  const [numberPagesIssue, setNumberPagesIssue] = useState(null);
+
+  const [pagePullRequestActual, setPagePullRequestActual] = useState(null);
+  const [numberPagePullRequestActual, setNumberPagePullRequestActual] =
+    useState(0);
+  const [numberPagesPullRequest, setNumberPagesPullRequest] = useState(null);
   const sizePage = 5;
-  const [actualPage, setActualPage] = useState(0);
-  const [numberPages, setNumberPages] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     API.getUser().then((response) => {
@@ -17,23 +25,55 @@ const GetRepositoryPaginated = () => {
   }, []);
 
   useEffect(() => {
-    API.getLengthPagesPaginatedCommit(
-      "unq-pds-app-university-api",
-      sizePage
-    ).then((response) => setNumberPages(response.data));
+    API.getLengthPagesPaginatedCommit(props.repository.name, sizePage).then(
+      (response) => setNumberPagesCommit(response.data)
+    );
     API.getPaginatedCommit(
-      "unq-pds-app-university-api",
-      actualPage,
+      props.repository.name,
+      numberPageCommitActual,
       sizePage
     ).then((response) => {
-      setPageCommit(response.data);
+      setPageCommitActual(response.data);
     });
-  }, [pageCommit]);
+  }, [pageCommitActual]);
+
+  useEffect(() => {
+    API.getLengthPagesPaginatedIssue(props.repository.name, sizePage).then(
+      (response) => setNumberPagesIssue(response.data)
+    );
+    API.getPaginatedIssue(
+      props.repository.name,
+      numberPageIssueActual,
+      sizePage
+    ).then((response) => {
+      setPageIssueActual(response.data);
+    });
+  }, [pageIssueActual]);
+
+  useEffect(() => {
+    API.getLengthPagesPaginatedPullRequest(
+      props.repository.name,
+      sizePage
+    ).then((response) => setNumberPagesPullRequest(response.data));
+    API.getPaginatedPullRequest(
+      props.repository.name,
+      numberPagePullRequestActual,
+      sizePage
+    ).then((response) => {
+      setPagePullRequestActual(response.data);
+    });
+  }, [pagePullRequestActual]);
+
+  function branches() {
+    return props.repository.branches.map((branch) => (
+      <h6 key={branch.id}>{branch.name}</h6>
+    ));
+  }
 
   function commits() {
     return (
-      pageCommit &&
-      pageCommit.content.map((commit) => (
+      pageCommitActual &&
+      pageCommitActual.content.map((commit) => (
         <h6 key={commit.nodeId}>
           <Link to={commit.url}>{commit.name}</Link>
         </h6>
@@ -41,12 +81,104 @@ const GetRepositoryPaginated = () => {
     );
   }
 
-  const getPages = () => {
+  function issues() {
+    return (
+      pageIssueActual &&
+      pageIssueActual.content.map((issue) => (
+        <h6 key={issue.id}>
+          <Link to={issue.url}>{issue.title}</Link>
+        </h6>
+      ))
+    );
+  }
+
+  function issuesStatus() {
+    return (
+      pageIssueActual &&
+      pageIssueActual.content.map((issue) => (
+        <h6 key={issue.id}>{issue.status}</h6>
+      ))
+    );
+  }
+
+  function pullRequests() {
+    return (
+      pagePullRequestActual &&
+      pagePullRequestActual.content.map((pr) => (
+        <h6 key={pr.id}>
+          <Link to={pr.url}>{pr.title}</Link>
+        </h6>
+      ))
+    );
+  }
+
+  function pullRequestsStatus() {
+    return (
+      pagePullRequestActual &&
+      pagePullRequestActual.content.map((pr) => (
+        <h6 key={pr.id}>{pr.status}</h6>
+      ))
+    );
+  }
+
+  function tags() {
+    return props.repository.tags.map((tag) => (
+      <h6 key={tag.nodeId}>
+        {tag.name} <Link to={tag.zipUrl}>Zip</Link>{" "}
+        <Link to={tag.tarUrl}>Tar</Link>
+      </h6>
+    ));
+  }
+
+  function comments() {
+    return props.repository.commentsTeacher.map((comment) => (
+      <h6 key={comment.id}>{comment.comment}</h6>
+    ));
+  }
+
+  const getPagesCommit = () => {
     let list = [];
-    for (let step = 0; step < numberPages; step++) {
+    for (let step = 0; step < numberPagesCommit; step++) {
       list.push(
         <li class="page-item">
-          <a class="page-link pointer" onClick={() => setActualPage(step)}>
+          <a
+            class="page-link pointer"
+            onClick={() => setNumberPageCommitActual(step)}
+          >
+            {step}
+          </a>
+        </li>
+      );
+    }
+    return list;
+  };
+
+  const getPagesIssue = () => {
+    let list = [];
+    for (let step = 0; step < numberPagesIssue; step++) {
+      list.push(
+        <li class="page-item">
+          <a
+            class="page-link pointer"
+            onClick={() => setNumberPageIssueActual(step)}
+          >
+            {step}
+          </a>
+        </li>
+      );
+    }
+    return list;
+  };
+
+  const getPagesPullRequest = () => {
+    let list = [];
+    for (let step = 0; step < numberPagesPullRequest; step++) {
+      list.push(
+        <li class="page-item">
+          <a
+            class="page-link pointer"
+            onClick={() => setNumberPagePullRequestActual(step)}
+          >
             {step}
           </a>
         </li>
@@ -62,37 +194,166 @@ const GetRepositoryPaginated = () => {
           class="btn btn-primary"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#collapseExample"
+          data-bs-target="#branch"
           aria-expanded="false"
-          aria-controls="collapseExample"
+          aria-controls="branch"
+        >
+          Branches
+        </button>
+      </p>
+      <p>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#commit"
+          aria-expanded="false"
+          aria-controls="commit"
         >
           Commits
         </button>
       </p>
-      <div class="collapse" id="collapseExample">
-        {isLoading && (
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        )}
-        {!isLoading && (
-          <table className="TableData">
-            <thead>
-              <tr>
-                <th>Commits</th>
-              </tr>
-              <tr>
-                <td>{commits()}</td>
-              </tr>
-            </thead>
-          </table>
-        )}
+      <p>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#issue"
+          aria-expanded="false"
+          aria-controls="issue"
+        >
+          Issues
+        </button>
+      </p>
+      <p>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#pullRequest"
+          aria-expanded="false"
+          aria-controls="pullRequest"
+        >
+          Pull Requests
+        </button>
+      </p>
+      <p>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#tag"
+          aria-expanded="false"
+          aria-controls="tag"
+        >
+          Tags
+        </button>
+      </p>
+      <p>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#comments"
+          aria-expanded="false"
+          aria-controls="comments"
+        >
+          Comments
+        </button>
+      </p>
 
+      <div class="collapse" id="branch">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Branches</th>
+            </tr>
+            <tr>
+              <td>{branches()}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="collapse" id="commit">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Commits</th>
+            </tr>
+            <tr>
+              <td>{commits()}</td>
+            </tr>
+          </thead>
+        </table>
         <nav aria-label="Page navigation example">
-          <ul class="pagination">{getPages().map((index) => index)}</ul>
+          <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
         </nav>
       </div>
-      {/*    {page && page.content.length} */}
+
+      <div class="collapse" id="issue">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Issues</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>{issues()}</td>
+              <td>{issuesStatus()}</td>
+            </tr>
+          </thead>
+        </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
+        </nav>
+      </div>
+
+      <div class="collapse" id="pullRequest">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Pull requests</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>{pullRequests()}</td>
+              <td>{pullRequestsStatus()}</td>
+            </tr>
+          </thead>
+        </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {getPagesPullRequest().map((index) => index)}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="collapse" id="tag">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Tags</th>
+            </tr>
+            <tr>
+              <td>{tags()}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="collapse" id="comments">
+        <table className="TableData">
+          <thead>
+            <tr>
+              <th>Comments</th>
+            </tr>
+            <tr>
+              <td>{comments()}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   );
 };

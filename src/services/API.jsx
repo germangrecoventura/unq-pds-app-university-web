@@ -272,6 +272,30 @@ const API = {
       {},
       { withCredentials: true }
     ),
+  getLengthPagesPaginatedIssue: (name, size) =>
+    axios.get(
+      `${baseURL}/repositories/lengthPagesPaginatedIssue?name=${name}&size=${size}`,
+      { withCredentials: true }
+    ),
+
+  getPaginatedIssue: (name, page, elementPage) =>
+    axios.get(
+      `${baseURL}/repositories/pageIssue?name=${name}&page=${page}&size=${elementPage}`,
+      {},
+      { withCredentials: true }
+    ),
+  getLengthPagesPaginatedPullRequest: (name, size) =>
+    axios.get(
+      `${baseURL}/repositories/lengthPagesPaginatedPullRequest?name=${name}&size=${size}`,
+      { withCredentials: true }
+    ),
+
+  getPaginatedPullRequest: (name, page, elementPage) =>
+    axios.get(
+      `${baseURL}/repositories/pagePullRequest?name=${name}&page=${page}&size=${elementPage}`,
+      {},
+      { withCredentials: true }
+    ),
 
   // USERS
   login: (email, password) =>
