@@ -24,3 +24,8 @@ tbody tr, td {
     border-collapse: collapse;
     border: 3px solid rgb(107, 44, 44);
 }
+
+
+.pointer{
+    cursor: pointer;
+}

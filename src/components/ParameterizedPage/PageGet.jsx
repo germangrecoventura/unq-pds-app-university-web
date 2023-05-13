@@ -9,6 +9,7 @@ import TableGroup from "../Group/TableGroup";
 import TableCommission from "../Commission/TableCommission";
 import TableProject from "../Project/TableProject";
 import TableRepository from "../Repository/TableRepository";
+import GetRepositoryPaginated from "../Repository/GetRepositoryPaginated";
 
 const PageGet = (props) => {
   const [id, setId] = useState("");
@@ -20,10 +21,9 @@ const PageGet = (props) => {
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
-    API.getUser()
-      .then((response) => {
-        setUser(response.data);
-      })
+    API.getUser().then((response) => {
+      setUser(response.data);
+    });
   }, []);
 
   const resetForm = () => {
@@ -43,7 +43,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -58,7 +57,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -73,7 +71,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -88,7 +85,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -103,7 +99,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -118,7 +113,7 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
+
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -133,7 +128,6 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            resetForm();
             setIsSubmitting(false);
           })
           .catch((error) => {
@@ -192,33 +186,31 @@ const PageGet = (props) => {
             </div>
           </form>
 
-          { isFind && props.page === "Student" && (
+          {isFind && props.page === "Student" && (
             <TableStudent student={entity} />
           )}
 
-          { isFind && props.page === "Teacher" && (
+          {isFind && props.page === "Teacher" && (
             <TableTeacher teacher={entity} />
           )}
 
-          { isFind && props.page === "Matter" && (
-            <TableMatter matter={entity} />
-          )}
+          {isFind && props.page === "Matter" && <TableMatter matter={entity} />}
 
-          { isFind && props.page === "Group" && (
-            <TableGroup group={entity} />
-          )}
+          {isFind && props.page === "Group" && <TableGroup group={entity} />}
 
-          { isFind && props.page === "Commission" && (
+          {isFind && props.page === "Commission" && (
             <TableCommission commission={entity} />
           )}
 
-          { isFind && props.page === "Project" && (
+          {isFind && props.page === "Project" && (
             <TableProject project={entity} />
           )}
 
-          { isFind && props.page === "Repository" && (
+          {/*  { isFind && props.page === "Repository" && (
             <TableRepository repository={entity} />
-          )}
+          )} */}
+
+          {isFind && props.page === "Repository" && <GetRepositoryPaginated />}
         </>
       )}
     </div>
