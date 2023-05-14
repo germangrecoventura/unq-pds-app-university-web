@@ -105,7 +105,7 @@ const GetRepositoryPaginated = (props) => {
   function pullRequests() {
     return (
       pagePullRequestActual &&
-      pagePullRequestActual.content.map((pr) => (
+      pagePullRequestActual.map((pr) => (
         <h6 key={pr.id}>
           <Link to={pr.url}>{pr.title}</Link>
         </h6>
@@ -116,7 +116,7 @@ const GetRepositoryPaginated = (props) => {
   function pullRequestsStatus() {
     return (
       pagePullRequestActual &&
-      pagePullRequestActual.content.map((pr) => (
+      pagePullRequestActual.map((pr) => (
         <h6 key={pr.id}>{pr.status}</h6>
       ))
     );
