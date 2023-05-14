@@ -26,11 +26,6 @@ const PageGet = (props) => {
     });
   }, []);
 
-  const resetForm = () => {
-    setId("");
-    setFormErrors("");
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors("");
@@ -210,7 +205,12 @@ const PageGet = (props) => {
             <TableRepository repository={entity} />
           )} */}
 
-          {isFind && props.page === "Repository" && <GetRepositoryPaginated repository={entity}/>}
+          {isFind && props.page === "Repository" && (
+            <>
+              <TableRepository repository={entity} />
+              <GetRepositoryPaginated repository={entity} />
+            </>
+          )}
         </>
       )}
     </div>

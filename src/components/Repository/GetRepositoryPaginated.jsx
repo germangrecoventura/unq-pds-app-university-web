@@ -1,9 +1,10 @@
+import "./Repository.css";
 import { useEffect, useState } from "react";
 import API from "../../services/API";
 import { Link } from "react-router-dom";
 
 const GetRepositoryPaginated = (props) => {
-  const [user, setUser] = useState(null);
+  const [isStudent, setIsStudent] = useState(false);
   const [pageCommitActual, setPageCommitActual] = useState(null);
   const [numberPageCommitActual, setNumberPageCommitActual] = useState(0);
   const [numberPagesCommit, setNumberPagesCommit] = useState(null);
@@ -20,7 +21,7 @@ const GetRepositoryPaginated = (props) => {
 
   useEffect(() => {
     API.getUser().then((response) => {
-      setUser(response.data);
+      setIsStudent(response.data.role === "STUDENT");
     });
   }, []);
 
@@ -35,7 +36,7 @@ const GetRepositoryPaginated = (props) => {
     ).then((response) => {
       setPageCommitActual(response.data);
     });
-  }, [pageCommitActual]);
+  }, [pageCommitActual, numberPageCommitActual, props.repository.name]);
 
   useEffect(() => {
     API.getLengthPagesPaginatedIssue(props.repository.name, sizePage).then(
@@ -48,7 +49,7 @@ const GetRepositoryPaginated = (props) => {
     ).then((response) => {
       setPageIssueActual(response.data);
     });
-  }, [pageIssueActual]);
+  }, [pageIssueActual, numberPageIssueActual, props.repository.name]);
 
   useEffect(() => {
     API.getLengthPagesPaginatedPullRequest(
@@ -62,7 +63,7 @@ const GetRepositoryPaginated = (props) => {
     ).then((response) => {
       setPagePullRequestActual(response.data);
     });
-  }, [pagePullRequestActual]);
+  }, [pagePullRequestActual, numberPagePullRequestActual, props.repository.name]);
 
   function branches() {
     return props.repository.branches.map((branch) => (
@@ -189,171 +190,200 @@ const GetRepositoryPaginated = (props) => {
 
   return (
     <div className="container clearfix">
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#branch"
-          aria-expanded="false"
-          aria-controls="branch"
-        >
-          Branches
-        </button>
-      </p>
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#commit"
-          aria-expanded="false"
-          aria-controls="commit"
-        >
-          Commits
-        </button>
-      </p>
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#issue"
-          aria-expanded="false"
-          aria-controls="issue"
-        >
-          Issues
-        </button>
-      </p>
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#pullRequest"
-          aria-expanded="false"
-          aria-controls="pullRequest"
-        >
-          Pull Requests
-        </button>
-      </p>
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#tag"
-          aria-expanded="false"
-          aria-controls="tag"
-        >
-          Tags
-        </button>
-      </p>
-      <p>
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#comments"
-          aria-expanded="false"
-          aria-controls="comments"
-        >
-          Comments
-        </button>
-      </p>
-
-      <div class="collapse" id="branch">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Branches</th>
-            </tr>
-            <tr>
-              <td>{branches()}</td>
-            </tr>
-          </thead>
-        </table>
+      <div className="row buttons">
+        {!isStudent && (
+          <>
+            {props.repository.branches.length > 0 && (
+              <div className="col-md-2 text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#branch"
+                  aria-expanded="false"
+                  aria-controls="branch"
+                >
+                  Branches
+                </button>
+              </div>
+            )}
+            {props.repository.commits.length > 0 && (
+              <div className="col-md-2 text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#commit"
+                  aria-expanded="false"
+                  aria-controls="commit"
+                >
+                  Commits
+                </button>
+              </div>
+            )}
+            {props.repository.issues.length > 0 && (
+              <div className="col-md-2 text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#issue"
+                  aria-expanded="false"
+                  aria-controls="issue"
+                >
+                  Issues
+                </button>
+              </div>
+            )}
+            {props.repository.pullRequests.length > 0 && (
+              <div className="col-md-2 text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#pullRequest"
+                  aria-expanded="false"
+                  aria-controls="pullRequest"
+                >
+                  Pull Requests
+                </button>
+              </div>
+            )}
+            {props.repository.tags.length > 0 && (
+              <div className="col-md-2 text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#tag"
+                  aria-expanded="false"
+                  aria-controls="tag"
+                >
+                  Tags
+                </button>
+              </div>
+            )}
+          </>
+        )}
+        {props.repository.commentsTeacher.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#comments"
+              aria-expanded="false"
+              aria-controls="comments"
+            >
+              Comments
+            </button>
+          </div>
+        )}
       </div>
+      {props.repository.branches.length > 0 && (
+        <div class="collapse" id="branch">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Branches</th>
+              </tr>
+              <tr>
+                <td>{branches()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      )}
 
-      <div class="collapse" id="commit">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Commits</th>
-            </tr>
-            <tr>
-              <td>{commits()}</td>
-            </tr>
-          </thead>
-        </table>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
-        </nav>
-      </div>
+      {props.repository.commits.length > 0 && (
+        <div class="collapse" id="commit">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Commits</th>
+              </tr>
+              <tr>
+                <td>{commits()}</td>
+              </tr>
+            </thead>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
+          </nav>
+        </div>
+      )}
 
-      <div class="collapse" id="issue">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Issues</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>{issues()}</td>
-              <td>{issuesStatus()}</td>
-            </tr>
-          </thead>
-        </table>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
-        </nav>
-      </div>
+      {props.repository.issues.length >= 0 && (
+        <div class="collapse" id="issue">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Issues</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>{issues()}</td>
+                <td>{issuesStatus()}</td>
+              </tr>
+            </thead>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
+          </nav>
+        </div>
+      )}
 
-      <div class="collapse" id="pullRequest">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Pull requests</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>{pullRequests()}</td>
-              <td>{pullRequestsStatus()}</td>
-            </tr>
-          </thead>
-        </table>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            {getPagesPullRequest().map((index) => index)}
-          </ul>
-        </nav>
-      </div>
+      {props.repository.pullRequests.length > 0 && (
+        <div class="collapse" id="pullRequest">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Pull requests</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>{pullRequests()}</td>
+                <td>{pullRequestsStatus()}</td>
+              </tr>
+            </thead>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {getPagesPullRequest().map((index) => index)}
+            </ul>
+          </nav>
+        </div>
+      )}
 
-      <div class="collapse" id="tag">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Tags</th>
-            </tr>
-            <tr>
-              <td>{tags()}</td>
-            </tr>
-          </thead>
-        </table>
-      </div>
+      {props.repository.tags.length > 0 && (
+        <div class="collapse" id="tag">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Tags</th>
+              </tr>
+              <tr>
+                <td>{tags()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      )}
 
-      <div class="collapse" id="comments">
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Comments</th>
-            </tr>
-            <tr>
-              <td>{comments()}</td>
-            </tr>
-          </thead>
-        </table>
-      </div>
+      {props.repository.commentsTeacher.length > 0 && (
+        <div class="collapse" id="comments">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Comments</th>
+              </tr>
+              <tr>
+                <td>{comments()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
