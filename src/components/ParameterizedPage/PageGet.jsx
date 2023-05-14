@@ -201,10 +201,6 @@ const PageGet = (props) => {
             <TableProject project={entity} />
           )}
 
-          {/*  { isFind && props.page === "Repository" && (
-            <TableRepository repository={entity} />
-          )} */}
-
           {isFind && props.page === "Repository" && (
             <>
               <TableRepository repository={entity} />

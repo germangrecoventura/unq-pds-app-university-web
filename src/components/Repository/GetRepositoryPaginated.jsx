@@ -85,7 +85,7 @@ const GetRepositoryPaginated = (props) => {
   function issues() {
     return (
       pageIssueActual &&
-      pageIssueActual.content.map((issue) => (
+      pageIssueActual.map((issue) => (
         <h6 key={issue.id}>
           <Link to={issue.url}>{issue.title}</Link>
         </h6>
@@ -96,7 +96,7 @@ const GetRepositoryPaginated = (props) => {
   function issuesStatus() {
     return (
       pageIssueActual &&
-      pageIssueActual.content.map((issue) => (
+      pageIssueActual.map((issue) => (
         <h6 key={issue.id}>{issue.status}</h6>
       ))
     );
