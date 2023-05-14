@@ -74,7 +74,7 @@ const GetRepositoryPaginated = (props) => {
   function commits() {
     return (
       pageCommitActual &&
-      pageCommitActual.content.map((commit) => (
+      pageCommitActual.map((commit) => (
         <h6 key={commit.nodeId}>
           <Link to={commit.url}>{commit.name}</Link>
         </h6>
