@@ -10,7 +10,7 @@ const TableProject = (props) => {
       </h6>
     ));
   }
-  
+
   return (
     <>
       <table className="TableGet">
@@ -27,17 +27,35 @@ const TableProject = (props) => {
           </tr>
         </thead>
       </table>
+      <div className="row buttons">
+        {props.project.repositories.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#repository"
+              aria-expanded="false"
+              aria-controls="repository"
+            >
+              Repositories
+            </button>
+          </div>
+        )}
+      </div>
       {props.project.repositories.length > 0 && (
-        <table className="TableRepositories">
-          <thead>
-            <tr>
-              <th>Repositories</th>
-            </tr>
-            <tr>
-              <td>{repositories()}</td>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="repository">
+          <table className="TableRepositories">
+            <thead>
+              <tr>
+                <th>Repositories</th>
+              </tr>
+              <tr>
+                <td>{repositories()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
     </>
   );

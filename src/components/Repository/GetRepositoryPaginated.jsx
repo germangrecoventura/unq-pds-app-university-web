@@ -307,9 +307,11 @@ const GetRepositoryPaginated = (props) => {
               </tr>
             </thead>
           </table>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
-          </nav>
+          {numberPagesCommit > 1 && (
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
+            </nav>
+          )}
         </div>
       )}
 
@@ -319,7 +321,7 @@ const GetRepositoryPaginated = (props) => {
             <thead>
               <tr>
                 <th>Issues</th>
-                <th>Status</th>
+                <th style={{"width":"60px"}}>Status</th>
               </tr>
               <tr>
                 <td>{issues()}</td>
@@ -327,9 +329,11 @@ const GetRepositoryPaginated = (props) => {
               </tr>
             </thead>
           </table>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
-          </nav>
+          {numberPagesIssue > 1 && (
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
+            </nav>
+          )}
         </div>
       )}
 
@@ -339,7 +343,7 @@ const GetRepositoryPaginated = (props) => {
             <thead>
               <tr>
                 <th>Pull requests</th>
-                <th>Status</th>
+                <th style={{"width":"60px"}}>Status</th>
               </tr>
               <tr>
                 <td>{pullRequests()}</td>
@@ -347,11 +351,13 @@ const GetRepositoryPaginated = (props) => {
               </tr>
             </thead>
           </table>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              {getPagesPullRequest().map((index) => index)}
-            </ul>
-          </nav>
+          {numberPagesPullRequest > 1 && (
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {getPagesPullRequest().map((index) => index)}
+              </ul>
+            </nav>
+          )}
         </div>
       )}
 

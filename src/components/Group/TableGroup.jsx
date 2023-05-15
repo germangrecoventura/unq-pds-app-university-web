@@ -36,29 +36,63 @@ const TableGroup = (props) => {
           </tr>
         </thead>
       </table>
+      <div className="row buttons">
+        {props.group.members.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#member"
+              aria-expanded="false"
+              aria-controls="member"
+            >
+              Members
+            </button>
+          </div>
+        )}
+        {props.group.projects.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#project"
+              aria-expanded="false"
+              aria-controls="project"
+            >
+              Projects
+            </button>
+          </div>
+        )}
+      </div>
       {props.group.members.length > 0 && (
-        <table className="TableMembersOrProjects">
-          <thead>
-            <tr>
-              <th>Members</th>
-            </tr>
-            <tr>
-              <td>{members()}</td>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="member">
+          <table className="TableMembersOrProjects">
+            <thead>
+              <tr>
+                <th>Members</th>
+              </tr>
+              <tr>
+                <td>{members()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
       {props.group.projects.length > 0 && (
-        <table className="TableMembersOrProjects">
-          <thead>
-            <tr>
-              <th>Projects</th>
-            </tr>
-            <tr>
-              <td>{projects()}</td>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="project">
+          <table className="TableMembersOrProjects">
+            <thead>
+              <tr>
+                <th>Projects</th>
+              </tr>
+              <tr>
+                <td>{projects()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
     </>
   );

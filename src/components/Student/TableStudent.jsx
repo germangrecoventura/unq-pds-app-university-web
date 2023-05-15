@@ -31,17 +31,36 @@ const TableStudent = (props) => {
         </thead>
       </table>
 
+      <div className="row buttons">
+        {props.student.projects.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#project"
+              aria-expanded="false"
+              aria-controls="project"
+            >
+              Projects
+            </button>
+          </div>
+        )}
+      </div>
+
       {props.student.projects.length > 0 && (
-        <table className="TableProjects">
-          <thead>
-            <tr>
-              <th>Projects</th>
-            </tr>
-            <tr>
-              <td>{projects()}</td>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="project">
+          <table className="TableProjects">
+            <thead>
+              <tr>
+                <th>Projects</th>
+              </tr>
+              <tr>
+                <td>{projects()}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
     </>
   );
