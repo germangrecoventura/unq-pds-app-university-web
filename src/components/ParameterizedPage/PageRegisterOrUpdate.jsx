@@ -146,7 +146,7 @@ const PageRegisterOrUpdate = (props) => {
                 </div>
             )}
 
-            {((!isAdmin && (window.location.href === "http://localhost:3000/matter/register" ||
+            {cookies && ((!isAdmin && (window.location.href === "http://localhost:3000/matter/register" ||
                 window.location.href === "http://localhost:3000/matter/update")) ||
                 (isTeacher && window.location.href === "http://localhost:3000/project/update")) && (
                     <div className="alert alert-danger" role="alert">

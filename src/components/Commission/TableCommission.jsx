@@ -50,41 +50,91 @@ const TableCommission = (props) => {
           </tr>
         </thead>
       </table>
+      <div className="row buttons">
+        {props.commission.students.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#student"
+              aria-expanded="false"
+              aria-controls="student"
+            >
+              Students
+            </button>
+          </div>
+        )}
+        {props.commission.teachers.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#teacher"
+              aria-expanded="false"
+              aria-controls="teacher"
+            >
+              Teachers
+            </button>
+          </div>
+        )}
+        {props.commission.groupsStudents.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#group"
+              aria-expanded="false"
+              aria-controls="group"
+            >
+              Groups
+            </button>
+          </div>
+        )}
+      </div>
       {props.commission.students.length > 0 && (
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Students</th>
-            </tr>
-            <tr>
-              <th>{students()}</th>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="student">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Students</th>
+              </tr>
+              <tr>
+                <th>{students()}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
       {props.commission.teachers.length > 0 && (
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Teachers</th>
-            </tr>
-            <tr>
-              <th>{teachers()}</th>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="teacher">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Teachers</th>
+              </tr>
+              <tr>
+                <th>{teachers()}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
       {props.commission.groupsStudents.length > 0 && (
-        <table className="TableData">
-          <thead>
-            <tr>
-              <th>Groups</th>
-            </tr>
-            <tr>
-              <th>{groups()}</th>
-            </tr>
-          </thead>
-        </table>
+        <div className="collapse" id="group">
+          <table className="TableData">
+            <thead>
+              <tr>
+                <th>Groups</th>
+              </tr>
+              <tr>
+                <th>{groups()}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
     </>
   );

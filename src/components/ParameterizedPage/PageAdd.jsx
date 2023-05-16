@@ -164,7 +164,7 @@ const PageAdd = (props) => {
         </div>
       )}
 
-      {((!isAdmin && window.location.href === "http://localhost:3000/commission/addTeacher") ||
+      {cookies && ((!isAdmin && window.location.href === "http://localhost:3000/commission/addTeacher") ||
         (isTeacher && (window.location.href === "http://localhost:3000/student/addProject" ||
           window.location.href === "http://localhost:3000/project/addRepository")) ||
         (isStudent && (window.location.href === "http://localhost:3000/commission/addStudent" ||

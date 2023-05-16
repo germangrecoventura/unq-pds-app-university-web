@@ -113,7 +113,7 @@ const PageRemove = (props) => {
         </div>
       )}
 
-      {((!isAdmin && window.location.href === "http://localhost:3000/commission/removeTeacher") ||
+      {cookies && ((!isAdmin && window.location.href === "http://localhost:3000/commission/removeTeacher") ||
         (isStudent && (window.location.href === "http://localhost:3000/commission/removeStudent" ||
           window.location.href === "http://localhost:3000/commission/removeGroup"))) && (
           <div className="alert alert-danger" role="alert">
