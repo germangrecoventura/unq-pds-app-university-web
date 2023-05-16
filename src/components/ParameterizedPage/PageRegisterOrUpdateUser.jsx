@@ -11,7 +11,7 @@ const PageRegisterOrUpdateUser = (props) => {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [githubUser, setGithubUser] = useState("");
+    const [githubUser, setGithubUser] = useState(null);
     const [githubToken, setGithubToken] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrors, setFormErrors] = useState("");
@@ -35,7 +35,6 @@ const PageRegisterOrUpdateUser = (props) => {
                     setLastname(response.data.lastName);
                     setEmail(response.data.email);
                     setGithubUser(response.data.ownerGithub);
-                    setGithubToken(response.data.tokenGithub);
                 }
             })
             .catch((error) => {
@@ -52,7 +51,7 @@ const PageRegisterOrUpdateUser = (props) => {
         setLastname("");
         setEmail("");
         setPassword("");
-        setGithubUser("");
+        setGithubUser(null);
         setGithubToken(null);
         setFormErrors("");
     };
