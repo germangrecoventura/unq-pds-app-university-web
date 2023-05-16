@@ -269,7 +269,6 @@ const API = {
   getPaginatedCommit: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pageCommit?name=${name}&page=${page}&size=${elementPage}`,
-      {},
       { withCredentials: true }
     ),
   getLengthPagesPaginatedIssue: (name, size) =>
@@ -281,7 +280,6 @@ const API = {
   getPaginatedIssue: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pageIssue?name=${name}&page=${page}&size=${elementPage}`,
-      {},
       { withCredentials: true }
     ),
   getLengthPagesPaginatedPullRequest: (name, size) =>
@@ -293,7 +291,6 @@ const API = {
   getPaginatedPullRequest: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pagePullRequest?name=${name}&page=${page}&size=${elementPage}`,
-      {},
       { withCredentials: true }
     ),
 
