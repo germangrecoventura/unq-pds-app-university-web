@@ -80,7 +80,7 @@ const PageAddComment = (props) => {
                     You do not have permissions to access this resource
                 </div>
             )}
-            {!isStudent && (
+            {cookies && !isStudent && (
                 <>
                     <h5 className="title">Add comment to {props.entityToComment} form</h5>
                     <form onSubmit={handleSubmit}>

@@ -137,7 +137,7 @@ const PageRegisterOrUpdateUser = (props) => {
                 </div>
             )}
 
-            {((!isAdmin && (window.location.href === "http://localhost:3000/student/register" ||
+            {cookies && ((!isAdmin && (window.location.href === "http://localhost:3000/student/register" ||
                 window.location.href === "http://localhost:3000/teacher/register")) ||
                 (isTeacher && window.location.href === "http://localhost:3000/student/update") ||
                 (isStudent && window.location.href === "http://localhost:3000/teacher/update")) && (
