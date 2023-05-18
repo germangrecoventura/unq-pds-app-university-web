@@ -1,0 +1,33 @@
+.TableGetAll {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 3px solid rgb(107, 44, 44);
+}
+
+.TableGet {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 3px solid rgb(107, 44, 44);
+}
+
+thead th,
+tbody tr, td {
+    border: 3px solid rgb(107, 44, 44);
+}
+
+.TableProjects {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 100%;
+    border: 3px solid rgb(107, 44, 44);
+}
+
+.buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}

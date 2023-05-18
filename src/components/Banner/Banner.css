@@ -1,0 +1,22 @@
+.banner {
+  background-color: rgb(107, 44, 44);
+  text-align: center;
+  font-size: 33px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.logout {
+  background-color: rgb(107, 44, 44);
+  text-justify: right;
+}
+
+.log {
+  background-color: rgb(107, 44, 44);
+  text-align: right;
+  font-size: 10px;
+  padding-right: 1rem;
+  margin-bottom: 5px;
+}
