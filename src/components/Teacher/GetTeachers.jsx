@@ -1,14 +1,17 @@
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import API from "../../services/API";
 import "./Teacher.css";
+import { Link, useParams } from "react-router-dom";
 
-export default function GetAllTeachers() {
+export default function GetTeachers() {
+  const { idCommission } = useParams();
   const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
-    API.getAllTeachers().then((response) => setTeachers(response.data));
+    API.getCommission(idCommission).then((response) =>
+      setTeachers(response.data.teachers)
+    );
   }, []);
 
   return (
@@ -28,7 +31,7 @@ export default function GetAllTeachers() {
               teachers.map((teacher) => (
                 <tr key={teacher.id}>
                   <td>
-                    <Link to={`/teacher/${teacher.id}`}>
+                    <Link to={`/user/${teacher.id}`}>
                       {teacher.firstName} {teacher.lastName}
                     </Link>
                   </td>

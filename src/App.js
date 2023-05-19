@@ -24,6 +24,11 @@ import GetAllRepositories from "./components/Repository/GetAllRepositories";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 import PageAddComment from "./components/ParameterizedPage/PageAddComment";
+import GetStudents from "./components/Student/GetStudents";
+import GetTeachers from "./components/Teacher/GetTeachers";
+import GetGroups from "./components/Group/GetGroups";
+import GetTeacher from "./components/Teacher/GetTeacher";
+import GetStudent from "./components/Student/GetStudent";
 
 const App = () => {
   return (
@@ -46,17 +51,17 @@ const App = () => {
                 />
               }
             />
-            <Route path="/teacher/get" element={<PageGet page={"Teacher"} />} />
+            <Route path={`teacher/:idTeacher`} element={<GetTeacher />} />
             <Route
-              path="/teacher/update"
+              path="/teacher/update/:idUser"
               element={
                 <PageRegisterOrUpdateUser operation="update" entity="Teacher" />
               }
             />
-            <Route
+            {/* <Route
               path="/teacher/delete"
               element={<PageDelete page={"Teacher"} />}
-            />
+            /> */}
             <Route
               path="/matters"
               element={<PageComponent data={GetAllMatters} page="matter" />}
@@ -70,7 +75,6 @@ const App = () => {
                 />
               }
             />
-            <Route path="/matter/get" element={<PageGet page={"Matter"} />} />
             <Route
               path="/matter/update"
               element={
@@ -94,25 +98,24 @@ const App = () => {
                 />
               }
             />
-            <Route path="/student/get" element={<PageGet page={"Student"} />} />
+            <Route path={`student/:idStudent`} element={<GetStudent />} />
+            <Route
+              path="/student/update/:idUser"
+              element={
+                <PageRegisterOrUpdateUser operation="update" entity="Student" />
+              }
+            />
+            {/* <Route path="/student/get" element={<PageGet page={"Student"} />} />
             <Route
               path="/student/update"
               element={
                 <PageRegisterOrUpdateUser operation="update" entity="Student" />
               }
-            />
-            <Route
+            /> */}
+            {/*  <Route
               path="/student/delete"
               element={<PageDelete page={"Student"} />}
-            />
-            <Route
-              path="/student/addProject"
-              element={<PageAdd entityA="Student" entityB="Project" />}
-            />
-            <Route
-              path="/student/addComment"
-              element={<PageAddComment entityToComment="Student" />}
-            />
+            /> */}
             <Route
               path="/groups"
               element={<PageComponent data={GetAllGroups} page="group" />}
@@ -159,6 +162,18 @@ const App = () => {
             <Route
               path="/commission/register"
               element={<RegisterCommission />}
+            />
+            <Route
+              path={`commissions/:idCommission/students`}
+              element={<GetStudents />}
+            />
+            <Route
+              path={`commissions/:idCommission/teachers`}
+              element={<GetTeachers />}
+            />
+            <Route
+              path={`commissions/:idCommission/groups`}
+              element={<GetGroups />}
             />
             <Route
               path="/commission/get"

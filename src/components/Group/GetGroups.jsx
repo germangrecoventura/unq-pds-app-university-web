@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Group.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 
-export default function GetAllGroups() {
+export default function GetGroups() {
+  const { idCommission } = useParams();
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    API.getAllGroups().then((response) => setGroups(response.data));
+    API.getCommission(idCommission).then((response) =>
+      setGroups(response.data.groupsStudents)
+    );
   }, []);
 
   return (
