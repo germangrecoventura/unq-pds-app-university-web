@@ -17,7 +17,7 @@ export default function GetAllCommissions() {
         <MDBTable className="text-table" responsive="md" hover>
           <MDBTableHead>
             <tr>
-              <th scope="col">Commission Number</th>
+              <th scope="col">Commission number</th>
               <th scope="col">Year</th>
               <th scope="col">Four month period</th>
               <th scope="col">Matter</th>
@@ -32,25 +32,17 @@ export default function GetAllCommissions() {
             }) &&
               commissions.map((commission) => (
                 <tr key={commission.id}>
-                  <td>{commission.id}</td>
+                  <td>
+                    <Link to={`/commission/${commission.id}`}>
+                      {commission.id}
+                    </Link>
+                  </td>
                   <td>{commission.year}</td>
                   <td>{commission.fourMonthPeriod}</td>
                   <td>{commission.matter.name}</td>
-                  <td>
-                    <Link to={`/commissions/${commission.id}/students`}>
-                      Students
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/commissions/${commission.id}/teachers/`}>
-                      Teachers
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/commissions/${commission.id}/groups/`}>
-                      Groups
-                    </Link>
-                  </td>
+                  <td>{commission.students.length}</td>
+                  <td>{commission.teachers.length}</td>
+                  <td>{commission.groupsStudents.length}</td>
                 </tr>
               ))}
           </MDBTableBody>

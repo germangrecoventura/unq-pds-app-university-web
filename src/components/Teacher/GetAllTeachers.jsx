@@ -17,8 +17,7 @@ export default function GetAllTeachers() {
         <MDBTable className="text-table" responsive="md" hover>
           <MDBTableHead>
             <tr>
-              <th scope="col">First and Last name</th>
-              <th scope="col">Email</th>
+              <th scope="col">Teachers</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -32,7 +31,6 @@ export default function GetAllTeachers() {
                       {teacher.firstName} {teacher.lastName}
                     </Link>
                   </td>
-                  <td>{teacher.email}</td>
                 </tr>
               ))}
           </MDBTableBody>

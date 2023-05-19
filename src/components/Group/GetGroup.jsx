@@ -1,22 +1,22 @@
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import API from "../../services/API";
-import "./Student.css";
+import "./Group.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../Card/Card";
 
-export default function GetStudent() {
+export default function GetGroup() {
   let navigate = useNavigate();
-  const { idStudent } = useParams();
-  const [student, setStudent] = useState("");
+  const { idGroup } = useParams();
+  const [group, setGroup] = useState("");
 
   useEffect(() => {
-    API.getStudent(idStudent).then((response) => setStudent(response.data));
+    API.getGroup(idGroup).then((response) => setGroup(response.data));
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.deleteStudent(student.id)
+    API.deleteGroup(idGroup.id)
       .then((response) => {
         navigate("/operation-completed");
       })
@@ -33,26 +33,26 @@ export default function GetStudent() {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          <tr key={student.id}>
+          <tr key={group.id}>
             <td>
-              {student.firstName} {student.lastName}
+              {group.firstName} {group.lastName}
             </td>
-            <td>{student.email}</td>
+            <td>{group.email}</td>
           </tr>
         </MDBTableBody>
       </MDBTable>
 
       <div className="col">
         <Card
-          title={`Update student`}
+          title={`Update group`}
           description={""}
-          url={`/student/update/${student.id}`}
+          url={`/group/update/${group.id}`}
           image={"bi bi-person-fill-gear"}
         ></Card>
       </div>
       <div className="col">
         <button type="button" class="btn btn-danger" onClick={handleSubmit}>
-          Delete student
+          Delete group
         </button>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Group.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function GetGroups() {
   const { idCommission } = useParams();
@@ -32,7 +32,7 @@ export default function GetGroups() {
               groups.map((group) => (
                 <tr key={group.id}>
                   <td>
-                    <Link to={`/groups/${group.id}`}>{group.name}</Link>
+                    <Link to={`/group/${group.id}`}>{group.name}</Link>
                   </td>
                   <td>{group.members.length}</td>
                   <td>{group.projects.length}</td>

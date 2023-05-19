@@ -1,11 +1,16 @@
 import "./Group.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 const TableGroup = (props) => {
-
   function members() {
     return props.group.members.map((member) => (
       <h6 key={member.id}>
-        {member.firstName} {member.lastName}
+        <td>
+          <Link to={`/student/${member.id}`}>
+            {member.firstName} {member.lastName}
+          </Link>
+        </td>
       </h6>
     ));
   }
@@ -13,29 +18,32 @@ const TableGroup = (props) => {
   function projects() {
     return props.group.projects.map((project) => (
       <h6 key={project.id}>
-        {project.name}
+        <td>
+          <Link to={`/project/${project.id}`}>{project.name}</Link>
+        </td>
       </h6>
     ));
   }
 
   return (
     <>
-      <table className="TableGet">
-        <thead>
+      <MDBTable className="text-table" responsive="md" hover>
+        <MDBTableHead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Members</th>
-            <th>Projects</th>
+            <th scope="col">Name</th>
+            <th scope="col">Members</th>
+            <th scope="col">Projects</th>
           </tr>
-          <tr>
-            <td>{props.group.id}</td>
+        </MDBTableHead>
+        <MDBTableBody>
+          <tr key={props.group.id}>
             <td>{props.group.name}</td>
             <td>{props.group.members.length}</td>
             <td>{props.group.projects.length}</td>
           </tr>
-        </thead>
-      </table>
+        </MDBTableBody>
+      </MDBTable>
+
       <div className="row buttons">
         {props.group.members.length > 0 && (
           <div className="col-md-2 text-center">
@@ -68,30 +76,30 @@ const TableGroup = (props) => {
       </div>
       {props.group.members.length > 0 && (
         <div className="collapse" id="member">
-          <table className="TableMembersOrProjects">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Members</th>
+                <th scope="col">Members</th>
               </tr>
-              <tr>
-                <td>{members()}</td>
-              </tr>
-            </thead>
-          </table>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.group.id}>{members()}</tr>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
       {props.group.projects.length > 0 && (
         <div className="collapse" id="project">
-          <table className="TableMembersOrProjects">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Projects</th>
+                <th scope="col">Projects</th>
               </tr>
-              <tr>
-                <td>{projects()}</td>
-              </tr>
-            </thead>
-          </table>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.group.id}>{projects()}</tr>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
     </>
@@ -99,3 +107,21 @@ const TableGroup = (props) => {
 };
 
 export default TableGroup;
+
+{
+  /* <table className="TableGet">
+<thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Members</th>
+    <th>Projects</th>
+  </tr>
+  <tr>
+    
+  </tr>
+</thead>
+</table>
+
+)} */
+}

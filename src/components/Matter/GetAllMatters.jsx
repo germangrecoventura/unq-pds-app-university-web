@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Matter.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 export default function GetAllMatters() {
   const [matters, setMatters] = useState([]);
@@ -16,7 +17,7 @@ export default function GetAllMatters() {
         <MDBTable className="text-table" responsive="md" hover>
           <MDBTableHead>
             <tr>
-              <th scope="col">Name</th>
+              <th scope="col">Matters</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -25,7 +26,9 @@ export default function GetAllMatters() {
             }) &&
               matters.map((matter) => (
                 <tr key={matter.id}>
-                  <td>{matter.name}</td>
+                  <td>
+                    <Link to={`/matter/${matter.id}`}>{matter.name}</Link>
+                  </td>
                 </tr>
               ))}
           </MDBTableBody>

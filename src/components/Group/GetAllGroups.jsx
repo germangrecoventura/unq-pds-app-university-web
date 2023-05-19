@@ -29,7 +29,7 @@ export default function GetAllGroups() {
               groups.map((group) => (
                 <tr key={group.id}>
                   <td>
-                    <Link to={`/groups/${group.id}`}>{group.name}</Link>
+                    <Link to={`/group/${group.id}`}>{group.name}</Link>
                   </td>
                   <td>{group.members.length}</td>
                   <td>{group.projects.length}</td>

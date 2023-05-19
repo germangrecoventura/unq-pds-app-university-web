@@ -1,45 +1,52 @@
 import "./Commission.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 const TableCommission = (props) => {
-
   function students() {
     return props.commission.students.map((student) => (
-      <h6 key={student.id}>
-        {student.firstName} {student.lastName}
-      </h6>
+      <td>
+        <Link to={`/student/${student.id}`}>
+          {student.firstName} {student.lastName}
+        </Link>
+      </td>
     ));
   }
 
   function teachers() {
     return props.commission.teachers.map((teacher) => (
       <h6 key={teacher.id}>
-        {teacher.firstName} {teacher.lastName}
+        <td>
+          <Link to={`/teacher/${teacher.id}`}>
+            {teacher.firstName} {teacher.lastName}
+          </Link>
+        </td>
       </h6>
     ));
   }
 
   function groups() {
     return props.commission.groupsStudents.map((group) => (
-      <h6 key={group.id}>
-        {group.name}
-      </h6>
+      <Link to={`/group/${group.id}`}>{group.name}</Link>
     ));
   }
 
   return (
     <>
-      <table className="TableGet">
-        <thead>
+      <MDBTable className="text-table" responsive="md" hover>
+        <MDBTableHead>
           <tr>
-            <th>Id</th>
-            <th>Year</th>
-            <th>Four month period</th>
-            <th>Matter</th>
-            <th>Students</th>
-            <th>Teachers</th>
-            <th>Groups</th>
+            <th scope="col">Commission number</th>
+            <th scope="col">Year</th>
+            <th scope="col">Four month period</th>
+            <th scope="col">Matter</th>
+            <th scope="col">Students</th>
+            <th scope="col">Teachers</th>
+            <th scope="col">Groups</th>
           </tr>
-          <tr>
+        </MDBTableHead>
+        <MDBTableBody>
+          <tr key={props.commission.id}>
             <td>{props.commission.id}</td>
             <td>{props.commission.year}</td>
             <td>{props.commission.fourMonthPeriod}</td>
@@ -48,8 +55,9 @@ const TableCommission = (props) => {
             <td>{props.commission.teachers.length}</td>
             <td>{props.commission.groupsStudents.length}</td>
           </tr>
-        </thead>
-      </table>
+        </MDBTableBody>
+      </MDBTable>
+
       <div className="row buttons">
         {props.commission.students.length > 0 && (
           <div className="col-md-2 text-center">
@@ -82,7 +90,7 @@ const TableCommission = (props) => {
         {props.commission.groupsStudents.length > 0 && (
           <div className="col-md-2 text-center">
             <button
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#group"
@@ -96,44 +104,44 @@ const TableCommission = (props) => {
       </div>
       {props.commission.students.length > 0 && (
         <div className="collapse" id="student">
-          <table className="TableData">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Students</th>
+                <th scope="col">Students</th>
               </tr>
-              <tr>
-                <th>{students()}</th>
-              </tr>
-            </thead>
-          </table>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.commission.id}>{students()}</tr>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
       {props.commission.teachers.length > 0 && (
         <div className="collapse" id="teacher">
-          <table className="TableData">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Teachers</th>
+                <th scope="col">Students</th>
               </tr>
-              <tr>
-                <th>{teachers()}</th>
-              </tr>
-            </thead>
-          </table>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.commission.id}>{teachers()}</tr>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
       {props.commission.groupsStudents.length > 0 && (
         <div className="collapse" id="group">
-          <table className="TableData">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Groups</th>
+                <th scope="col">Students</th>
               </tr>
-              <tr>
-                <th>{groups()}</th>
-              </tr>
-            </thead>
-          </table>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.commission.id}>{groups()}</tr>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
     </>

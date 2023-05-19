@@ -1,20 +1,21 @@
 import "./Matter.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 
 const TableMatter = (props) => {
-    return (
-        <table className="TableGet">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                </tr>
-                <tr>
-                  <td>{props.matter.id}</td>
-                  <td>{props.matter.name}</td>
-                </tr>
-              </thead>
-            </table>
-    );
+  return (
+    <MDBTable className="text-table" responsive="md" hover>
+      <MDBTableHead>
+        <tr>
+          <th scope="col">Name</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+        <tr key={props.matter.id}>
+          <td>{props.matter.name}</td>
+        </tr>
+      </MDBTableBody>
+    </MDBTable>
+  );
 };
 
 export default TableMatter;

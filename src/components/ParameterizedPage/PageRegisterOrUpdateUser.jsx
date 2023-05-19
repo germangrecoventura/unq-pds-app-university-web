@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 
 const PageRegisterOrUpdateUser = (props) => {
-  const { idUser } = useParams();
+  const { idEntity } = useParams();
   const [user, setUser] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -47,7 +47,7 @@ const PageRegisterOrUpdateUser = (props) => {
     if (props.operation === "update") {
       switch (props.entity) {
         case "Student":
-          API.getStudent(idUser)
+          API.getStudent(idEntity)
             .then((response) => {
               setUser(response.data);
               setFirstname(response.data.firstName);
@@ -59,7 +59,7 @@ const PageRegisterOrUpdateUser = (props) => {
             });
           break;
         default:
-          API.getTeacher(idUser)
+          API.getTeacher(idEntity)
             .then((response) => {
               setUser(response.data);
               setFirstname(response.data.firstName);

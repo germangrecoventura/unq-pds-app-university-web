@@ -10,10 +10,13 @@ import TableCommission from "../Commission/TableCommission";
 import TableProject from "../Project/TableProject";
 import TableRepository from "../Repository/TableRepository";
 import GetRepositoryPaginated from "../Repository/GetRepositoryPaginated";
+import { useNavigate, useParams } from "react-router-dom";
+import Card from "../Card/Card";
 
 const PageGet = (props) => {
-  const [id, setId] = useState("");
-  const [entity, setEntity] = useState(null);
+  let navigate = useNavigate();
+  const { idEntity } = useParams();
+  const [entity, setEntity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
@@ -24,17 +27,9 @@ const PageGet = (props) => {
     API.getUser().then((response) => {
       setUser(response.data);
     });
-  }, []);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setFormErrors("");
-    setIsFind(false);
-    setIsSubmitting(true);
-
     switch (props.page) {
       case "Teacher":
-        API.getTeacher(id)
+        API.getTeacher(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -48,7 +43,7 @@ const PageGet = (props) => {
           });
         break;
       case "Student":
-        API.getStudent(id)
+        API.getStudent(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -62,7 +57,7 @@ const PageGet = (props) => {
           });
         break;
       case "Matter":
-        API.getMatter(id)
+        API.getMatter(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -76,7 +71,7 @@ const PageGet = (props) => {
           });
         break;
       case "Commission":
-        API.getCommission(id)
+        API.getCommission(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -90,7 +85,7 @@ const PageGet = (props) => {
           });
         break;
       case "Group":
-        API.getGroup(id)
+        API.getGroup(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -104,7 +99,7 @@ const PageGet = (props) => {
           });
         break;
       case "Repository":
-        API.getRepository(id)
+        API.getRepository(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -119,7 +114,7 @@ const PageGet = (props) => {
           });
         break;
       default:
-        API.getProject(id)
+        API.getProject(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -131,6 +126,61 @@ const PageGet = (props) => {
           .finally(() => {
             setIsSubmitting(false);
           });
+        break;
+    }
+  }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    switch (props.page) {
+      case "Teacher":
+        API.deleteTeacher(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      case "Student":
+        API.deleteStudent(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      case "Matter":
+        API.deleteMatter(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      case "Commission":
+        API.deleteCommission(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      case "Group":
+        API.deleteGroup(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      case "Repository":
+        API.deleteRepository(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
+        break;
+      default:
+        API.deleteProject(idEntity)
+          .then((response) => {
+            navigate("/operation-completed");
+          })
+          .finally(() => {});
         break;
     }
   };
@@ -145,42 +195,6 @@ const PageGet = (props) => {
 
       {user && (
         <>
-          <h5 className="title">{props.page} get form</h5>
-          <form onSubmit={handleSubmit}>
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputId" className="col-form-label">
-                    Id {props.page}:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="number"
-                    id="inputId"
-                    className="form-control"
-                    required={true}
-                    onChange={(e) => setId(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-            </div>
-
-            <div className="modal-footer">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn btn-primary"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-
           {isFind && props.page === "Student" && (
             <TableStudent student={entity} />
           )}
@@ -209,6 +223,111 @@ const PageGet = (props) => {
           )}
         </>
       )}
+      <div className="col">
+        <Card
+          title={`Update ${props.page.toLowerCase()}`}
+          description={""}
+          url={`/${props.page.toLowerCase()}/update/${entity.id}`}
+          image={"bi bi-person-fill-gear"}
+        ></Card>
+      </div>
+      <div className="col">
+        <button type="button" className="btn btn-danger" onClick={handleSubmit}>
+          Delete {props.page.toLowerCase()}
+        </button>
+      </div>
+
+      <div className="col">
+        <Card
+          title={"Add student"}
+          description={""}
+          url={`/${props.page}/addStudent`}
+          image={"bi bi-person-add"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={"Remove student"}
+          description={""}
+          url={`/${props.page}/removeStudent`}
+          image={"bi bi-person-x"}
+        ></Card>
+      </div>
+
+      <div className="col">
+        <Card
+          title={"Add teacher"}
+          description={""}
+          url={`/${props.page}/addTeacher`}
+          image={"bi bi-person-plus-fill"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={"Remove teacher"}
+          description={""}
+          url={`/${props.page}/removeTeacher`}
+          image={"bi bi-person-x-fill"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={"Add group"}
+          description={""}
+          url={`/${props.page}/addGroup`}
+          image={"bi bi-folder-plus"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={"Remove group"}
+          description={""}
+          url={`/${props.page}/removeGroup`}
+          image={"bi bi-folder-x"}
+        ></Card>
+      </div>
+
+      <div className="col">
+        <Card
+          title={`Add repository`}
+          description={""}
+          url={`/${props.page}/addRepository`}
+          image={"bi bi-journal-plus"}
+        ></Card>
+      </div>
+
+      <div className="col">
+        <Card
+          title={`Add member`}
+          description={""}
+          url={`/${props.page.toLowerCase()}/addMember`}
+          image={"bi bi-person-add"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={`Remove member`}
+          description={""}
+          url={`/${props.page.toLowerCase()}/removeMember`}
+          image={"bi bi-person-x"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={`Add project`}
+          description={""}
+          url={`/${props.page.toLowerCase()}/addProject`}
+          image={"bi bi-file-earmark-plus-fill"}
+        ></Card>
+      </div>
+      <div className="col">
+        <Card
+          title={"Add comments to group"}
+          description={""}
+          url={`/${props.page.toLowerCase()}/addComment`}
+          image={"bi bi-clipboard-plus-fill"}
+        ></Card>
+      </div>
     </div>
   );
 };

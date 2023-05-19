@@ -20,8 +20,7 @@ export default function GetStudents() {
         <MDBTable className="text-table" responsive="md" hover>
           <MDBTableHead>
             <tr>
-              <th scope="col">First and Last name</th>
-              <th scope="col">Email</th>
+              <th scope="col">Students</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -31,9 +30,10 @@ export default function GetStudents() {
               students.map((student) => (
                 <tr key={student.id}>
                   <td>
-                    {student.firstName} {student.lastName}
+                    <Link to={`/student/${student.id}`}>
+                      {student.firstName} {student.lastName}
+                    </Link>
                   </td>
-                  <td>{student.email}</td>
                 </tr>
               ))}
           </MDBTableBody>

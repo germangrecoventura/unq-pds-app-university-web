@@ -20,8 +20,7 @@ export default function GetTeachers() {
         <MDBTable className="text-table" responsive="md" hover>
           <MDBTableHead>
             <tr>
-              <th scope="col">First and Last name</th>
-              <th scope="col">Email</th>
+              <th scope="col">Teachers</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -31,11 +30,10 @@ export default function GetTeachers() {
               teachers.map((teacher) => (
                 <tr key={teacher.id}>
                   <td>
-                    <Link to={`/user/${teacher.id}`}>
+                    <Link to={`/teacher/${teacher.id}`}>
                       {teacher.firstName} {teacher.lastName}
                     </Link>
                   </td>
-                  <td>{teacher.email}</td>
                 </tr>
               ))}
           </MDBTableBody>
