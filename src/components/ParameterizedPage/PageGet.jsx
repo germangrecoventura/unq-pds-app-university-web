@@ -302,7 +302,7 @@ const PageGet = (props) => {
         </>
       )}
 
-      {props.page === "Projects" && (
+      {props.page === "Project" && (
         <div className="col">
           <Card
             title={`Add repository`}
