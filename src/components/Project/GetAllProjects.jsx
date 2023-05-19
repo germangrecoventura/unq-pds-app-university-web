@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Project.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 export default function GetAllProjects() {
   const [projects, setProjects] = useState([]);
@@ -12,25 +14,25 @@ export default function GetAllProjects() {
   return (
     <div>
       {projects.length !== 0 ? (
-        <table className="TableGetAll">
-          <thead>
+        <MDBTable className="text-table" responsive="md" hover>
+          <MDBTableHead>
             <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Repositories</th>
+              <th scope="col">Projects</th>
             </tr>
+          </MDBTableHead>
+          <MDBTableBody>
             {projects.sort(function (a, b) {
               return a.id - b.id;
             }) &&
               projects.map((project) => (
                 <tr key={project.id}>
-                  <td>{project.id}</td>
-                  <td>{project.name}</td>
-                  <td>{project.repositories.length}</td>
+                  <td>
+                    <Link to={`/project/${project.id}`}>{project.name}</Link>
+                  </td>
                 </tr>
               ))}
-          </thead>
-        </table>
+          </MDBTableBody>
+        </MDBTable>
       ) : (
         <h4>There is no projects in Academic Management Module</h4>
       )}

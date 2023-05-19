@@ -8,8 +8,13 @@ import Cookies from "js-cookie";
 const PageRegisterOrUpdate = (props) => {
   const { idEntity } = useParams();
   const [name, setName] = useState("");
+  const [nameProject, setNameProject] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
+  const [studentOne, setStudentOne] = useState(null);
+  const [studentTwo, setStudentTwo] = useState(null);
+  const [studentThree, setStudentThree] = useState(null);
+  const [studentFour, setStudentFour] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
@@ -44,11 +49,37 @@ const PageRegisterOrUpdate = (props) => {
       case "registration":
         switch (props.entity) {
           case "Group":
-            API.createGroup(name)
-              .then((response) => {
-                resetForm();
-                setIsSubmitting(false);
-                navigate("/operation-completed");
+            API.createProject(nameProject)
+              .then((responseProject) => {
+                API.createGroup(name, [
+                  studentOne,
+                  studentTwo,
+                  studentThree,
+                  studentFour,
+                ])
+                  .then((responseGroup) => {
+                    API.addProjectInGroup(
+                      responseGroup.data.id,
+                      responseProject.data.id
+                    )
+                      .then((responseAddProjectGroup) => {
+                        resetForm();
+                        setIsSubmitting(false);
+                        navigate("/operation-completed");
+                      })
+                      .catch((error) => {
+                        setFormErrors(error.response.data);
+                      })
+                      .finally(() => {
+                        setIsSubmitting(false);
+                      });
+                  })
+                  .catch((error) => {
+                    setFormErrors(error.response.data);
+                  })
+                  .finally(() => {
+                    setIsSubmitting(false);
+                  });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -56,6 +87,7 @@ const PageRegisterOrUpdate = (props) => {
               .finally(() => {
                 setIsSubmitting(false);
               });
+
             break;
           case "Matter":
             API.createMatter(name)
@@ -144,41 +176,169 @@ const PageRegisterOrUpdate = (props) => {
         </div>
       )}
 
-      <h5 className="title">
-        {props.entity} {props.operation} form
-      </h5>
-      <form onSubmit={handleSubmit}>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-4">
-              <label htmlFor="inputName" className="col-form-label">
-                Name:
-              </label>
+      {(props.entity !== "Group" ||
+        (props.entity === "Group" && props.operation !== "registration")) && (
+        <>
+          <h5 className="title">
+            {props.entity} {props.operation} form
+          </h5>
+          <form onSubmit={handleSubmit}>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputName" className="col-form-label">
+                    Name:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="inputName"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col-md-6">
-              <input
-                type="text"
-                id="inputName"
-                className="form-control"
-                required={true}
-                onChange={(e) => setName(e.target.value)}
-              />
+            <div className="mb-3">
+              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
             </div>
-          </div>
-        </div>
-        <div className="mb-3">
-          <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+            <div className="modal-footer">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </>
+      )}
+
+      {props.entity === "Group" && props.operation === "registration" && (
+        <>
+          <h5 className="title">
+            {props.entity} {props.operation} form
+          </h5>
+          <form onSubmit={handleSubmit}>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="inputName" className="col-form-label">
+                    Name:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="inputName"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="InputStudentOne" className="col-form-label">
+                    Email member one:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    id="InputStudentOne"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setStudentOne(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="InputStudentTwo" className="col-form-label">
+                    Email member two:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    id="InputStudentTwo"
+                    className="form-control"
+                    required={false}
+                    onChange={(e) => setStudentTwo(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="InputStudentThree" className="col-form-label">
+                    Email member three:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    id="InputStudentThree"
+                    className="form-control"
+                    required={false}
+                    onChange={(e) => setStudentThree(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="InputStudentFour" className="col-form-label">
+                    Email member four:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    id="InputStudentFour"
+                    className="form-control"
+                    required={false}
+                    onChange={(e) => setStudentFour(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-4">
+                  <label htmlFor="InputProjectName" className="col-form-label">
+                    Project name:
+                  </label>
+                </div>
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    id="InputStudentFour"
+                    className="form-control"
+                    required={true}
+                    onChange={(e) => setNameProject(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mb-3">
+              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };

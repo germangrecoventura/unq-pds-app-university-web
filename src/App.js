@@ -224,16 +224,15 @@ const App = () => {
                 />
               }
             />
-            <Route path="/project/get" element={<PageGet page={"Project"} />} />
             <Route
-              path="/project/update"
+              path={`project/:idEntity`}
+              element={<PageGet page="Project" />}
+            />
+            <Route
+              path="/project/update/:idEntity"
               element={
                 <PageRegisterOrUpdate operation="update" entity="Project" />
               }
-            />
-            <Route
-              path="/project/delete"
-              element={<PageDelete page={"Project"} />}
             />
             <Route
               path="project/addRepository"

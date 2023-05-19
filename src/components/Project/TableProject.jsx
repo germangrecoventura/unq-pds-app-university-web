@@ -1,32 +1,33 @@
 import "./Project.css";
 import { Link } from "react-router-dom";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 
 const TableProject = (props) => {
-
   function repositories() {
     return props.project.repositories.map((repository) => (
       <h6 key={repository.id}>
-        <Link to={repository.url}>{repository.name}</Link>
+        <Link to={`/repository/${repository.id}`}>{repository.name}</Link>
       </h6>
     ));
   }
 
   return (
     <>
-      <table className="TableGet">
-        <thead>
+      <MDBTable className="text-table" responsive="md" hover>
+        <MDBTableHead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Repositories</th>
+            <th scope="col">Name</th>
+            <th scope="col">Repositories</th>
           </tr>
-          <tr>
-            <td>{props.project.id}</td>
+        </MDBTableHead>
+        <MDBTableBody>
+          <tr key={props.project.id}>
             <td>{props.project.name}</td>
             <td>{props.project.repositories.length}</td>
           </tr>
-        </thead>
-      </table>
+        </MDBTableBody>
+      </MDBTable>
+
       <div className="row buttons">
         {props.project.repositories.length > 0 && (
           <div className="col-md-2 text-center">
@@ -45,16 +46,18 @@ const TableProject = (props) => {
       </div>
       {props.project.repositories.length > 0 && (
         <div className="collapse" id="repository">
-          <table className="TableRepositories">
-            <thead>
+          <MDBTable className="text-table" responsive="md" hover>
+            <MDBTableHead>
               <tr>
-                <th>Repositories</th>
+                <th scope="col">Repositories</th>
               </tr>
-              <tr>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr key={props.project.id}>
                 <td>{repositories()}</td>
               </tr>
-            </thead>
-          </table>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       )}
     </>
@@ -62,3 +65,8 @@ const TableProject = (props) => {
 };
 
 export default TableProject;
+
+{
+  /*
+   */
+}
