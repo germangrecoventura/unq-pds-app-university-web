@@ -20,7 +20,7 @@ const PageGet = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
@@ -223,111 +223,132 @@ const PageGet = (props) => {
           )}
         </>
       )}
-      <div className="col">
-        <Card
-          title={`Update ${props.page.toLowerCase()}`}
-          description={""}
-          url={`/${props.page.toLowerCase()}/update/${entity.id}`}
-          image={"bi bi-person-fill-gear"}
-        ></Card>
-      </div>
-      <div className="col">
-        <button type="button" className="btn btn-danger" onClick={handleSubmit}>
-          Delete {props.page.toLowerCase()}
-        </button>
-      </div>
+      {console.log}
 
-      <div className="col">
-        <Card
-          title={"Add student"}
-          description={""}
-          url={`/${props.page}/addStudent`}
-          image={"bi bi-person-add"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={"Remove student"}
-          description={""}
-          url={`/${props.page}/removeStudent`}
-          image={"bi bi-person-x"}
-        ></Card>
-      </div>
+      {((user.role === "STUDENT" && user.id == idEntity) ||
+        user.role !== "STUDENT") && (
+        <div className="col">
+          <Card
+            title={`Update ${props.page.toLowerCase()}`}
+            description={""}
+            url={`/${props.page.toLowerCase()}/update/${entity.id}`}
+            image={"bi bi-person-fill-gear"}
+          ></Card>
+        </div>
+      )}
 
-      <div className="col">
-        <Card
-          title={"Add teacher"}
-          description={""}
-          url={`/${props.page}/addTeacher`}
-          image={"bi bi-person-plus-fill"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={"Remove teacher"}
-          description={""}
-          url={`/${props.page}/removeTeacher`}
-          image={"bi bi-person-x-fill"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={"Add group"}
-          description={""}
-          url={`/${props.page}/addGroup`}
-          image={"bi bi-folder-plus"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={"Remove group"}
-          description={""}
-          url={`/${props.page}/removeGroup`}
-          image={"bi bi-folder-x"}
-        ></Card>
-      </div>
+      {user.role === "ADMIN" && (
+        <div className="col">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleSubmit}
+          >
+            Delete {props.page.toLowerCase()}
+          </button>
+        </div>
+      )}
 
-      <div className="col">
-        <Card
-          title={`Add repository`}
-          description={""}
-          url={`/${props.page}/addRepository`}
-          image={"bi bi-journal-plus"}
-        ></Card>
-      </div>
+      {props.page === "Commission" && (
+        <>
+          <div className="col">
+            <Card
+              title={"Add student"}
+              description={""}
+              url={`/${props.page}/addStudent`}
+              image={"bi bi-person-add"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Remove student"}
+              description={""}
+              url={`/${props.page}/removeStudent`}
+              image={"bi bi-person-x"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Add teacher"}
+              description={""}
+              url={`/${props.page}/addTeacher`}
+              image={"bi bi-person-plus-fill"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Remove teacher"}
+              description={""}
+              url={`/${props.page}/removeTeacher`}
+              image={"bi bi-person-x-fill"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Add group"}
+              description={""}
+              url={`/${props.page}/addGroup`}
+              image={"bi bi-folder-plus"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Remove group"}
+              description={""}
+              url={`/${props.page}/removeGroup`}
+              image={"bi bi-folder-x"}
+            ></Card>
+          </div>
+        </>
+      )}
 
-      <div className="col">
-        <Card
-          title={`Add member`}
-          description={""}
-          url={`/${props.page.toLowerCase()}/addMember`}
-          image={"bi bi-person-add"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={`Remove member`}
-          description={""}
-          url={`/${props.page.toLowerCase()}/removeMember`}
-          image={"bi bi-person-x"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={`Add project`}
-          description={""}
-          url={`/${props.page.toLowerCase()}/addProject`}
-          image={"bi bi-file-earmark-plus-fill"}
-        ></Card>
-      </div>
-      <div className="col">
-        <Card
-          title={"Add comments to group"}
-          description={""}
-          url={`/${props.page.toLowerCase()}/addComment`}
-          image={"bi bi-clipboard-plus-fill"}
-        ></Card>
-      </div>
+      {props.page === "Projects" && (
+        <div className="col">
+          <Card
+            title={`Add repository`}
+            description={""}
+            url={`/${props.page}/addRepository`}
+            image={"bi bi-journal-plus"}
+          ></Card>
+        </div>
+      )}
+
+      {props.page === "Group" && (
+        <>
+          <div className="col">
+            <Card
+              title={`Add member`}
+              description={""}
+              url={`/${props.page.toLowerCase()}/addMember`}
+              image={"bi bi-person-add"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={`Remove member`}
+              description={""}
+              url={`/${props.page.toLowerCase()}/removeMember`}
+              image={"bi bi-person-x"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={`Add project`}
+              description={""}
+              url={`/${props.page.toLowerCase()}/addProject`}
+              image={"bi bi-file-earmark-plus-fill"}
+            ></Card>
+          </div>
+          <div className="col">
+            <Card
+              title={"Add comments to group"}
+              description={""}
+              url={`/${props.page.toLowerCase()}/addComment`}
+              image={"bi bi-clipboard-plus-fill"}
+            ></Card>
+          </div>
+        </>
+      )}
     </div>
   );
 };
