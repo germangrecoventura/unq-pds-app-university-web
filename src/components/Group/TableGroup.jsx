@@ -5,23 +5,23 @@ import { Link } from "react-router-dom";
 const TableGroup = (props) => {
   function members() {
     return props.group.members.map((member) => (
-      <h6 key={member.id}>
+      <tr key={member.id}>
         <td>
           <Link to={`/student/${member.id}`}>
             {member.firstName} {member.lastName}
           </Link>
         </td>
-      </h6>
+      </tr>
     ));
   }
 
   function projects() {
     return props.group.projects.map((project) => (
-      <h6 key={project.id}>
+      <tr key={project.id}>
         <td>
           <Link to={`/project/${project.id}`}>{project.name}</Link>
         </td>
-      </h6>
+      </tr>
     ));
   }
 
@@ -48,7 +48,7 @@ const TableGroup = (props) => {
         {props.group.members.length > 0 && (
           <div className="col-md-2 text-center">
             <button
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#member"
@@ -62,7 +62,7 @@ const TableGroup = (props) => {
         {props.group.projects.length > 0 && (
           <div className="col-md-2 text-center">
             <button
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#project"
@@ -82,9 +82,7 @@ const TableGroup = (props) => {
                 <th scope="col">Members</th>
               </tr>
             </MDBTableHead>
-            <MDBTableBody>
-              <tr key={props.group.id}>{members()}</tr>
-            </MDBTableBody>
+            <MDBTableBody>{members()}</MDBTableBody>
           </MDBTable>
         </div>
       )}
@@ -96,9 +94,7 @@ const TableGroup = (props) => {
                 <th scope="col">Projects</th>
               </tr>
             </MDBTableHead>
-            <MDBTableBody>
-              <tr key={props.group.id}>{projects()}</tr>
-            </MDBTableBody>
+            <MDBTableBody>{projects()}</MDBTableBody>
           </MDBTable>
         </div>
       )}
@@ -107,21 +103,3 @@ const TableGroup = (props) => {
 };
 
 export default TableGroup;
-
-{
-  /* <table className="TableGet">
-<thead>
-  <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Members</th>
-    <th>Projects</th>
-  </tr>
-  <tr>
-    
-  </tr>
-</thead>
-</table>
-
-)} */
-}

@@ -45,41 +45,20 @@ const PageRegisterOrUpdate = (props) => {
     event.preventDefault();
     setFormErrors("");
     setIsSubmitting(true);
+
     switch (props.operation) {
       case "registration":
         switch (props.entity) {
           case "Group":
-            API.createProject(nameProject)
-              .then((responseProject) => {
-                API.createGroup(name, [
-                  studentOne,
-                  studentTwo,
-                  studentThree,
-                  studentFour,
-                ])
-                  .then((responseGroup) => {
-                    API.addProjectInGroup(
-                      responseGroup.data.id,
-                      responseProject.data.id
-                    )
-                      .then((responseAddProjectGroup) => {
-                        resetForm();
-                        setIsSubmitting(false);
-                        navigate("/operation-completed");
-                      })
-                      .catch((error) => {
-                        setFormErrors(error.response.data);
-                      })
-                      .finally(() => {
-                        setIsSubmitting(false);
-                      });
-                  })
-                  .catch((error) => {
-                    setFormErrors(error.response.data);
-                  })
-                  .finally(() => {
-                    setIsSubmitting(false);
-                  });
+            API.createGroup(
+              name,
+              [studentOne, studentTwo, studentThree, studentFour],
+              nameProject
+            )
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                navigate("/operation-completed");
               })
               .catch((error) => {
                 setFormErrors(error.response.data);

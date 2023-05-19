@@ -124,8 +124,16 @@ const API = {
       { withCredentials: true }
     ),
   // GROUPS
-  createGroup: (name) =>
-    axios.post(`${baseURL}/groups`, { name: name }, { withCredentials: true }),
+  createGroup: (name, members, nameProject) =>
+    axios.post(
+      `${baseURL}/groups`,
+      {
+        name: name,
+        members: members,
+        nameProject: nameProject,
+      },
+      { withCredentials: true }
+    ),
   getGroup: (id) =>
     axios.get(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
   updateGroup: (id, name) =>
