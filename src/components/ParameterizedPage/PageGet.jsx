@@ -15,7 +15,7 @@ import Card from "../Card/Card";
 
 const PageGet = (props) => {
   let navigate = useNavigate();
-  const { idEntity } = useParams();
+  const { projectId, idEntity } = useParams();
   const [entity, setEntity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
@@ -229,7 +229,7 @@ const PageGet = (props) => {
 
   const handleUpdateRepository = (event) => {
     event.preventDefault();
-    API.updateRepository(entity.name, idEntity)
+    API.updateRepository(entity.name, projectId)
       .then((response) => {
         setIsSubmitting(false);
         navigate("/operation-completed");
