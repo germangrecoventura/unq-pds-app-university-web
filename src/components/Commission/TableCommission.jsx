@@ -5,27 +5,35 @@ import { Link } from "react-router-dom";
 const TableCommission = (props) => {
   function students() {
     return props.commission.students.map((student) => (
-      <td>
-        <Link to={`/student/${student.id}`}>
-          {student.firstName} {student.lastName}
-        </Link>
-      </td>
+      <tr key={student.id}>
+        <td>
+          <Link to={`/student/${student.id}`}>
+            {student.firstName} {student.lastName}
+          </Link>
+        </td>
+      </tr>
     ));
   }
 
   function teachers() {
     return props.commission.teachers.map((teacher) => (
-      <td>
-        <Link to={`/teacher/${teacher.id}`}>
-          {teacher.firstName} {teacher.lastName}
-        </Link>
-      </td>
+      <tr key={teacher.id}>
+        <td>
+          <Link to={`/teacher/${teacher.id}`}>
+            {teacher.firstName} {teacher.lastName}
+          </Link>
+        </td>
+      </tr>
     ));
   }
 
   function groups() {
     return props.commission.groupsStudents.map((group) => (
-      <Link to={`/group/${group.id}`}>{group.name}</Link>
+      <tr key={group.id}>
+        <td>
+          <Link to={`/group/${group.id}`}>{group.name}</Link>
+        </td>
+      </tr>
     ));
   }
 
@@ -108,9 +116,7 @@ const TableCommission = (props) => {
                 <th scope="col">Students</th>
               </tr>
             </MDBTableHead>
-            <MDBTableBody>
-              <tr key={props.commission.id}>{students()}</tr>
-            </MDBTableBody>
+            <MDBTableBody>{students()}</MDBTableBody>
           </MDBTable>
         </div>
       )}
@@ -122,9 +128,7 @@ const TableCommission = (props) => {
                 <th scope="col">Teachers</th>
               </tr>
             </MDBTableHead>
-            <MDBTableBody>
-              <tr key={props.commission.id}>{teachers()}</tr>
-            </MDBTableBody>
+            <MDBTableBody>{teachers()}</MDBTableBody>
           </MDBTable>
         </div>
       )}
@@ -136,9 +140,7 @@ const TableCommission = (props) => {
                 <th scope="col">Groups</th>
               </tr>
             </MDBTableHead>
-            <MDBTableBody>
-              <tr key={props.commission.id}>{groups()}</tr>
-            </MDBTableBody>
+            <MDBTableBody>{groups()}</MDBTableBody>
           </MDBTable>
         </div>
       )}
