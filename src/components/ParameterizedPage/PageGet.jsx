@@ -21,24 +21,7 @@ const PageGet = (props) => {
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState("");
-  const [project, setProject] = useState("");
   let cookies = Cookies.get("jwt");
-
-  useEffect(() => {
-    if (props.page === "Repository") {
-      API.getProject(projectId)
-        .then((response) => {
-          setProject(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          setFormErrors(error.response.data);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
-    }
-  }, [projectId]);
 
   useEffect(() => {
     API.getUser().then((response) => {
@@ -145,7 +128,7 @@ const PageGet = (props) => {
           });
         break;
     }
-  }, []);
+  }, [props.page, idEntity]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -246,7 +229,7 @@ const PageGet = (props) => {
 
   const handleUpdateRepository = (event) => {
     event.preventDefault();
-    API.updateRepository(entity.name, project.ownerGithub, project.tokenGithub)
+    API.updateRepository(entity.name, projectId)
       .then((response) => {
         setIsSubmitting(false);
         navigate("/operation-completed");
@@ -298,7 +281,7 @@ const PageGet = (props) => {
         </>
       )}
 
-      {((user.role === "STUDENT" && user.id == idEntity) ||
+      {((user.role === "STUDENT" && user.id === idEntity) ||
         user.role !== "STUDENT") &&
         props.page !== "Commission" &&
         props.page !== "Repository" && (

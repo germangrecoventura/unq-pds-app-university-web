@@ -12,7 +12,6 @@ const RegisterOrUpdateRepository = (props) => {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isStudent, setIsStudent] = useState(false);
-  const [project, setProject] = useState("");
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
@@ -27,20 +26,6 @@ const RegisterOrUpdateRepository = (props) => {
       .finally(() => { });
   }, []);
 
-  useEffect(() => {
-    API.getProject(projectId)
-      .then((response) => {
-        setProject(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        setFormErrors(error.response.data);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
-  }, [projectId]);
-
   const resetForm = () => {
     setName("");
     setFormErrors("");
@@ -52,7 +37,7 @@ const RegisterOrUpdateRepository = (props) => {
     setIsSubmitting(true);
     switch (props.operation) {
       case "registration":
-        API.createRepository(name, project.ownerGithub, project.tokenGithub)
+        API.createRepository(name, projectId)
           .then((response) => {
             resetForm();
             setIsSubmitting(false);
@@ -69,7 +54,7 @@ const RegisterOrUpdateRepository = (props) => {
           });
         break;
       default:
-        API.updateRepository(name, project.ownerGithub, project.tokenGithub)
+        API.updateRepository(name, projectId)
           .then((response) => {
             resetForm();
             setIsSubmitting(false);

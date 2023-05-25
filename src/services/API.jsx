@@ -232,10 +232,15 @@ const API = {
     ),
   getProject: (id) =>
     axios.get(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
-  updateProject: (id, name) =>
+  updateProject: (id, name, projectOwner, projectToken) =>
     axios.put(
       `${baseURL}/projects`,
-      { id: id, name: name },
+      {
+        id: id,
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
       { withCredentials: true }
     ),
   deleteProject: (id) =>
@@ -249,25 +254,23 @@ const API = {
       { withCredentials: true }
     ),
   // REPOSITORIES
-  createRepository: (name, owner, token) =>
+  createRepository: (name, projectId) =>
     axios.post(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
-        token: token,
+        projectId: projectId,
       },
       { withCredentials: true }
     ),
   getRepository: (id) =>
     axios.get(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
-  updateRepository: (name, owner, token) =>
+  updateRepository: (name, projectId) =>
     axios.put(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
-        token: token,
+        projectId: projectId,
       },
       { withCredentials: true }
     ),

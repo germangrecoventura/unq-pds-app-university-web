@@ -25,7 +25,7 @@ const TableProject = (props) => {
         <MDBTableBody>
           <tr>
             <td>{props.project.name}</td>
-            <td>{props.project.repositories?.length || 0}</td>
+            <td>{props.project.repositories?.length}</td>
           </tr>
         </MDBTableBody>
       </MDBTable>
