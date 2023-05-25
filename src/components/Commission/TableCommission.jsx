@@ -15,13 +15,11 @@ const TableCommission = (props) => {
 
   function teachers() {
     return props.commission.teachers.map((teacher) => (
-      <h6 key={teacher.id}>
-        <td>
-          <Link to={`/teacher/${teacher.id}`}>
-            {teacher.firstName} {teacher.lastName}
-          </Link>
-        </td>
-      </h6>
+      <td>
+        <Link to={`/teacher/${teacher.id}`}>
+          {teacher.firstName} {teacher.lastName}
+        </Link>
+      </td>
     ));
   }
 
@@ -50,16 +48,16 @@ const TableCommission = (props) => {
             <td>{props.commission.id}</td>
             <td>{props.commission.year}</td>
             <td>{props.commission.fourMonthPeriod}</td>
-            <td>{props.commission.matter.name}</td>
-            <td>{props.commission.students.length}</td>
-            <td>{props.commission.teachers.length}</td>
-            <td>{props.commission.groupsStudents.length}</td>
+            <td>{props.commission.matter?.name}</td>
+            <td>{props.commission.students?.length}</td>
+            <td>{props.commission.teachers?.length}</td>
+            <td>{props.commission.groupsStudents?.length}</td>
           </tr>
         </MDBTableBody>
       </MDBTable>
 
       <div className="row buttons">
-        {props.commission.students.length > 0 && (
+        {props.commission.students?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               class="btn btn-primary"
@@ -73,7 +71,7 @@ const TableCommission = (props) => {
             </button>
           </div>
         )}
-        {props.commission.teachers.length > 0 && (
+        {props.commission.teachers?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               class="btn btn-primary"
@@ -87,7 +85,7 @@ const TableCommission = (props) => {
             </button>
           </div>
         )}
-        {props.commission.groupsStudents.length > 0 && (
+        {props.commission.groupsStudents?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               className="btn btn-primary"
@@ -102,7 +100,7 @@ const TableCommission = (props) => {
           </div>
         )}
       </div>
-      {props.commission.students.length > 0 && (
+      {props.commission.students?.length > 0 && (
         <div className="collapse" id="student">
           <MDBTable className="text-table" responsive="md" hover>
             <MDBTableHead>
@@ -116,12 +114,12 @@ const TableCommission = (props) => {
           </MDBTable>
         </div>
       )}
-      {props.commission.teachers.length > 0 && (
+      {props.commission.teachers?.length > 0 && (
         <div className="collapse" id="teacher">
           <MDBTable className="text-table" responsive="md" hover>
             <MDBTableHead>
               <tr>
-                <th scope="col">Students</th>
+                <th scope="col">Teachers</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
@@ -130,12 +128,12 @@ const TableCommission = (props) => {
           </MDBTable>
         </div>
       )}
-      {props.commission.groupsStudents.length > 0 && (
+      {props.commission.groupsStudents?.length > 0 && (
         <div className="collapse" id="group">
           <MDBTable className="text-table" responsive="md" hover>
             <MDBTableHead>
               <tr>
-                <th scope="col">Students</th>
+                <th scope="col">Groups</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
