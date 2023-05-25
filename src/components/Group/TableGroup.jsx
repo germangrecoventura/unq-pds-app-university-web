@@ -38,14 +38,14 @@ const TableGroup = (props) => {
         <MDBTableBody>
           <tr key={props.group.id}>
             <td>{props.group.name}</td>
-            <td>{props.group.members.length}</td>
-            <td>{props.group.projects.length}</td>
+            <td>{props.group.members?.length}</td>
+            <td>{props.group.projects?.length}</td>
           </tr>
         </MDBTableBody>
       </MDBTable>
 
       <div className="row buttons">
-        {props.group.members.length > 0 && (
+        {props.group.members?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               className="btn btn-primary"
@@ -59,7 +59,7 @@ const TableGroup = (props) => {
             </button>
           </div>
         )}
-        {props.group.projects.length > 0 && (
+        {props.group.projects?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               className="btn btn-primary"
@@ -74,7 +74,7 @@ const TableGroup = (props) => {
           </div>
         )}
       </div>
-      {props.group.members.length > 0 && (
+      {props.group.members?.length > 0 && (
         <div className="collapse" id="member">
           <MDBTable className="text-table" responsive="md" hover>
             <MDBTableHead>
@@ -86,7 +86,7 @@ const TableGroup = (props) => {
           </MDBTable>
         </div>
       )}
-      {props.group.projects.length > 0 && (
+      {props.group.projects?.length > 0 && (
         <div className="collapse" id="project">
           <MDBTable className="text-table" responsive="md" hover>
             <MDBTableHead>

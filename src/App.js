@@ -133,8 +133,8 @@ const App = () => {
               element={<PageRemove entityA="Group" entityB="Student" />}
             />
             <Route
-              path="/group/addProject"
-              element={<PageAdd entityA="Group" entityB="Project" />}
+              path="/group/addProject/:idEntity"
+              element={<PageRegisterOrUpdate operation="registration" entity="Project" />}
             />
             <Route
               path="/group/addComment"
@@ -154,15 +154,6 @@ const App = () => {
             <Route
               path={`commission/:idEntity`}
               element={<PageGet page="Commission" />}
-            />
-            <Route
-              path="/commission/update/:idEntity"
-              element={
-                <PageRegisterOrUpdateUser
-                  operation="update"
-                  entity="Commission"
-                />
-              }
             />
             <Route
               path="/commission/addStudent"
@@ -199,11 +190,11 @@ const App = () => {
               element={<RegisterOrUpdateRepository operation="registration" />}
             />
             <Route
-              path="/repository/get"
+              path="/project/:projectId/repository/:idEntity"
               element={<PageGet page={"Repository"} />}
             />
             <Route
-              path="/repository/update"
+              path="/project/:projectId/repository/update/:idEntity"
               element={<RegisterOrUpdateRepository operation="update" />}
             />
             <Route
@@ -235,8 +226,8 @@ const App = () => {
               }
             />
             <Route
-              path="project/addRepository"
-              element={<PageAdd entityA="Project" entityB="Repository" />}
+              path="project/addRepository/:projectId"
+              element={<RegisterOrUpdateRepository operation="registration" />}
             />
 
             <Route

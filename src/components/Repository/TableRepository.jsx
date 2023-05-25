@@ -11,6 +11,7 @@ const TableRepository = (props) => {
           <th scope="col">Branches</th>
           <th scope="col">Commits</th>
           <th scope="col">Issues</th>
+          <th scope="col">Pull requests</th>
           <th scope="col">Tags</th>
           <th scope="col">Comments</th>
         </tr>
@@ -20,12 +21,12 @@ const TableRepository = (props) => {
           <td>
             <Link to={props.repository.url}>{props.repository.name}</Link>
           </td>
-          <td>{props.repository.branches.length}</td>
-          <td>{props.repository.commits.length}</td>
-          <td>{props.repository.issues.length}</td>
-          <td>{props.repository.pullRequests.length}</td>
-          <td>{props.repository.tags.length}</td>
-          <td>{props.repository.commentsTeacher.length}</td>
+          <td>{props.repository.branches?.length}</td>
+          <td>{props.repository.commits?.length}</td>
+          <td>{props.repository.issues?.length}</td>
+          <td>{props.repository.pullRequests?.length}</td>
+          <td>{props.repository.tags?.length}</td>
+          <td>{props.repository.commentsTeacher?.length}</td>
         </tr>
       </MDBTableBody>
     </MDBTable>

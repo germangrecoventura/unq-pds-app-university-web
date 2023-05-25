@@ -15,13 +15,30 @@ import Card from "../Card/Card";
 
 const PageGet = (props) => {
   let navigate = useNavigate();
-  const { idEntity } = useParams();
+  const { projectId, idEntity } = useParams();
   const [entity, setEntity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState("");
+  const [project, setProject] = useState("");
   let cookies = Cookies.get("jwt");
+
+  useEffect(() => {
+    if (props.page === "Repository") {
+      API.getProject(projectId)
+        .then((response) => {
+          setProject(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          setFormErrors(error.response.data);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
+  }, [projectId]);
 
   useEffect(() => {
     API.getUser().then((response) => {
@@ -136,54 +153,111 @@ const PageGet = (props) => {
       case "Teacher":
         API.deleteTeacher(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       case "Student":
         API.deleteStudent(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       case "Matter":
         API.deleteMatter(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       case "Commission":
         API.deleteCommission(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       case "Group":
         API.deleteGroup(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       case "Repository":
         API.deleteRepository(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
       default:
         API.deleteProject(idEntity)
           .then((response) => {
+            setIsSubmitting(false);
             navigate("/operation-completed");
           })
-          .finally(() => {});
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+          });
         break;
     }
   };
+
+  const handleUpdateRepository = (event) => {
+    event.preventDefault();
+    API.updateRepository(entity.name, project.ownerGithub, project.tokenGithub)
+      .then((response) => {
+        setIsSubmitting(false);
+        navigate("/operation-completed");
+      })
+      .catch((error) => {
+        setFormErrors(error.response.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  }
 
   return (
     <div className="container clearfix">
@@ -223,17 +297,30 @@ const PageGet = (props) => {
           )}
         </>
       )}
-      {console.log}
 
       {((user.role === "STUDENT" && user.id == idEntity) ||
-        user.role !== "STUDENT") && (
+        user.role !== "STUDENT") &&
+        props.page !== "Commission" &&
+        props.page !== "Repository" && (
+          <div className="col">
+            <Card
+              title={`Update ${props.page.toLowerCase()}`}
+              description={""}
+              url={`/${props.page.toLowerCase()}/update/${entity.id}`}
+              image={"bi bi-person-fill-gear"}
+            ></Card>
+          </div>
+        )}
+
+      {props.page === "Repository" && (
         <div className="col">
-          <Card
-            title={`Update ${props.page.toLowerCase()}`}
-            description={""}
-            url={`/${props.page.toLowerCase()}/update/${entity.id}`}
-            image={"bi bi-person-fill-gear"}
-          ></Card>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleUpdateRepository}
+          >
+            Update {props.page.toLowerCase()}
+          </button>
         </div>
       )}
 
@@ -248,6 +335,10 @@ const PageGet = (props) => {
           </button>
         </div>
       )}
+
+      <div className="mb-3">
+        <FormErrors errors={Object.entries(formErrors)}></FormErrors>
+      </div>
 
       {props.page === "Commission" && (
         <>
@@ -307,7 +398,7 @@ const PageGet = (props) => {
           <Card
             title={`Add repository`}
             description={""}
-            url={`/${props.page}/addRepository`}
+            url={`/project/addRepository/${idEntity}`}
             image={"bi bi-journal-plus"}
           ></Card>
         </div>
@@ -335,7 +426,7 @@ const PageGet = (props) => {
             <Card
               title={`Add project`}
               description={""}
-              url={`/${props.page.toLowerCase()}/addProject`}
+              url={`/group/addProject/${idEntity}`}
               image={"bi bi-file-earmark-plus-fill"}
             ></Card>
           </div>

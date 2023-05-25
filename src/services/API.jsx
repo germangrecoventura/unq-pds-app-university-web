@@ -124,13 +124,15 @@ const API = {
       { withCredentials: true }
     ),
   // GROUPS
-  createGroup: (name, members, nameProject) =>
+  createGroup: (name, members, nameProject, projectOwner, projectToken) =>
     axios.post(
       `${baseURL}/groups`,
       {
         name: name,
         members: members,
         nameProject: nameProject,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
       },
       { withCredentials: true }
     ),
@@ -218,10 +220,14 @@ const API = {
       { withCredentials: true }
     ),
   // PROJECTS
-  createProject: (name) =>
+  createProject: (name, projectOwner, projectToken) =>
     axios.post(
       `${baseURL}/projects`,
-      { name: name },
+      {
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
       { withCredentials: true }
     ),
   getProject: (id) =>
@@ -243,23 +249,25 @@ const API = {
       { withCredentials: true }
     ),
   // REPOSITORIES
-  createRepository: (name, owner) =>
+  createRepository: (name, owner, token) =>
     axios.post(
       `${baseURL}/repositories`,
       {
         name: name,
         owner: owner,
+        token: token,
       },
       { withCredentials: true }
     ),
   getRepository: (id) =>
     axios.get(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
-  updateRepository: (name, owner) =>
+  updateRepository: (name, owner, token) =>
     axios.put(
       `${baseURL}/repositories`,
       {
         name: name,
         owner: owner,
+        token: token,
       },
       { withCredentials: true }
     ),
