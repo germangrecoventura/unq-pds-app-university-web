@@ -31,3 +31,12 @@ tbody tr, td {
     display: flex;
     justify-content: center;
 }
+
+.data-list {
+    display: flex;
+    border: white;
+}
+
+.text {
+    margin: auto;
+}

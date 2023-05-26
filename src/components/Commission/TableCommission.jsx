@@ -1,15 +1,18 @@
 import "./Commission.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import DeleteFromListButton from "../Buttons/DeleteFromListButton";
 
 const TableCommission = (props) => {
   function students() {
     return props.commission.students.map((student) => (
       <tr key={student.id}>
-        <td>
-          <Link to={`/student/${student.id}`}>
+        <td className="data-list">
+          <Link to={`/student/${student.id}`} className="text">
             {student.firstName} {student.lastName}
           </Link>
+          <DeleteFromListButton entityA="Commission" entityB="Student"
+            idEntityA={props.commission.id} idEntityB={student.id} />
         </td>
       </tr>
     ));
@@ -18,10 +21,12 @@ const TableCommission = (props) => {
   function teachers() {
     return props.commission.teachers.map((teacher) => (
       <tr key={teacher.id}>
-        <td>
-          <Link to={`/teacher/${teacher.id}`}>
+        <td className="data-list">
+          <Link to={`/teacher/${teacher.id}`} className="text">
             {teacher.firstName} {teacher.lastName}
           </Link>
+          <DeleteFromListButton entityA="Commission" entityB="Teacher"
+            idEntityA={props.commission.id} idEntityB={teacher.id} />
         </td>
       </tr>
     ));
@@ -30,8 +35,10 @@ const TableCommission = (props) => {
   function groups() {
     return props.commission.groupsStudents.map((group) => (
       <tr key={group.id}>
-        <td>
-          <Link to={`/group/${group.id}`}>{group.name}</Link>
+        <td className="data-list">
+          <Link to={`/group/${group.id}`} className="text">{group.name}</Link>
+          <DeleteFromListButton entityA="Commission" entityB="Group"
+            idEntityA={props.commission.id} idEntityB={group.id} />
         </td>
       </tr>
     ));
@@ -122,7 +129,7 @@ const TableCommission = (props) => {
       )}
       {props.commission.teachers?.length > 0 && (
         <div className="collapse" id="teacher">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table tabla" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Teachers</th>

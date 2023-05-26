@@ -1,15 +1,18 @@
 import "./Group.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import DeleteFromListButton from "../Buttons/DeleteFromListButton";
 
 const TableGroup = (props) => {
   function members() {
     return props.group.members.map((member) => (
       <tr key={member.id}>
-        <td>
-          <Link to={`/student/${member.id}`}>
+        <td className="data-list">
+          <Link to={`/student/${member.id}`} className="text">
             {member.firstName} {member.lastName}
           </Link>
+          <DeleteFromListButton entityA="Group" entityB="Student"
+            idEntityA={props.group.id} idEntityB={member.id} />
         </td>
       </tr>
     ));

@@ -1,0 +1,9 @@
+.delete-button {
+    justify-content: flex-end;
+    width: 25px;
+    height: 25px;
+    color: black;
+    background-color: red;
+    text-align: center;
+    cursor: pointer;
+}
