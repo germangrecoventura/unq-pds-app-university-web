@@ -33,26 +33,16 @@ const API = {
     axios.delete(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
   getAllTeachers: () =>
     axios.get(`${baseURL}/teachers/getAll`, { withCredentials: true }),
-  addCommentToStudent: (idtocomment, namerepository, comment) =>
+    addCommentToRepository: (idRepository, comment) =>
     axios.post(
-      `${baseURL}/teachers/addCommentStudent`,
+      `${baseURL}/teachers/addComment`,
       {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
+        repositoryId: idRepository,
         comment: comment,
       },
       { withCredentials: true }
     ),
-  addCommentToGroup: (idtocomment, namerepository, comment) =>
-    axios.post(
-      `${baseURL}/teachers/addCommentGroup`,
-      {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
-        comment: comment,
-      },
-      { withCredentials: true }
-    ),
+
   // MATTERS
   createMatter: (name) =>
     axios.post(`${baseURL}/matters`, { name: name }, { withCredentials: true }),

@@ -335,24 +335,24 @@ const PageGet = (props) => {
       )}
 
       {props.page === "Group" && (
-        <>
-          <div className="col">
-            <Card
-              title={`Add project`}
-              description={""}
-              url={`/group/${idEntity}/addProject`}
-              image={"bi bi-file-earmark-plus-fill"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Add comments to group"}
-              description={""}
-              url={`/${props.page.toLowerCase()}/addComment`}
-              image={"bi bi-clipboard-plus-fill"}
-            ></Card>
-          </div>
-        </>
+        <div className="col">
+          <Card
+            title={`Add project`}
+            description={""}
+            url={`/group/${idEntity}/addProject`}
+            image={"bi bi-file-earmark-plus-fill"}
+          ></Card>
+        </div>
+      )}
+      {props.page === "Repository" && (
+        <div className="col">
+          <Card
+            title={"Add comments"}
+            description={""}
+            url={`/${props.page.toLowerCase()}/addComment/${idEntity}`}
+            image={"bi bi-clipboard-plus-fill"}
+          ></Card>
+        </div>
       )}
     </div>
   );

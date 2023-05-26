@@ -134,11 +134,16 @@ const App = () => {
             />
             <Route
               path="/group/:idEntity/addProject"
-              element={<PageRegisterOrUpdate operation="registration" entity="Project" />}
+              element={
+                <PageRegisterOrUpdate
+                  operation="registration"
+                  entity="Project"
+                />
+              }
             />
             <Route
-              path="/group/addComment"
-              element={<PageAddComment entityToComment="Group" />}
+              path="/repository/addComment/:idRepository"
+              element={<PageAddComment />}
             />
             <Route
               path="/commissions"
