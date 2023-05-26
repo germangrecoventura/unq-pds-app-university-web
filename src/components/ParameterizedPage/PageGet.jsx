@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import Cookies from "js-cookie";
 import TableStudent from "../Student/TableStudent";
@@ -323,65 +323,12 @@ const PageGet = (props) => {
         <FormErrors errors={Object.entries(formErrors)}></FormErrors>
       </div>
 
-      {props.page === "Commission" && (
-        <>
-          <div className="col">
-            <Card
-              title={"Add student"}
-              description={""}
-              url={`/${props.page}/addStudent`}
-              image={"bi bi-person-add"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Remove student"}
-              description={""}
-              url={`/${props.page}/removeStudent`}
-              image={"bi bi-person-x"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Add teacher"}
-              description={""}
-              url={`/${props.page}/addTeacher`}
-              image={"bi bi-person-plus-fill"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Remove teacher"}
-              description={""}
-              url={`/${props.page}/removeTeacher`}
-              image={"bi bi-person-x-fill"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Add group"}
-              description={""}
-              url={`/${props.page}/addGroup`}
-              image={"bi bi-folder-plus"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={"Remove group"}
-              description={""}
-              url={`/${props.page}/removeGroup`}
-              image={"bi bi-folder-x"}
-            ></Card>
-          </div>
-        </>
-      )}
-
       {props.page === "Project" && (
         <div className="col">
           <Card
             title={`Add repository`}
             description={""}
-            url={`/project/addRepository/${idEntity}`}
+            url={`/project/${idEntity}/addRepository`}
             image={"bi bi-journal-plus"}
           ></Card>
         </div>
@@ -391,25 +338,9 @@ const PageGet = (props) => {
         <>
           <div className="col">
             <Card
-              title={`Add member`}
-              description={""}
-              url={`/${props.page.toLowerCase()}/addMember`}
-              image={"bi bi-person-add"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
-              title={`Remove member`}
-              description={""}
-              url={`/${props.page.toLowerCase()}/removeMember`}
-              image={"bi bi-person-x"}
-            ></Card>
-          </div>
-          <div className="col">
-            <Card
               title={`Add project`}
               description={""}
-              url={`/group/addProject/${idEntity}`}
+              url={`/group/${idEntity}/addProject`}
               image={"bi bi-file-earmark-plus-fill"}
             ></Card>
           </div>

@@ -2,6 +2,7 @@ import "./Commission.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import DeleteFromListButton from "../Buttons/DeleteFromListButton";
+import AddToListForm from "../Forms/AddToListForm";
 
 const TableCommission = (props) => {
   function students() {
@@ -71,6 +72,14 @@ const TableCommission = (props) => {
         </MDBTableBody>
       </MDBTable>
 
+      <div className="row buttons text-center">
+        <AddToListForm entityA="Commission" entityB="Student"
+          idEntityA={props.commission.id} listOfEntities={props.commission.students} />
+        <AddToListForm entityA="Commission" entityB="Teacher"
+          idEntityA={props.commission.id} listOfEntities={props.commission.teachers} />
+        <AddToListForm entityA="Commission" entityB="Group"
+          idEntityA={props.commission.id} listOfEntities={props.commission.groupsStudents} />
+      </div>
       <div className="row buttons">
         {props.commission.students?.length > 0 && (
           <div className="col-md-2 text-center">

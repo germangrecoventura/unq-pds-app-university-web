@@ -2,6 +2,7 @@ import "./Group.css";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import DeleteFromListButton from "../Buttons/DeleteFromListButton";
+import AddToListForm from "../Forms/AddToListForm";
 
 const TableGroup = (props) => {
   function members() {
@@ -47,6 +48,10 @@ const TableGroup = (props) => {
         </MDBTableBody>
       </MDBTable>
 
+      <div className="row buttons text-center">
+        <AddToListForm entityA="Group" entityB="Student"
+          idEntityA={props.group.id} listOfEntities={props.group.members} />
+      </div>
       <div className="row buttons">
         {props.group.members?.length > 0 && (
           <div className="col-md-2 text-center">

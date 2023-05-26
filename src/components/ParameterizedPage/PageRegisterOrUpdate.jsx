@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
@@ -9,7 +9,7 @@ const PageRegisterOrUpdate = (props) => {
   const { idEntity } = useParams();
   const [name, setName] = useState("");
   const [nameProject, setNameProject] = useState("");
-  const [projectGithubOwner, setProjectGithubOwner] = useState("");
+  const [projectGithubOwner, setProjectGithubOwner] = useState(null);
   const [projectGithubToken, setProjectGithubToken] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
@@ -41,7 +41,7 @@ const PageRegisterOrUpdate = (props) => {
   const resetForm = () => {
     setName("");
     setNameProject("");
-    setProjectGithubOwner("");
+    setProjectGithubOwner(null);
     setProjectGithubToken("");
     setStudentOne(null);
     setStudentTwo(null);
@@ -289,7 +289,6 @@ const PageRegisterOrUpdate = (props) => {
                         type="text"
                         id="inputProjectGithubOwner"
                         className="form-control"
-                        required={true}
                         onChange={(e) => setProjectGithubOwner(e.target.value)}
                       />
                     </div>
@@ -305,7 +304,6 @@ const PageRegisterOrUpdate = (props) => {
                         type="password"
                         id="inputProjectGithubToken"
                         className="form-control"
-                        required={true}
                         onChange={(e) => setProjectGithubToken(e.target.value)}
                       />
                     </div>

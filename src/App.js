@@ -133,7 +133,7 @@ const App = () => {
               element={<PageRemove entityA="Group" entityB="Student" />}
             />
             <Route
-              path="/group/addProject/:idEntity"
+              path="/group/:idEntity/addProject"
               element={<PageRegisterOrUpdate operation="registration" entity="Project" />}
             />
             <Route
@@ -226,7 +226,7 @@ const App = () => {
               }
             />
             <Route
-              path="project/addRepository/:projectId"
+              path="project/:projectId/addRepository"
               element={<RegisterOrUpdateRepository operation="registration" />}
             />
 

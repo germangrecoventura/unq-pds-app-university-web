@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 
 const LogIn = () => {

@@ -1,13 +1,14 @@
+import React from "react";
 import API from "../../services/API";
 import './ButtonsStyles.css';
 
-const DeleteFromListButton = (props) => {
+const AddToListButton = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
         switch (props.entityA) {
             case "Group":
-                API.removeMember(props.idEntityA, props.idEntityB)
+                API.addMember(props.idEntityA, props.idEntityB)
                     .then((response) => {
                         window.location.replace("");
                     });
@@ -15,19 +16,19 @@ const DeleteFromListButton = (props) => {
             default:
                 switch (props.entityB) {
                     case "Student":
-                        API.removeStudent(props.idEntityA, props.idEntityB)
+                        API.addStudent(props.idEntityA, props.idEntityB)
                             .then((response) => {
                                 window.location.replace("");
                             });
                         break;
                     case "Teacher":
-                        API.removeTeacher(props.idEntityA, props.idEntityB)
+                        API.addTeacher(props.idEntityA, props.idEntityB)
                             .then((response) => {
                                 window.location.replace("");
                             });
                         break;
                     default:
-                        API.removeGroup(props.idEntityA, props.idEntityB)
+                        API.addGroup(props.idEntityA, props.idEntityB)
                             .then((response) => {
                                 window.location.replace("");
                             });
@@ -38,10 +39,10 @@ const DeleteFromListButton = (props) => {
     };
 
     return (
-        <div className="delete-button" onClick={handleSubmit}>
-            <i className="bi bi-trash"></i>
+        <div className="add-button" onClick={handleSubmit}>
+            <i className="bi bi-plus-square"></i>
         </div>
     );
 };
 
-export default DeleteFromListButton;
+export default AddToListButton;
