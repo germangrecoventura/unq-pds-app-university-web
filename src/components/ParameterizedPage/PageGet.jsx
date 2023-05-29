@@ -296,26 +296,22 @@ const PageGet = (props) => {
         )}
 
       {props.page === "Repository" && (
-        <div className="col">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleUpdateRepository}
-          >
-            Update {props.page.toLowerCase()}
-          </button>
+        <div className="col" onClick={handleUpdateRepository}>
+          <Card
+            title={`Update ${props.page.toLowerCase()}`}
+            description={""}
+            image={"bi bi-person-fill-gear"}
+          ></Card>
         </div>
       )}
 
       {user.role === "ADMIN" && (
-        <div className="col">
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={handleSubmit}
-          >
-            Delete {props.page.toLowerCase()}
-          </button>
+        <div className="col" onClick={handleSubmit}>
+          <Card
+            title={`Delete ${props.page.toLowerCase()}`}
+            description={""}
+            image={"bi bi-person-fill-x"}
+          ></Card>
         </div>
       )}
 
@@ -349,7 +345,7 @@ const PageGet = (props) => {
           <Card
             title={"Add comments"}
             description={""}
-            url={`/${props.page.toLowerCase()}/addComment/${idEntity}`}
+            url={`/${props.page.toLowerCase()}/${idEntity}/addComment`}
             image={"bi bi-clipboard-plus-fill"}
           ></Card>
         </div>

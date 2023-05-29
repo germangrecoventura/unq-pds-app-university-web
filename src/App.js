@@ -24,7 +24,6 @@ import GetAllRepositories from "./components/Repository/GetAllRepositories";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 import PageAddComment from "./components/ParameterizedPage/PageAddComment";
-import GetGroup from "./components/Group/GetGroup";
 
 const App = () => {
   return (
@@ -142,10 +141,6 @@ const App = () => {
               }
             />
             <Route
-              path="/repository/addComment/:idRepository"
-              element={<PageAddComment />}
-            />
-            <Route
               path="/commissions"
               element={
                 <PageComponent data={GetAllCommissions} page="commission" />
@@ -193,6 +188,10 @@ const App = () => {
             <Route
               path="/repository/register"
               element={<RegisterOrUpdateRepository operation="registration" />}
+            />
+            <Route
+              path="/repository/:idRepository/addComment"
+              element={<PageAddComment />}
             />
             <Route
               path="/project/:projectId/repository/:idEntity"
