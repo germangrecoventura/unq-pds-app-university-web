@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import Cookies from "js-cookie";
@@ -229,9 +229,12 @@ const PageGet = (props) => {
 
   const handleUpdateRepository = (event) => {
     event.preventDefault();
+    setFormErrors("");
     API.updateRepository(entity.name, projectId)
       .then((response) => {
         setIsSubmitting(false);
+
+        document.getElementById("exitModal").click();
         navigate("/operation-completed");
       })
       .catch((error) => {
@@ -244,6 +247,38 @@ const PageGet = (props) => {
 
   return (
     <div className="container clearfix">
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Updating repository, please wait
+              </h1>
+              <button
+                type="button"
+                id="exitModal"
+                class="btn-close visually-hidden"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
@@ -252,6 +287,9 @@ const PageGet = (props) => {
 
       {user && (
         <>
+          <div className="mb-3">
+            <FormErrors errors={Object.entries(formErrors)}></FormErrors>
+          </div>
           {isFind && props.page === "Student" && (
             <TableStudent student={entity} />
           )}
@@ -295,7 +333,12 @@ const PageGet = (props) => {
               )}
 
             {props.page === "Repository" && (
-              <div className="col" onClick={handleUpdateRepository}>
+              <div
+                className="col"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                onClick={handleUpdateRepository}
+              >
                 <Card
                   title={`Update ${props.page.toLowerCase()}`}
                   description={""}
