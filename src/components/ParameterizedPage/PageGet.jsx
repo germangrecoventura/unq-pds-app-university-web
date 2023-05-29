@@ -278,77 +278,75 @@ const PageGet = (props) => {
               <GetRepositoryPaginated repository={entity} />
             </>
           )}
-        </>
-      )}
 
-      {((user.role === "STUDENT" && user.id === idEntity) ||
-        user.role !== "STUDENT") &&
-        props.page !== "Commission" &&
-        props.page !== "Repository" && (
-          <div className="col">
-            <Card
-              title={`Update ${props.page.toLowerCase()}`}
-              description={""}
-              url={`/${props.page.toLowerCase()}/update/${entity.id}`}
-              image={"bi bi-person-fill-gear"}
-            ></Card>
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+            {((user.role === "STUDENT" && user.id === idEntity) ||
+              user.role !== "STUDENT") &&
+              props.page !== "Commission" &&
+              props.page !== "Repository" && (
+                <div className="col">
+                  <Card
+                    title={`Update ${props.page.toLowerCase()}`}
+                    description={""}
+                    url={`/${props.page.toLowerCase()}/update/${entity.id}`}
+                    image={"bi bi-person-fill-gear"}
+                  ></Card>
+                </div>
+              )}
+
+            {props.page === "Repository" && (
+              <div className="col" onClick={handleUpdateRepository}>
+                <Card
+                  title={`Update ${props.page.toLowerCase()}`}
+                  description={""}
+                  image={"bi bi-person-fill-gear"}
+                ></Card>
+              </div>
+            )}
+
+            {user.role === "ADMIN" && (
+              <div className="col" onClick={handleSubmit}>
+                <Card
+                  title={`Delete ${props.page.toLowerCase()}`}
+                  description={""}
+                  image={"bi bi-person-fill-x"}
+                ></Card>
+              </div>
+            )}
+
+            {props.page === "Project" && (
+              <div className="col">
+                <Card
+                  title={`Add repository`}
+                  description={""}
+                  url={`/project/${idEntity}/addRepository`}
+                  image={"bi bi-journal-plus"}
+                ></Card>
+              </div>
+            )}
+
+            {props.page === "Group" && (
+              <div className="col">
+                <Card
+                  title={`Add project`}
+                  description={""}
+                  url={`/group/${idEntity}/addProject`}
+                  image={"bi bi-file-earmark-plus-fill"}
+                ></Card>
+              </div>
+            )}
+            {props.page === "Repository" && (
+              <div className="col">
+                <Card
+                  title={"Add comments"}
+                  description={""}
+                  url={`/${props.page.toLowerCase()}/${idEntity}/addComment`}
+                  image={"bi bi-clipboard-plus-fill"}
+                ></Card>
+              </div>
+            )}
           </div>
-        )}
-
-      {props.page === "Repository" && (
-        <div className="col" onClick={handleUpdateRepository}>
-          <Card
-            title={`Update ${props.page.toLowerCase()}`}
-            description={""}
-            image={"bi bi-person-fill-gear"}
-          ></Card>
-        </div>
-      )}
-
-      {user.role === "ADMIN" && (
-        <div className="col" onClick={handleSubmit}>
-          <Card
-            title={`Delete ${props.page.toLowerCase()}`}
-            description={""}
-            image={"bi bi-person-fill-x"}
-          ></Card>
-        </div>
-      )}
-
-      <div className="mb-3">
-        <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-      </div>
-
-      {props.page === "Project" && (
-        <div className="col">
-          <Card
-            title={`Add repository`}
-            description={""}
-            url={`/project/${idEntity}/addRepository`}
-            image={"bi bi-journal-plus"}
-          ></Card>
-        </div>
-      )}
-
-      {props.page === "Group" && (
-        <div className="col">
-          <Card
-            title={`Add project`}
-            description={""}
-            url={`/group/${idEntity}/addProject`}
-            image={"bi bi-file-earmark-plus-fill"}
-          ></Card>
-        </div>
-      )}
-      {props.page === "Repository" && (
-        <div className="col">
-          <Card
-            title={"Add comments"}
-            description={""}
-            url={`/${props.page.toLowerCase()}/${idEntity}/addComment`}
-            image={"bi bi-clipboard-plus-fill"}
-          ></Card>
-        </div>
+        </>
       )}
     </div>
   );
