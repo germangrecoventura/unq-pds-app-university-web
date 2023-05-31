@@ -5,6 +5,7 @@ import DeleteFromListButton from "../Buttons/DeleteFromListButton";
 import AddToListForm from "../Forms/AddToListForm";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
+import FormErrors from "../Forms/FormErrors";
 
 const TableCommission = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -24,8 +25,13 @@ const TableCommission = (props) => {
           <Link to={`/student/${student.id}`} className="text">
             {student.firstName} {student.lastName}
           </Link>
-          <DeleteFromListButton entityA="Commission" entityB="Student"
-            idEntityA={props.commission.id} idEntityB={student.id} />
+          <DeleteFromListButton
+            entityA="Commission"
+            entityB="Student"
+            idEntityA={props.commission.id}
+            idEntityB={student.id}
+            formErrors={props.formErrors}
+          />
         </td>
       </tr>
     ));
@@ -38,8 +44,13 @@ const TableCommission = (props) => {
           <Link to={`/teacher/${teacher.id}`} className="text">
             {teacher.firstName} {teacher.lastName}
           </Link>
-          <DeleteFromListButton entityA="Commission" entityB="Teacher"
-            idEntityA={props.commission.id} idEntityB={teacher.id} />
+          <DeleteFromListButton
+            entityA="Commission"
+            entityB="Teacher"
+            idEntityA={props.commission.id}
+            idEntityB={teacher.id}
+            formErrors={props.formErrors}
+          />
         </td>
       </tr>
     ));
@@ -49,9 +60,16 @@ const TableCommission = (props) => {
     return props.commission.groupsStudents.map((group) => (
       <tr key={group.id}>
         <td className="data-list">
-          <Link to={`/group/${group.id}`} className="text">{group.name}</Link>
-          <DeleteFromListButton entityA="Commission" entityB="Group"
-            idEntityA={props.commission.id} idEntityB={group.id} />
+          <Link to={`/group/${group.id}`} className="text">
+            {group.name}
+          </Link>
+          <DeleteFromListButton
+            entityA="Commission"
+            entityB="Group"
+            idEntityA={props.commission.id}
+            idEntityB={group.id}
+            formErrors={props.formErrors}
+          />
         </td>
       </tr>
     ));
@@ -86,16 +104,28 @@ const TableCommission = (props) => {
 
       <div className="row buttons text-center">
         {!isStudent && (
-          <AddToListForm entityA="Commission" entityB="Student"
-            idEntityA={props.commission.id} listOfEntities={props.commission.students} />
+          <AddToListForm
+            entityA="Commission"
+            entityB="Student"
+            idEntityA={props.commission.id}
+            listOfEntities={props.commission.students}
+          />
         )}
         {isAdmin && (
-          <AddToListForm entityA="Commission" entityB="Teacher"
-            idEntityA={props.commission.id} listOfEntities={props.commission.teachers} />
+          <AddToListForm
+            entityA="Commission"
+            entityB="Teacher"
+            idEntityA={props.commission.id}
+            listOfEntities={props.commission.teachers}
+          />
         )}
         {!isStudent && (
-          <AddToListForm entityA="Commission" entityB="Group"
-            idEntityA={props.commission.id} listOfEntities={props.commission.groupsStudents} />
+          <AddToListForm
+            entityA="Commission"
+            entityB="Group"
+            idEntityA={props.commission.id}
+            listOfEntities={props.commission.groupsStudents}
+          />
         )}
       </div>
       <div className="row buttons">

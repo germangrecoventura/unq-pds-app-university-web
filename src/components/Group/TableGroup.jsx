@@ -12,8 +12,13 @@ const TableGroup = (props) => {
           <Link to={`/student/${member.id}`} className="text">
             {member.firstName} {member.lastName}
           </Link>
-          <DeleteFromListButton entityA="Group" entityB="Student"
-            idEntityA={props.group.id} idEntityB={member.id} />
+          <DeleteFromListButton
+            entityA="Group"
+            entityB="Student"
+            idEntityA={props.group.id}
+            idEntityB={member.id}
+            formErrors={props.formErrors}
+          />
         </td>
       </tr>
     ));
@@ -49,8 +54,13 @@ const TableGroup = (props) => {
       </MDBTable>
 
       <div className="row buttons text-center">
-        <AddToListForm entityA="Group" entityB="Student"
-          idEntityA={props.group.id} listOfEntities={props.group.members} />
+        <AddToListForm
+          entityA="Group"
+          entityB="Student"
+          idEntityA={props.group.id}
+          listOfEntities={props.group.members}
+          formErrors={props.formErrors}
+        />
       </div>
       <div className="row buttons">
         {props.group.members?.length > 0 && (

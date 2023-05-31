@@ -240,10 +240,10 @@ const PageGet = (props) => {
 
           {isFind && props.page === "Matter" && <TableMatter matter={entity} />}
 
-          {isFind && props.page === "Group" && <TableGroup group={entity} />}
+          {isFind && props.page === "Group" && <TableGroup group={entity} formErrors={setFormErrors}/>}
 
           {isFind && props.page === "Commission" && (
-            <TableCommission commission={entity} />
+            <TableCommission commission={entity} formErrors={setFormErrors} />
           )}
 
           {isFind && props.page === "Project" && (
@@ -270,10 +270,14 @@ const PageGet = (props) => {
             )}
             {(props.page === "Group" ||
               props.page === "Project" ||
-              ((props.page === "Student" && isStudent && user.id === Number(idEntity)) ||
-                isAdmin) ||
-              ((props.page === "Teacher" && isTeacher && user.id === Number(idEntity)) ||
-                isAdmin)) &&
+              (props.page === "Student" &&
+                isStudent &&
+                user.id === Number(idEntity)) ||
+              isAdmin ||
+              (props.page === "Teacher" &&
+                isTeacher &&
+                user.id === Number(idEntity)) ||
+              isAdmin) &&
               props.page !== "Matter" &&
               props.page !== "Commission" &&
               props.page !== "Repository" && (
@@ -344,7 +348,7 @@ const PageGet = (props) => {
               </div>
             )}
           </div>
-          <div className="mb-3">
+          <div className="mb-3 py-5">
             <FormErrors errors={Object.entries(formErrors)}></FormErrors>
           </div>
         </>
