@@ -13,14 +13,9 @@ import GetAllStudents from "./components/Student/GetAllStudents";
 import GetAllGroups from "./components/Group/GetAllGroups";
 import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
-import PageDelete from "./components/ParameterizedPage/PageDelete";
 import PageComponent from "./components/PageComponent/PageComponent";
 import PageGet from "./components/ParameterizedPage/PageGet";
-import GetAllProjects from "./components/Project/GetAllProjects";
-import PageAdd from "./components/ParameterizedPage/PageAdd";
-import PageRemove from "./components/ParameterizedPage/PageRemove";
 import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdateRepository";
-import GetAllRepositories from "./components/Repository/GetAllRepositories";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 import PageAddComment from "./components/ParameterizedPage/PageAddComment";
@@ -122,15 +117,6 @@ const App = () => {
                 <PageRegisterOrUpdate operation="update" entity="Group" />
               }
             />
-
-            <Route
-              path="/group/addMember"
-              element={<PageAdd entityA="Group" entityB="Student" />}
-            />
-            <Route
-              path="/group/removeMember"
-              element={<PageRemove entityA="Group" entityB="Student" />}
-            />
             <Route
               path="/group/:idEntity/addProject"
               element={
@@ -150,44 +136,9 @@ const App = () => {
               path="/commission/register"
               element={<RegisterCommission />}
             />
-
             <Route
               path={`commission/:idEntity`}
               element={<PageGet page="Commission" />}
-            />
-            <Route
-              path="/commission/addStudent"
-              element={<PageAdd entityA="Commission" entityB="Student" />}
-            />
-            <Route
-              path="/commission/removeStudent"
-              element={<PageRemove entityA="Commission" entityB="Student" />}
-            />
-            <Route
-              path="/commission/addTeacher"
-              element={<PageAdd entityA="Commission" entityB="Teacher" />}
-            />
-            <Route
-              path="/commission/removeTeacher"
-              element={<PageRemove entityA="Commission" entityB="Teacher" />}
-            />
-            <Route
-              path="/commission/addGroup"
-              element={<PageAdd entityA="Commission" entityB="Group" />}
-            />
-            <Route
-              path="/commission/removeGroup"
-              element={<PageRemove entityA="Commission" entityB="Group" />}
-            />
-            <Route
-              path="/repositories"
-              element={
-                <PageComponent data={GetAllRepositories} page="repository" />
-              }
-            />
-            <Route
-              path="/repository/register"
-              element={<RegisterOrUpdateRepository operation="registration" />}
             />
             <Route
               path="/repository/:idRepository/addComment"
@@ -195,29 +146,7 @@ const App = () => {
             />
             <Route
               path="/project/:projectId/repository/:idEntity"
-              element={<PageGet page={"Repository"} />}
-            />
-            <Route
-              path="/project/:projectId/repository/update/:idEntity"
-              element={<RegisterOrUpdateRepository operation="update" />}
-            />
-            <Route
-              path="/repository/delete"
-              element={<PageDelete page={"Repository"} />}
-            />
-
-            <Route
-              path="/projects"
-              element={<PageComponent data={GetAllProjects} page="project" />}
-            />
-            <Route
-              path="/project/register"
-              element={
-                <PageRegisterOrUpdate
-                  operation="registration"
-                  entity="Project"
-                />
-              }
+              element={<PageGet page="Repository" />}
             />
             <Route
               path={`project/:idEntity`}

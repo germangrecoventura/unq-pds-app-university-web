@@ -17,15 +17,20 @@ const PageGet = (props) => {
   let navigate = useNavigate();
   const { projectId, idEntity } = useParams();
   const [entity, setEntity] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFind, setIsFind] = useState(false);
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
     API.getUser().then((response) => {
       setUser(response.data);
+      setIsAdmin(response.data.role === "ADMIN");
+      setIsTeacher(response.data.role === "TEACHER");
+      setIsStudent(response.data.role === "STUDENT");
     });
     switch (props.page) {
       case "Teacher":
@@ -33,13 +38,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Student":
@@ -47,13 +48,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Matter":
@@ -61,13 +58,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Commission":
@@ -75,13 +68,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Group":
@@ -89,13 +78,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Repository":
@@ -103,14 +88,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       default:
@@ -118,13 +98,9 @@ const PageGet = (props) => {
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
-            setIsSubmitting(false);
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
     }
@@ -136,92 +112,64 @@ const PageGet = (props) => {
       case "Teacher":
         API.deleteTeacher(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Student":
         API.deleteStudent(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Matter":
         API.deleteMatter(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Commission":
         API.deleteCommission(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Group":
         API.deleteGroup(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       case "Repository":
         API.deleteRepository(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
       default:
         API.deleteProject(idEntity)
           .then((response) => {
-            setIsSubmitting(false);
             navigate("/operation-completed");
           })
           .catch((error) => {
             setFormErrors(error.response.data);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
           });
         break;
     }
@@ -232,16 +180,11 @@ const PageGet = (props) => {
     setFormErrors("");
     API.updateRepository(entity.name, projectId)
       .then((response) => {
-        setIsSubmitting(false);
-
         document.getElementById("exitModal").click();
         navigate("/operation-completed");
       })
       .catch((error) => {
         setFormErrors(error.response.data);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
       });
   };
 
@@ -315,8 +258,23 @@ const PageGet = (props) => {
           )}
 
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            {((user.role === "STUDENT" && user.id === idEntity) ||
-              user.role !== "STUDENT") &&
+            {isAdmin && props.page === "Matter" && (
+              <div className="col">
+                <Card
+                  title={`Update ${props.page.toLowerCase()}`}
+                  description={""}
+                  url={`/${props.page.toLowerCase()}/update/${entity.id}`}
+                  image={"bi bi-person-fill-gear"}
+                ></Card>
+              </div>
+            )}
+            {(props.page === "Group" ||
+              props.page === "Project" ||
+              ((props.page === "Student" && isStudent && user.id === Number(idEntity)) ||
+                isAdmin) ||
+              ((props.page === "Teacher" && isTeacher && user.id === Number(idEntity)) ||
+                isAdmin)) &&
+              props.page !== "Matter" &&
               props.page !== "Commission" &&
               props.page !== "Repository" && (
                 <div className="col">
@@ -344,7 +302,7 @@ const PageGet = (props) => {
               </div>
             )}
 
-            {user.role === "ADMIN" && (
+            {isAdmin && (
               <div className="col" onClick={handleSubmit}>
                 <Card
                   title={`Delete ${props.page.toLowerCase()}`}
@@ -375,7 +333,7 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {props.page === "Repository" && (
+            {!isStudent && props.page === "Repository" && (
               <div className="col">
                 <Card
                   title={"Add comments"}

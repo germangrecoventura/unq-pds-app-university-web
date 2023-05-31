@@ -42,7 +42,7 @@ const PageRegisterOrUpdateUser = (props) => {
         setIsTeacher(false);
         setIsStudent(false);
       })
-      .finally(() => {});
+      .finally(() => { });
 
     if (props.operation === "update") {
       switch (props.entity) {
@@ -72,7 +72,7 @@ const PageRegisterOrUpdateUser = (props) => {
           break;
       }
     }
-  }, []);
+  }, [idEntity, props.entity, props.operation]);
 
   const resetForm = () => {
     setFirstname("");
@@ -162,95 +162,114 @@ const PageRegisterOrUpdateUser = (props) => {
         </div>
       )}
 
-      <>
-        <h5 className="title">
-          {props.entity} {props.operation} form
-        </h5>
-        <form onSubmit={handleSubmit}>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-4">
-                <label htmlFor="inputFirstname" className="col-form-label">
-                  First name:
-                </label>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="text"
-                  id="inputFirstname"
-                  className="form-control"
-                  required={true}
-                  value={firstname}
-                  onChange={(e) => setFirstname(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">
-                <label htmlFor="inputLastname" className="col-form-label">
-                  Last name:
-                </label>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="text"
-                  id="inputLastname"
-                  className="form-control"
-                  required={true}
-                  value={lastname}
-                  onChange={(e) => setLastname(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">
-                <label htmlFor="inputEmail" className="col-form-label">
-                  Email:
-                </label>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="email"
-                  id="inputEmail"
-                  className="form-control"
-                  required={true}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">
-                <label htmlFor="inputPassword" className="col-form-label">
-                  Password:
-                </label>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="password"
-                  id="inputPassword"
-                  className="form-control"
-                  required={true}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
+      {cookies &&
+        ((!isAdmin &&
+          (window.location.href === "http://localhost:3000/student/register" ||
+            window.location.href === "http://localhost:3000/teacher/register")) ||
+          (isTeacher &&
+            window.location.href === `http://localhost:3000/student/update/${idEntity}`) ||
+          (isStudent &&
+            window.location.href === `http://localhost:3000/teacher/update/${idEntity}`)) && (
+          <div className="alert alert-danger" role="alert">
+            You do not have permissions to access this resource
           </div>
-          <div className="mb-3">
-            <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </>
+        )}
+
+      {(isAdmin ||
+        (isTeacher &&
+          window.location.href === `http://localhost:3000/teacher/update/${idEntity}`) ||
+        (isStudent &&
+          window.location.href === `http://localhost:3000/student/update/${idEntity}`)) && (
+          <>
+            <h5 className="title">
+              {props.entity} {props.operation} form
+            </h5>
+            <form onSubmit={handleSubmit}>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputFirstname" className="col-form-label">
+                      First name:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      id="inputFirstname"
+                      className="form-control"
+                      required={true}
+                      value={firstname}
+                      onChange={(e) => setFirstname(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputLastname" className="col-form-label">
+                      Last name:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      id="inputLastname"
+                      className="form-control"
+                      required={true}
+                      value={lastname}
+                      onChange={(e) => setLastname(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputEmail" className="col-form-label">
+                      Email:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="email"
+                      id="inputEmail"
+                      className="form-control"
+                      required={true}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    <label htmlFor="inputPassword" className="col-form-label">
+                      Password:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      className="form-control"
+                      required={true}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mb-3">
+                <FormErrors errors={Object.entries(formErrors)}></FormErrors>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </>
+        )}
 
       {/* {cookies &&
         ((!isAdmin &&

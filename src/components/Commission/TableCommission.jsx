@@ -3,8 +3,20 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import DeleteFromListButton from "../Buttons/DeleteFromListButton";
 import AddToListForm from "../Forms/AddToListForm";
+import API from "../../services/API";
+import { useEffect, useState } from "react";
 
 const TableCommission = (props) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
+
+  useEffect(() => {
+    API.getUser().then((response) => {
+      setIsAdmin(response.data.role === "ADMIN");
+      setIsStudent(response.data.role === "STUDENT");
+    });
+  }, []);
+
   function students() {
     return props.commission.students.map((student) => (
       <tr key={student.id}>
@@ -73,12 +85,18 @@ const TableCommission = (props) => {
       </MDBTable>
 
       <div className="row buttons text-center">
-        <AddToListForm entityA="Commission" entityB="Student"
-          idEntityA={props.commission.id} listOfEntities={props.commission.students} />
-        <AddToListForm entityA="Commission" entityB="Teacher"
-          idEntityA={props.commission.id} listOfEntities={props.commission.teachers} />
-        <AddToListForm entityA="Commission" entityB="Group"
-          idEntityA={props.commission.id} listOfEntities={props.commission.groupsStudents} />
+        {!isStudent && (
+          <AddToListForm entityA="Commission" entityB="Student"
+            idEntityA={props.commission.id} listOfEntities={props.commission.students} />
+        )}
+        {isAdmin && (
+          <AddToListForm entityA="Commission" entityB="Teacher"
+            idEntityA={props.commission.id} listOfEntities={props.commission.teachers} />
+        )}
+        {!isStudent && (
+          <AddToListForm entityA="Commission" entityB="Group"
+            idEntityA={props.commission.id} listOfEntities={props.commission.groupsStudents} />
+        )}
       </div>
       <div className="row buttons">
         {props.commission.students?.length > 0 && (
