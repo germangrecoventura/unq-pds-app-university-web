@@ -287,9 +287,6 @@ const PageGet = (props) => {
 
       {user && (
         <>
-          <div className="mb-3">
-            <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-          </div>
           {isFind && props.page === "Student" && (
             <TableStudent student={entity} />
           )}
@@ -388,6 +385,9 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
+          </div>
+          <div className="mb-3">
+            <FormErrors errors={Object.entries(formErrors)}></FormErrors>
           </div>
         </>
       )}

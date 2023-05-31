@@ -36,7 +36,40 @@ const PageRegisterOrUpdate = (props) => {
         setIsStudent(false);
       })
       .finally(() => { });
-  }, []);
+
+    if (props.operation === "update") {
+      switch (props.entity) {
+        case "Group":
+          API.getGroup(idEntity)
+            .then((response) => {
+              setName(response.data.name);
+            })
+            .catch((error) => {
+              setFormErrors(error.response.data);
+            });
+          break;
+        case "Matter":
+          API.getMatter(idEntity)
+            .then((response) => {
+              setName(response.data.name);
+            })
+            .catch((error) => {
+              setFormErrors(error.response.data);
+            });
+          break;
+        default:
+          API.getProject(idEntity)
+            .then((response) => {
+              setName(response.data.name);
+              setProjectGithubOwner(response.data.ownerGithub);
+            })
+            .catch((error) => {
+              setFormErrors(error.response.data);
+            });
+          break;
+      }
+    }
+  }, [idEntity, props.entity, props.operation]);
 
   const resetForm = () => {
     setName("");
@@ -187,6 +220,7 @@ const PageRegisterOrUpdate = (props) => {
                   id="inputName"
                   className="form-control"
                   required={true}
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -289,6 +323,7 @@ const PageRegisterOrUpdate = (props) => {
                         type="text"
                         id="inputProjectGithubOwner"
                         className="form-control"
+                        value={projectGithubOwner}
                         onChange={(e) => setProjectGithubOwner(e.target.value)}
                       />
                     </div>
