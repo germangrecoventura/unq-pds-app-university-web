@@ -28,15 +28,6 @@ const PageRegisterOrUpdateUser = (props) => {
         setIsTeacher(response.data.role === "TEACHER");
         setIsStudent(response.data.role === "STUDENT");
         setUserIdJWT(response.data.id);
-        /* if (response.data.role === "STUDENT" ||
-                    (response.data.role === "TEACHER" &&
-                        window.location.href === "http://localhost:3000/teacher/update")) {
-                    setId(response.data.id);
-                    setFirstname(response.data.firstName);
-                    setLastname(response.data.lastName);
-                    setEmail(response.data.email);
-                    setGithubUser(response.data.ownerGithub);
-                } */
       })
 
       .catch((error) => {

@@ -5,7 +5,6 @@ import DeleteFromListButton from "../Buttons/DeleteFromListButton";
 import AddToListForm from "../Forms/AddToListForm";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
-import FormErrors from "../Forms/FormErrors";
 
 const TableCommission = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -109,6 +108,7 @@ const TableCommission = (props) => {
             entityB="Student"
             idEntityA={props.commission.id}
             listOfEntities={props.commission.students}
+            formErrors={props.formErrors}
           />
         )}
         {isAdmin && (
@@ -117,6 +117,7 @@ const TableCommission = (props) => {
             entityB="Teacher"
             idEntityA={props.commission.id}
             listOfEntities={props.commission.teachers}
+            formErrors={props.formErrors}
           />
         )}
         {!isStudent && (
@@ -125,6 +126,7 @@ const TableCommission = (props) => {
             entityB="Group"
             idEntityA={props.commission.id}
             listOfEntities={props.commission.groupsStudents}
+            formErrors={props.formErrors}
           />
         )}
       </div>

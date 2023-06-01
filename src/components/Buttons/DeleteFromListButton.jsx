@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./ButtonsStyles.css";
 
 const DeleteFromListButton = (props) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
+
+  useEffect(() => {
+    API.getUser()
+      .then((response) => {
+        setIsAdmin(response.data.role === "ADMIN");
+        setIsStudent(response.data.role === "STUDENT");
+      })
+      .catch((error) => {
+        setIsAdmin(false);
+        setIsStudent(false);
+      });
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     props.formErrors("");
@@ -50,8 +66,13 @@ const DeleteFromListButton = (props) => {
   };
 
   return (
-    <div className="delete-button" onClick={handleSubmit}>
-      <i className="bi bi-trash"></i>
+    <div>
+      {((!isStudent && (isAdmin || props.entityB !== "Teacher")) ||
+         (isStudent && props.entityA === "Group")) && (
+        <div className="delete-button" onClick={handleSubmit}>
+          <i className="bi bi-trash"></i>
+        </div>
+      )}
     </div>
   );
 };

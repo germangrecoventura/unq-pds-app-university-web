@@ -273,7 +273,6 @@ const PageGet = (props) => {
               (props.page === "Student" &&
                 isStudent &&
                 user.id === Number(idEntity)) ||
-              isAdmin ||
               (props.page === "Teacher" &&
                 isTeacher &&
                 user.id === Number(idEntity)) ||
