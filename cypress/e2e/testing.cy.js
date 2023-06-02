@@ -18,13 +18,14 @@ describe("template spec", () => {
   });
 
   it("log", () => {
+    cy.wait(400)
     cy.getCookie("jwt").should("exist");
-    cy.get(".log").should("exist");
-    cy.get(".row > :nth-child(1)").should("exist");
-    cy.get(".row > :nth-child(2)").should("exist");
-    cy.get(".row > :nth-child(3)").should("exist");
-    cy.get(".row > :nth-child(4)").should("exist");
-    cy.get(".row > :nth-child(5)").should("exist");
+    cy.get(".log").should("be.visible");
+    cy.get(".row > :nth-child(1)").should("be.visible");
+    cy.get(".row > :nth-child(2)").should("be.visible");
+    cy.get(".row > :nth-child(3)").should("be.visible");
+    cy.get(".row > :nth-child(4)").should("be.visible");
+    cy.get(".row > :nth-child(5)").should("be.visible");
     cy.get('.btn').click()
     cy.getCookie("jwt").should("not.exist");
   });
