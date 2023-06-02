@@ -178,13 +178,17 @@ const PageGet = (props) => {
   const handleUpdateRepository = (event) => {
     event.preventDefault();
     setFormErrors("");
+    document.getElementById("exitModal").click();
     API.updateRepository(entity.name, projectId)
       .then((response) => {
         document.getElementById("exitModal").click();
         navigate("/operation-completed");
       })
       .catch((error) => {
-        setFormErrors(error.response.data);
+        setTimeout(() => {
+          document.getElementById("exitModal").click();
+          setFormErrors(error.response.data);
+        }, 500);
       });
   };
 
