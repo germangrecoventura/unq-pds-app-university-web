@@ -87,7 +87,7 @@ const PageRegisterOrUpdateUser = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", { state: "/students" });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -101,7 +101,7 @@ const PageRegisterOrUpdateUser = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", { state: "/teachers" });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -119,7 +119,9 @@ const PageRegisterOrUpdateUser = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", {
+                  state: `/student/${idEntity}`,
+                });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -133,7 +135,9 @@ const PageRegisterOrUpdateUser = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", {
+                  state: `/teacher/${idEntity}`,
+                });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -293,192 +297,6 @@ const PageRegisterOrUpdateUser = (props) => {
           </form>
         </>
       )}
-
-      {/* {cookies &&
-        ((!isAdmin &&
-          (window.location.href === "http://localhost:3000/student/register" ||
-            window.location.href ===
-              "http://localhost:3000/teacher/register")) ||
-          (isTeacher &&
-            window.location.href === "http://localhost:3000/student/update") ||
-          (isStudent &&
-            window.location.href ===
-              "http://localhost:3000/teacher/update")) && (
-          <div className="alert alert-danger" role="alert">
-            You do not have permissions to access this resource
-          </div>
-        )}
-
-      {(isAdmin ||
-        (isTeacher &&
-          window.location.href === "http://localhost:3000/teacher/update") ||
-        (isStudent &&
-          window.location.href === "http://localhost:3000/student/update")) && (
-        <>
-          <h5 className="title">
-            {props.entity} {props.operation} form
-          </h5>
-          <form onSubmit={handleSubmit}>
-            <div className="container-fluid">
-              {props.operation === "update" && (
-                <div className="row">
-                  <div className="col-md-4">
-                    <label htmlFor="inputId" className="col-form-label">
-                      Id {props.entity}:
-                    </label>
-                  </div>
-                  {isAdmin && (
-                    <div className="col-md-6">
-                      <input
-                        type="number"
-                        id="inputId"
-                        className="form-control"
-                        required={true}
-                        onChange={(e) => setId(e.target.value)}
-                      />
-                    </div>
-                  )}
-                  {!isAdmin && (
-                    <div className="col-md-6">
-                      <input
-                        type="number"
-                        id="inputId"
-                        className="form-control-plaintext"
-                        required={true}
-                        value={id}
-                        readOnly
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputFirstname" className="col-form-label">
-                    First name:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="text"
-                    id="inputFirstname"
-                    className="form-control"
-                    required={true}
-                    value={firstname}
-                    onChange={(e) => setFirstname(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputLastname" className="col-form-label">
-                    Last name:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="text"
-                    id="inputLastname"
-                    className="form-control"
-                    required={true}
-                    value={lastname}
-                    onChange={(e) => setLastname(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputEmail" className="col-form-label">
-                    Email:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="email"
-                    id="inputEmail"
-                    className="form-control"
-                    required={true}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <label htmlFor="inputPassword" className="col-form-label">
-                    Password:
-                  </label>
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    className="form-control"
-                    required={true}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </div>
-              {props.entity === "Student" && (
-                <>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label
-                        htmlFor="inputGithubUser"
-                        className="col-form-label"
-                      >
-                        Github User:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="text"
-                        id="inputGithubUser"
-                        className="form-control"
-                        required={false}
-                        value={githubUser}
-                        onChange={(e) => setGithubUser(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label
-                        htmlFor="inputGithubToken"
-                        className="col-form-label"
-                      >
-                        Github Token:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="password"
-                        id="inputGithubToken"
-                        className="form-control"
-                        value={githubToken}
-                        onChange={(e) => setGithubToken(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-            <div className="mb-3">
-              <FormErrors errors={Object.entries(formErrors)}></FormErrors>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn btn-primary"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </>
-      )} */}
     </div>
   );
 };

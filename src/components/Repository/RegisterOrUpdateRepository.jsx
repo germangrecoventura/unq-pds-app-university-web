@@ -23,7 +23,7 @@ const RegisterOrUpdateRepository = (props) => {
       .catch((error) => {
         setIsStudent(false);
       })
-      .finally(() => { });
+      .finally(() => {});
   }, []);
 
   const resetForm = () => {
@@ -41,10 +41,11 @@ const RegisterOrUpdateRepository = (props) => {
           .then((response) => {
             resetForm();
             setIsSubmitting(false);
-            API.addRepository(projectId, response.data.id)
-              .then((response) => {
-                navigate("/operation-completed");
-              })
+            API.addRepository(projectId, response.data.id).then((response) => {
+              navigate("/operation-completed", {
+                state: `/project/${projectId}`,
+              });
+            });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -58,7 +59,9 @@ const RegisterOrUpdateRepository = (props) => {
           .then((response) => {
             resetForm();
             setIsSubmitting(false);
-            navigate("/operation-completed");
+            navigate("/operation-completed", {
+              state: `/project/${projectId}`,
+            });
           })
           .catch((error) => {
             setFormErrors(error.response.data);

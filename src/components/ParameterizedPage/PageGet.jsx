@@ -112,7 +112,7 @@ const PageGet = (props) => {
       case "Teacher":
         API.deleteTeacher(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/teachers" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -121,7 +121,7 @@ const PageGet = (props) => {
       case "Student":
         API.deleteStudent(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/students" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -130,7 +130,7 @@ const PageGet = (props) => {
       case "Matter":
         API.deleteMatter(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/matters" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -139,7 +139,7 @@ const PageGet = (props) => {
       case "Commission":
         API.deleteCommission(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/commissions" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -148,7 +148,7 @@ const PageGet = (props) => {
       case "Group":
         API.deleteGroup(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/groups" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -157,7 +157,7 @@ const PageGet = (props) => {
       case "Repository":
         API.deleteRepository(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/projects" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -166,7 +166,7 @@ const PageGet = (props) => {
       default:
         API.deleteProject(idEntity)
           .then((response) => {
-            navigate("/operation-completed");
+            navigate("/operation-completed", { state: "/projects" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -240,7 +240,9 @@ const PageGet = (props) => {
 
           {isFind && props.page === "Matter" && <TableMatter matter={entity} />}
 
-          {isFind && props.page === "Group" && <TableGroup group={entity} formErrors={setFormErrors}/>}
+          {isFind && props.page === "Group" && (
+            <TableGroup group={entity} formErrors={setFormErrors} />
+          )}
 
           {isFind && props.page === "Commission" && (
             <TableCommission commission={entity} formErrors={setFormErrors} />

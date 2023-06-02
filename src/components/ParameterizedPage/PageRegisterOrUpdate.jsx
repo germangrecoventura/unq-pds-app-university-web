@@ -29,7 +29,7 @@ const PageRegisterOrUpdate = (props) => {
       .catch((error) => {
         setIsAdmin(false);
       })
-      .finally(() => { });
+      .finally(() => {});
 
     if (props.operation === "update") {
       switch (props.entity) {
@@ -96,7 +96,7 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", { state: "/groups" });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -111,7 +111,7 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", { state: "/matters" });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -125,10 +125,11 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                API.addProjectInGroup(idEntity, response.data.id)
-                  .then((response) => {
-                    navigate("/operation-completed");
-                  })
+                API.addProjectInGroup(idEntity, response.data.id).then(
+                  (response) => {
+                    navigate("/operation-completed", { state: "/projects" });
+                  }
+                );
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -146,7 +147,9 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", {
+                  state: `/group/${idEntity}`,
+                });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -160,7 +163,9 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", {
+                  state: `/matter/${idEntity}`,
+                });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -170,11 +175,18 @@ const PageRegisterOrUpdate = (props) => {
               });
             break;
           default:
-            API.updateProject(idEntity, name, projectGithubOwner, projectGithubToken)
+            API.updateProject(
+              idEntity,
+              name,
+              projectGithubOwner,
+              projectGithubToken
+            )
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                navigate("/operation-completed");
+                navigate("/operation-completed", {
+                  state: `/project/${idEntity}`,
+                });
               })
               .catch((error) => {
                 setFormErrors(error.response.data);
@@ -197,10 +209,10 @@ const PageRegisterOrUpdate = (props) => {
       )}
 
       {cookies && !isAdmin && props.entity === "Matter" && (
-          <div className="alert alert-danger" role="alert">
-            You do not have permissions to access this resource
-          </div>
-        )}
+        <div className="alert alert-danger" role="alert">
+          You do not have permissions to access this resource
+        </div>
+      )}
 
       {cookies && (isAdmin || props.entity !== "Matter") && (
         <div>
@@ -226,126 +238,149 @@ const PageRegisterOrUpdate = (props) => {
                   />
                 </div>
               </div>
-              {props.entity === "Group" && props.operation === "registration" && (
-                <>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label htmlFor="InputStudentOne" className="col-form-label">
-                        Email member one:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="email"
-                        id="InputStudentOne"
-                        className="form-control"
-                        required={true}
-                        onChange={(e) => setStudentOne(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label htmlFor="InputStudentTwo" className="col-form-label">
-                        Email member two:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="email"
-                        id="InputStudentTwo"
-                        className="form-control"
-                        required={false}
-                        onChange={(e) => setStudentTwo(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label htmlFor="InputStudentThree" className="col-form-label">
-                        Email member three:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="email"
-                        id="InputStudentThree"
-                        className="form-control"
-                        required={false}
-                        onChange={(e) => setStudentThree(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label htmlFor="InputStudentFour" className="col-form-label">
-                        Email member four:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="email"
-                        id="InputStudentFour"
-                        className="form-control"
-                        required={false}
-                        onChange={(e) => setStudentFour(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label htmlFor="InputProjectName" className="col-form-label">
-                        Project name:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="text"
-                        id="InputProjectName"
-                        className="form-control"
-                        required={true}
-                        onChange={(e) => setNameProject(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
-              {((props.entity === "Group" && props.operation === "registration") ||
-                (props.entity === "Project")) && (
+              {props.entity === "Group" &&
+                props.operation === "registration" && (
                   <>
                     <div className="row">
                       <div className="col-md-4">
-                        <label htmlFor="inputProjectGithubOwner" className="col-form-label">
-                          Project github owner:
+                        <label
+                          htmlFor="InputStudentOne"
+                          className="col-form-label"
+                        >
+                          Email member one:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="email"
+                          id="InputStudentOne"
+                          className="form-control"
+                          required={true}
+                          onChange={(e) => setStudentOne(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="InputStudentTwo"
+                          className="col-form-label"
+                        >
+                          Email member two:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="email"
+                          id="InputStudentTwo"
+                          className="form-control"
+                          required={false}
+                          onChange={(e) => setStudentTwo(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="InputStudentThree"
+                          className="col-form-label"
+                        >
+                          Email member three:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="email"
+                          id="InputStudentThree"
+                          className="form-control"
+                          required={false}
+                          onChange={(e) => setStudentThree(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="InputStudentFour"
+                          className="col-form-label"
+                        >
+                          Email member four:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="email"
+                          id="InputStudentFour"
+                          className="form-control"
+                          required={false}
+                          onChange={(e) => setStudentFour(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="InputProjectName"
+                          className="col-form-label"
+                        >
+                          Project name:
                         </label>
                       </div>
                       <div className="col-md-6">
                         <input
                           type="text"
-                          id="inputProjectGithubOwner"
+                          id="InputProjectName"
                           className="form-control"
-                          value={projectGithubOwner}
-                          onChange={(e) => setProjectGithubOwner(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label htmlFor="inputProjectGithubToken" className="col-form-label">
-                          Project github token:
-                        </label>
-                      </div>
-                      <div className="col-md-6">
-                        <input
-                          type="password"
-                          id="inputProjectGithubToken"
-                          className="form-control"
-                          onChange={(e) => setProjectGithubToken(e.target.value)}
+                          required={true}
+                          onChange={(e) => setNameProject(e.target.value)}
                         />
                       </div>
                     </div>
                   </>
                 )}
+              {((props.entity === "Group" &&
+                props.operation === "registration") ||
+                props.entity === "Project") && (
+                <>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label
+                        htmlFor="inputProjectGithubOwner"
+                        className="col-form-label"
+                      >
+                        Project github owner:
+                      </label>
+                    </div>
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        id="inputProjectGithubOwner"
+                        className="form-control"
+                        value={projectGithubOwner}
+                        onChange={(e) => setProjectGithubOwner(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label
+                        htmlFor="inputProjectGithubToken"
+                        className="col-form-label"
+                      >
+                        Project github token:
+                      </label>
+                    </div>
+                    <div className="col-md-6">
+                      <input
+                        type="password"
+                        id="inputProjectGithubToken"
+                        className="form-control"
+                        onChange={(e) => setProjectGithubToken(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
             <div className="mb-3">
               <FormErrors errors={Object.entries(formErrors)}></FormErrors>
