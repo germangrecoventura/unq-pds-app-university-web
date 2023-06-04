@@ -157,7 +157,7 @@ const PageGet = (props) => {
       case "Repository":
         API.deleteRepository(idEntity)
           .then((response) => {
-            navigate("/operation-completed", { state: "/projects" });
+            navigate("/operation-completed", { state: "/groups" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -166,7 +166,7 @@ const PageGet = (props) => {
       default:
         API.deleteProject(idEntity)
           .then((response) => {
-            navigate("/operation-completed", { state: "/projects" });
+            navigate("/operation-completed", { state: "/groups" });
           })
           .catch((error) => {
             setFormErrors(error.response.data);
@@ -347,7 +347,7 @@ const PageGet = (props) => {
                 <Card
                   title={"Add comments"}
                   description={""}
-                  url={`/${props.page.toLowerCase()}/${idEntity}/addComment`}
+                  url={`/project/${projectId}/${props.page.toLowerCase()}/${idEntity}/addComment`}
                   image={"bi bi-clipboard-plus-fill"}
                 ></Card>
               </div>

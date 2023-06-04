@@ -5,7 +5,7 @@ import API from "../../services/API";
 import Cookies from "js-cookie";
 
 const PageAddComment = (props) => {
-  const { idRepository } = useParams();
+  const { projectId, idRepository } = useParams();
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState("");
@@ -36,7 +36,7 @@ const PageAddComment = (props) => {
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
-        navigate("/operation-completed");
+        navigate("/operation-completed", { state: `/project/${projectId}/repository/${idRepository}` });
       })
       .catch((error) => {
         setFormErrors(error.response.data);

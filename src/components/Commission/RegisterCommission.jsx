@@ -46,7 +46,7 @@ const RegisterCommission = (props) => {
         .then((response) => {
           resetForm();
           setIsSubmitting(false);
-          navigate("/operation-completed");
+          navigate("/operation-completed", { state: "/commissions" });
         })
         .catch((error) => {
           setFormErrors(error.response.data);

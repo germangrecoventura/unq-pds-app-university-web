@@ -141,7 +141,7 @@ const App = () => {
               element={<PageGet page="Commission" />}
             />
             <Route
-              path="/repository/:idRepository/addComment"
+              path="/project/:projectId/repository/:idRepository/addComment"
               element={<PageAddComment />}
             />
             <Route
