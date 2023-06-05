@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 
 const PageRegisterOrUpdate = (props) => {
-  const { idEntity } = useParams();
+  const { projectId, idEntity } = useParams();
   const [name, setName] = useState("");
   const [nameProject, setNameProject] = useState("");
   const [projectGithubOwner, setProjectGithubOwner] = useState(null);
@@ -29,7 +29,7 @@ const PageRegisterOrUpdate = (props) => {
       .catch((error) => {
         setIsAdmin(false);
       })
-      .finally(() => {});
+      .finally(() => { });
 
     if (props.operation === "update") {
       switch (props.entity) {
@@ -120,6 +120,29 @@ const PageRegisterOrUpdate = (props) => {
                 setIsSubmitting(false);
               });
             break;
+          case "Repository":
+            document.getElementById("exitModal").click();
+            API.createRepository(name, projectId)
+              .then((response) => {
+                resetForm();
+                setIsSubmitting(false);
+                API.addRepository(projectId, response.data.id).then((response) => {
+                  document.getElementById("exitModal").click();
+                  navigate("/operation-completed", {
+                    state: `/project/${projectId}`,
+                  });
+                });
+              })
+              .catch((error) => {
+                setTimeout(() => {
+                  document.getElementById("exitModal").click();
+                  setFormErrors(error.response.data);
+                }, 500);
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+            break;
           default:
             API.createProject(name, projectGithubOwner, projectGithubToken)
               .then((response) => {
@@ -127,7 +150,7 @@ const PageRegisterOrUpdate = (props) => {
                 setIsSubmitting(false);
                 API.addProjectInGroup(idEntity, response.data.id).then(
                   (response) => {
-                    navigate("/operation-completed", { state: "/projects" });
+                    navigate("/operation-completed", { state: `/group/${idEntity}` });
                   }
                 );
               })
@@ -202,6 +225,38 @@ const PageRegisterOrUpdate = (props) => {
 
   return (
     <div className="container clearfix">
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Creating repository, please wait
+              </h1>
+              <button
+                type="button"
+                id="exitModal"
+                class="btn-close visually-hidden"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {!cookies && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
@@ -341,59 +396,74 @@ const PageRegisterOrUpdate = (props) => {
               {((props.entity === "Group" &&
                 props.operation === "registration") ||
                 props.entity === "Project") && (
-                <>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label
-                        htmlFor="inputProjectGithubOwner"
-                        className="col-form-label"
-                      >
-                        Project github owner:
-                      </label>
+                  <>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="inputProjectGithubOwner"
+                          className="col-form-label"
+                        >
+                          Project github owner:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="text"
+                          id="inputProjectGithubOwner"
+                          className="form-control"
+                          value={projectGithubOwner}
+                          onChange={(e) => setProjectGithubOwner(e.target.value)}
+                        />
+                      </div>
                     </div>
-                    <div className="col-md-6">
-                      <input
-                        type="text"
-                        id="inputProjectGithubOwner"
-                        className="form-control"
-                        value={projectGithubOwner}
-                        onChange={(e) => setProjectGithubOwner(e.target.value)}
-                      />
+                    <div className="row">
+                      <div className="col-md-4">
+                        <label
+                          htmlFor="inputProjectGithubToken"
+                          className="col-form-label"
+                        >
+                          Project github token:
+                        </label>
+                      </div>
+                      <div className="col-md-6">
+                        <input
+                          type="password"
+                          id="inputProjectGithubToken"
+                          className="form-control"
+                          onChange={(e) => setProjectGithubToken(e.target.value)}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <label
-                        htmlFor="inputProjectGithubToken"
-                        className="col-form-label"
-                      >
-                        Project github token:
-                      </label>
-                    </div>
-                    <div className="col-md-6">
-                      <input
-                        type="password"
-                        id="inputProjectGithubToken"
-                        className="form-control"
-                        onChange={(e) => setProjectGithubToken(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
             </div>
             <div className="mb-3">
               <FormErrors errors={Object.entries(formErrors)}></FormErrors>
             </div>
-            <div className="modal-footer">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn btn-primary"
-              >
-                Submit
-              </button>
-            </div>
+            {props.entity === "Repository" && (
+              <div className="modal-footer">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
+            {props.entity !== "Repository" && (
+              <div className="modal-footer">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
           </form>
         </div>
       )}

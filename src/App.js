@@ -15,7 +15,6 @@ import GetAllCommissions from "./components/Commission/GetAllCommissions";
 import RegisterCommission from "./components/Commission/RegisterCommission";
 import PageComponent from "./components/PageComponent/PageComponent";
 import PageGet from "./components/ParameterizedPage/PageGet";
-import RegisterOrUpdateRepository from "./components/Repository/RegisterOrUpdateRepository";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 import PageAddComment from "./components/ParameterizedPage/PageAddComment";
@@ -141,14 +140,6 @@ const App = () => {
               element={<PageGet page="Commission" />}
             />
             <Route
-              path="/project/:projectId/repository/:idRepository/addComment"
-              element={<PageAddComment />}
-            />
-            <Route
-              path="/project/:projectId/repository/:idEntity"
-              element={<PageGet page="Repository" />}
-            />
-            <Route
               path={`project/:idEntity`}
               element={<PageGet page="Project" />}
             />
@@ -160,7 +151,15 @@ const App = () => {
             />
             <Route
               path="project/:projectId/addRepository"
-              element={<RegisterOrUpdateRepository operation="registration" />}
+              element={<PageRegisterOrUpdate operation="registration" entity="Repository" />}
+            />
+            <Route
+              path="/project/:projectId/repository/:idEntity"
+              element={<PageGet page="Repository" />}
+            />
+            <Route
+              path="/project/:projectId/repository/:idRepository/addComment"
+              element={<PageAddComment />}
             />
 
             <Route

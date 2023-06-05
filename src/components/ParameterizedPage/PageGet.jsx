@@ -182,7 +182,7 @@ const PageGet = (props) => {
     API.updateRepository(entity.name, projectId)
       .then((response) => {
         document.getElementById("exitModal").click();
-        navigate("/operation-completed");
+        navigate("/operation-completed", {state: `/project/${projectId}/repository/${idEntity}`});
       })
       .catch((error) => {
         setTimeout(() => {
@@ -311,7 +311,7 @@ const PageGet = (props) => {
               </div>
             )}
 
-            {isAdmin && (
+            {isAdmin && props.page !== "Project" && props.page !== "Repository" && (
               <div className="col" onClick={handleSubmit}>
                 <Card
                   title={`Delete ${props.page.toLowerCase()}`}
