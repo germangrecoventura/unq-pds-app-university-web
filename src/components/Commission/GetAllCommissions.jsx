@@ -53,33 +53,3 @@ export default function GetAllCommissions() {
     </div>
   );
 }
-
-{
-  /* <table className="TableGetAll">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Year</th>
-              <th>Four month period</th>
-              <th>Matter</th>
-              <th>Students</th>
-              <th>Teachers</th>
-              <th>Groups</th>
-            </tr>
-            {commissions.sort(function (a, b) {
-              return a.id - b.id;
-            }) &&
-              commissions.map((commission) => (
-                <tr key={commission.id}>
-                  <td>{commission.id}</td>
-                  <td>{commission.year}</td>
-                  <td>{commission.fourMonthPeriod}</td>
-                  <td>{commission.matter.name}</td>
-                  <td>{commission.students.length}</td>
-                  <td>{commission.teachers.length}</td>
-                  <td>{commission.groupsStudents.length}</td>
-                </tr>
-              ))}
-          </thead>
-        </table> */
-}

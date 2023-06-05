@@ -9,7 +9,7 @@ const OperationCompleted = () => {
     setTimeout(() => {
       return navigate(`${location.state}`);
     }, 5000);
-  }, []);
+  }, [navigate, location.state]);
 
   return (
     <div className="container">

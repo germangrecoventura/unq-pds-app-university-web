@@ -121,13 +121,13 @@ const PageRegisterOrUpdate = (props) => {
               });
             break;
           case "Repository":
-            document.getElementById("exitModal").click();
+            document.getElementById("createModal").click();
             API.createRepository(name, projectId)
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
                 API.addRepository(projectId, response.data.id).then((response) => {
-                  document.getElementById("exitModal").click();
+                  document.getElementById("createModal").click();
                   navigate("/operation-completed", {
                     state: `/project/${projectId}`,
                   });
@@ -135,7 +135,7 @@ const PageRegisterOrUpdate = (props) => {
               })
               .catch((error) => {
                 setTimeout(() => {
-                  document.getElementById("exitModal").click();
+                  document.getElementById("createModal").click();
                   setFormErrors(error.response.data);
                 }, 500);
               })
@@ -242,7 +242,7 @@ const PageRegisterOrUpdate = (props) => {
               </h1>
               <button
                 type="button"
-                id="exitModal"
+                id="createModal"
                 class="btn-close visually-hidden"
                 data-bs-dismiss="modal"
                 aria-label="Close"

@@ -1,22 +1,3 @@
-/*.TableGetAll {
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: collapse;
-    border: 3px solid rgb(107, 44, 44);
-}
-
-.TableGet {
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: collapse;
-    border: 3px solid rgb(107, 44, 44);
-}
-
-thead th,
-tbody tr, td {
-    border: 3px solid rgb(107, 44, 44);
-}*/
-
 .text-table{
     text-align: center;
 }

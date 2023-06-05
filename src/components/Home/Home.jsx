@@ -1,6 +1,5 @@
 import Card from "../Card/Card";
 import LogIn from "../LogIn/LogIn";
-import "./Home.css";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";

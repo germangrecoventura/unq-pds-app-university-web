@@ -33,7 +33,7 @@ const API = {
     axios.delete(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
   getAllTeachers: () =>
     axios.get(`${baseURL}/teachers/getAll`, { withCredentials: true }),
-    addCommentToRepository: (idRepository, comment) =>
+  addCommentToRepository: (idRepository, comment) =>
     axios.post(
       `${baseURL}/teachers/addComment`,
       {
@@ -42,7 +42,6 @@ const API = {
       },
       { withCredentials: true }
     ),
-
   // MATTERS
   createMatter: (name) =>
     axios.post(`${baseURL}/matters`, { name: name }, { withCredentials: true }),
@@ -64,8 +63,6 @@ const API = {
     lastname,
     email,
     password,
-    githubuser,
-    githubtoken
   ) =>
     axios.post(
       `${baseURL}/students`,
@@ -74,8 +71,6 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
       { withCredentials: true }
     ),
@@ -87,8 +82,6 @@ const API = {
     lastname,
     email,
     password,
-    githubuser,
-    githubtoken
   ) =>
     axios.put(
       `${baseURL}/students`,
@@ -98,8 +91,6 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
       { withCredentials: true }
     ),
@@ -107,12 +98,6 @@ const API = {
     axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
   getAllStudents: () =>
     axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
-  addProjectInStudent: (studentId, projectId) =>
-    axios.put(
-      `${baseURL}/students/addProject/${studentId}/${projectId}`,
-      {},
-      { withCredentials: true }
-    ),
   // GROUPS
   createGroup: (name, members, nameProject, projectOwner, projectToken) =>
     axios.post(

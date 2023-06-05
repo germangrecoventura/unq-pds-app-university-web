@@ -30,26 +30,16 @@ const PageComponent = (props) => {
       {user && (
         <>
           <div className="row row-cols-1 row-cols-md-3">
-            {window.location.href === "http://localhost:3000/groups" && (
-              <div className="col">
-                <Card
-                  title={`Create ${props.page}`}
-                  description={""}
-                  url={`/${props.page}/register`}
-                  image={"bi bi-person-fill-add"}
-                ></Card>
-              </div>
-            )}
-            {isAdmin && window.location.href !== "http://localhost:3000/groups" && (
-              <div className="col">
-                <Card
-                  title={`Create ${props.page}`}
-                  description={""}
-                  url={`/${props.page}/register`}
-                  image={"bi bi-person-fill-add"}
-                ></Card>
-              </div>
-            )}
+            {(isAdmin || window.location.href === "http://localhost:3000/groups") && (
+                <div className="col">
+                  <Card
+                    title={`Create ${props.page}`}
+                    description={""}
+                    url={`/${props.page}/register`}
+                    image={"bi bi-person-fill-add"}
+                  ></Card>
+                </div>
+              )}
           </div>
           <props.data />
         </>
