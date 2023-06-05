@@ -45,6 +45,13 @@ describe("template spec", () => {
     cy.get("#inputMatterName").type("Persistence strategies");
     cy.get(".modal-footer > .btn").click();
     cy.url().should("equal", "http://localhost:3000/operation-completed");
+    cy.wait(5300);
+    cy.get(":nth-child(3) > :nth-child(1) > a").click();
+    cy.get(".row-cols-1 > :nth-child(1)").click();
+    cy.wait(5300);
+    cy.visit("/matters");
+    cy.get(":nth-child(4) > td > a").click();
+    cy.get(".row > :nth-child(2)").click();
   });
 
   it("create teacher and add to a commission", () => {
@@ -58,15 +65,22 @@ describe("template spec", () => {
     cy.wait(5300);
     cy.get(".banner").click();
     cy.get(".row > :nth-child(5)").click();
-    cy.get("tbody > :nth-child(3) > :nth-child(1) > a").click();
+    cy.get(":nth-child(2) > :nth-child(1) > a").click();
     cy.get(":nth-child(2) > :nth-child(1) > .btn").click();
+    cy.get(".add-button").click();
+    cy.get(":nth-child(4) > :nth-child(2) > .btn").click();
     cy.get(
-      "#Teacher > .table-responsive-md > .table > tbody > :nth-child(3) > .data-list > .add-button"
+      "#teacher > .table-responsive-md > .table > tbody > :nth-child(3) > .data-list"
+    ).should("exist");
+    cy.get(":nth-child(4) > :nth-child(2) > .btn").click();
+    cy.get(
+      ":nth-child(3) > .data-list > :nth-child(2) > .delete-button"
     ).click();
-    cy.wait(500);
-    cy.get(".col-md-2 > .btn").should("exist");
-    cy.get(".col-md-2 > .btn").click();
-    cy.get("#teacher > .table-responsive-md > .table").should("exist");
+    cy.visit("/teachers");
+    cy.get(":nth-child(3) > td > a").click();
+    cy.get(".row > :nth-child(2)").click();
+    cy.wait(5300);
+    cy.get(":nth-child(3) > td").should("not.exist");
   });
 
   it("create student, create group and add student to the group", () => {
@@ -101,45 +115,60 @@ describe("template spec", () => {
     cy.get(
       "#member > .table-responsive-md > .table > tbody > :nth-child(2) > .data-list"
     ).should("exist");
+    cy.get(".row-cols-1 > :nth-child(2)").click();
+    cy.wait(5300);
+    cy.visit("/students");
+    cy.get(":nth-child(3) > td > a").click();
+    cy.get(":nth-child(2) > .col > .link > .card").click();
+    cy.wait(1000);
   });
 
-  it("add repository", () => {
-    cy.get(".row > :nth-child(5)").click();
-    cy.get(":nth-child(2) > :nth-child(1) > a").click();
-    cy.get(":nth-child(3) > .btn").click();
-    cy.get(
-      "#group > .table-responsive-md > .table > tbody > tr > .data-list > .text"
-    ).click();
-    cy.get(":nth-child(4) > :nth-child(2) > .btn").click();
-    cy.get(
-      "#project > .table-responsive-md > .table > tbody > tr > td > a"
-    ).click();
-    cy.get(".row-cols-1 > :nth-child(3)").click();
-    cy.get("#inputName").type("unq-pds-app-university-api");
+  it("add repository and comment", () => {
+    cy.get(".row > :nth-child(2)").click();
+    cy.get(".row > :nth-child(1)").click();
+    cy.get("#inputFirstname").type("Franco");
+    cy.get("#inputLastname").type("Garcino Ruiz");
+    cy.get("#inputEmail").type("franco@gmail.com");
+    cy.get("#inputPassword").type("funciona");
     cy.get(".modal-footer > .btn").click();
     cy.wait(5300);
-    cy.url().should("equal", "http://localhost:3000/operation-completed");
-  });
-
-  it("add comentary", () => {
-    cy.get(".row > :nth-child(5)").click();
+    cy.get(".banner").click();
+    cy.get(".row > :nth-child(3)").click();
+    cy.get(".row > :nth-child(1)").click();
+    cy.get("#inputName").type("Grupo G");
+    cy.get("#InputStudentOne").type("franco@gmail.com");
+    cy.get("#InputProjectName").type("A Project");
+    cy.get("#inputProjectGithubOwner").type("germangrecoventura");
+    cy.get("#inputProjectGithubToken").type(
+      ""
+    );
+    cy.get(".modal-footer > .btn").click();
+    cy.wait(5300);
     cy.get(":nth-child(2) > :nth-child(1) > a").click();
-    cy.get(":nth-child(3) > .btn").click();
-    cy.get(
-      "#group > .table-responsive-md > .table > tbody > tr > .data-list > .text"
-    ).click();
     cy.get(":nth-child(4) > :nth-child(2) > .btn").click();
     cy.get(
       "#project > .table-responsive-md > .table > tbody > tr > td > a"
     ).click();
-    cy.get(".col-md-2 > .btn").click();
-    cy.get(":nth-child(1) > td > a").click();
-    cy.get(".row-cols-1 > :nth-child(3)").click();
-    cy.get("#inputComment").type("Agrego comentarios a repositorio");
+    cy.get(":nth-child(3) > .col > .link > .card").click();
+    cy.get("#inputName").type("unq-pds-app-university-api");
     cy.get(".modal-footer > .btn").click();
-    cy.wait(5500);
+    cy.wait(10300);
+    cy.get(".col-md-2 > .btn").should("exist");
+    cy.get(".col-md-2 > .btn").click();
+    cy.get(":nth-child(5) > .btn").should("not.exist");
+    cy.get("td > a").click();
+    cy.get(":nth-child(3) > .col > .link > .card").click();
+    cy.get("#inputComment").type("Testing comment");
+    cy.get(".modal-footer > .btn").click();
+    cy.wait(5300);
     cy.get(":nth-child(5) > .btn").should("exist");
-    cy.get(":nth-child(5) > .btn").click();
-    cy.get("#comments > .TableData").should("exist");
+    cy.visit("/groups");
+    cy.get(":nth-child(2) > :nth-child(1) > a").click();
+    cy.get(".row-cols-1 > :nth-child(2)").click();
+    cy.wait(5300);
+    cy.visit("/students");
+    cy.get(":nth-child(3) > td > a").click();
+    cy.get(".row > :nth-child(2)").click();
+    cy.url().should("equal", "http://localhost:3000/operation-completed");
   });
 });
