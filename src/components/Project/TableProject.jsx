@@ -15,7 +15,7 @@ const TableProject = (props) => {
 
   return (
     <>
-      <MDBTable className="text-table" responsive="md" hover>
+      <MDBTable className="text-table table-light" responsive="md" hover>
         <MDBTableHead>
           <tr>
             <th scope="col">Name</th>
@@ -48,7 +48,7 @@ const TableProject = (props) => {
       </div>
       {props.project.repositories?.length > 0 && (
         <div className="collapse" id="repository">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table table-light" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Repositories</th>

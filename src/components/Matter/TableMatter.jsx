@@ -3,7 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 
 const TableMatter = (props) => {
   return (
-    <MDBTable className="text-table" responsive="md" hover>
+    <MDBTable className="text-table table-light" responsive="md" hover>
       <MDBTableHead>
         <tr>
           <th scope="col">Name</th>

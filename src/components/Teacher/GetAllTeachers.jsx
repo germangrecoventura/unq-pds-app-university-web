@@ -14,7 +14,7 @@ export default function GetAllTeachers() {
   return (
     <div>
       {teachers.length !== 0 ? (
-        <MDBTable className="text-table" responsive="md" hover>
+        <MDBTable className="text-table table-light" responsive="md" hover>
           <MDBTableHead>
             <tr>
               <th scope="col">Teachers</th>

@@ -14,7 +14,7 @@ export default function GetAllCommissions() {
   return (
     <div>
       {commissions.length !== 0 ? (
-        <MDBTable className="text-table" responsive="md" hover>
+        <MDBTable className="text-table table-light" responsive="md" hover>
           <MDBTableHead>
             <tr>
               <th scope="col">Commission number</th>

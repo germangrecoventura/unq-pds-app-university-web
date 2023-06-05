@@ -92,7 +92,7 @@ const RegisterCommission = (props) => {
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-1">
                 <div className="col-md-4">
                   <label
                     htmlFor="inputFourMonthPeriod"
@@ -130,7 +130,7 @@ const RegisterCommission = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-1">
                 <div className="col-md-4">
                   <label htmlFor="inputMatterName" className="col-form-label">
                     Matter name:

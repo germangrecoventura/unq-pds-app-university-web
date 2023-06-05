@@ -36,7 +36,7 @@ const TableGroup = (props) => {
 
   return (
     <>
-      <MDBTable className="text-table" responsive="md" hover>
+      <MDBTable className="text-table table-light" responsive="md" hover>
         <MDBTableHead>
           <tr>
             <th scope="col">Name</th>
@@ -94,7 +94,7 @@ const TableGroup = (props) => {
       </div>
       {props.group.members?.length > 0 && (
         <div className="collapse" id="member">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table table-danger" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Members</th>
@@ -106,7 +106,7 @@ const TableGroup = (props) => {
       )}
       {props.group.projects?.length > 0 && (
         <div className="collapse" id="project">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table table-light" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Projects</th>

@@ -81,7 +81,7 @@ const AddToListForm = (props) => {
             </button>
           )}
           <div className="collapse" id={props.entityB}>
-            <MDBTable className="text-table" responsive="md" hover>
+            <MDBTable className="text-table table-success" responsive="md" hover>
               <MDBTableHead>
                 <tr>
                   {props.entityA === "Group" ? (

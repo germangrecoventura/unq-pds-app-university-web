@@ -4,8 +4,9 @@
 }
 
 .card {
+  background-color: #e9dcb9;
   border-color: black;
-  border-width: 2px;
+  border-width: 4px;
   text-align: center;
   margin-bottom: 10px;
 }

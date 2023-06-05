@@ -8,7 +8,7 @@ const OperationCompleted = () => {
   useEffect(() => {
     setTimeout(() => {
       return navigate(`${location.state}`);
-    }, 5000);
+    }, 100);
   }, [navigate, location.state]);
 
   return (

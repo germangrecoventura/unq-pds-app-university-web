@@ -76,7 +76,7 @@ const TableCommission = (props) => {
 
   return (
     <>
-      <MDBTable className="text-table" responsive="md" hover>
+      <MDBTable className="text-table table-light" responsive="md" hover>
         <MDBTableHead>
           <tr>
             <th scope="col">Commission number</th>
@@ -176,7 +176,7 @@ const TableCommission = (props) => {
       </div>
       {props.commission.students?.length > 0 && (
         <div className="collapse" id="student">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table table-danger" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Students</th>
@@ -188,7 +188,7 @@ const TableCommission = (props) => {
       )}
       {props.commission.teachers?.length > 0 && (
         <div className="collapse" id="teacher">
-          <MDBTable className="text-table tabla" responsive="md" hover>
+          <MDBTable className="text-table table-danger" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Teachers</th>
@@ -200,7 +200,7 @@ const TableCommission = (props) => {
       )}
       {props.commission.groupsStudents?.length > 0 && (
         <div className="collapse" id="group">
-          <MDBTable className="text-table" responsive="md" hover>
+          <MDBTable className="text-table table-danger" responsive="md" hover>
             <MDBTableHead>
               <tr>
                 <th scope="col">Groups</th>

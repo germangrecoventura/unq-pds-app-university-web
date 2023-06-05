@@ -296,7 +296,7 @@ const PageRegisterOrUpdate = (props) => {
               {props.entity === "Group" &&
                 props.operation === "registration" && (
                   <>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="InputStudentOne"
@@ -315,7 +315,7 @@ const PageRegisterOrUpdate = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="InputStudentTwo"
@@ -334,7 +334,7 @@ const PageRegisterOrUpdate = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="InputStudentThree"
@@ -353,7 +353,7 @@ const PageRegisterOrUpdate = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="InputStudentFour"
@@ -372,7 +372,7 @@ const PageRegisterOrUpdate = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="InputProjectName"
@@ -397,7 +397,7 @@ const PageRegisterOrUpdate = (props) => {
                 props.operation === "registration") ||
                 props.entity === "Project") && (
                   <>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="inputProjectGithubOwner"
@@ -416,7 +416,7 @@ const PageRegisterOrUpdate = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-1">
                       <div className="col-md-4">
                         <label
                           htmlFor="inputProjectGithubToken"
