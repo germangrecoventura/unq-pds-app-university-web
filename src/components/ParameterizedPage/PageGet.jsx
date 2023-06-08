@@ -182,7 +182,9 @@ const PageGet = (props) => {
     API.updateRepository(entity.name, projectId)
       .then((response) => {
         document.getElementById("exitModal").click();
-        navigate("/operation-completed", {state: `/project/${projectId}/repository/${idEntity}`});
+        navigate("/operation-completed", {
+          state: `/project/${projectId}/repository/${idEntity}`,
+        });
       })
       .catch((error) => {
         setTimeout(() => {
@@ -264,7 +266,7 @@ const PageGet = (props) => {
           )}
 
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            {isAdmin && props.page === "Matter" && (
+            {isAdmin && entity && props.page === "Matter" && (
               <div className="col">
                 <Card
                   title={`Update ${props.page.toLowerCase()}`}
@@ -274,7 +276,7 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {(props.page === "Group" ||
+            {  entity &&(props.page === "Group" ||
               props.page === "Project" ||
               (props.page === "Student" &&
                 isStudent &&
@@ -296,7 +298,7 @@ const PageGet = (props) => {
                 </div>
               )}
 
-            {props.page === "Repository" && (
+            {props.page === "Repository" && entity && (
               <div
                 className="col"
                 data-bs-toggle="modal"
@@ -311,17 +313,20 @@ const PageGet = (props) => {
               </div>
             )}
 
-            {isAdmin && props.page !== "Project" && props.page !== "Repository" && (
-              <div className="col" onClick={handleSubmit}>
-                <Card
-                  title={`Delete ${props.page.toLowerCase()}`}
-                  description={""}
-                  image={"bi bi-person-fill-x"}
-                ></Card>
-              </div>
-            )}
+            {isAdmin &&
+              entity &&
+              props.page !== "Project" &&
+              props.page !== "Repository" && (
+                <div className="col" onClick={handleSubmit}>
+                  <Card
+                    title={`Delete ${props.page.toLowerCase()}`}
+                    description={""}
+                    image={"bi bi-person-fill-x"}
+                  ></Card>
+                </div>
+              )}
 
-            {props.page === "Project" && (
+            {props.page === "Project" && entity && (
               <div className="col">
                 <Card
                   title={`Add repository`}
@@ -332,7 +337,7 @@ const PageGet = (props) => {
               </div>
             )}
 
-            {props.page === "Group" && (
+            {props.page === "Group" && entity && (
               <div className="col">
                 <Card
                   title={`Add project`}
@@ -342,7 +347,7 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {!isStudent && props.page === "Repository" && (
+            {!isStudent && entity && props.page === "Repository" && (
               <div className="col">
                 <Card
                   title={"Add comments"}
