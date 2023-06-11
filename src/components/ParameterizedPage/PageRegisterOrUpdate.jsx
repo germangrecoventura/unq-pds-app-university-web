@@ -144,7 +144,7 @@ const PageRegisterOrUpdate = (props) => {
               });
             break;
           default:
-            API.createProject(name, projectGithubOwner, projectGithubToken)
+            API.createProject(name, projectGithubOwner, projectGithubToken, idEntity)
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);

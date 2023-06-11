@@ -195,13 +195,14 @@ const API = {
       { withCredentials: true }
     ),
   // PROJECTS
-  createProject: (name, projectOwner, projectToken) =>
+  createProject: (name, projectOwner, projectToken, groupId) =>
     axios.post(
       `${baseURL}/projects`,
       {
         name: name,
         ownerGithub: projectOwner,
         tokenGithub: projectToken,
+        groupId: groupId,
       },
       { withCredentials: true }
     ),
