@@ -33,22 +33,11 @@ const API = {
     axios.delete(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
   getAllTeachers: () =>
     axios.get(`${baseURL}/teachers/getAll`, { withCredentials: true }),
-  addCommentToStudent: (idtocomment, namerepository, comment) =>
+  addCommentToRepository: (idRepository, comment) =>
     axios.post(
-      `${baseURL}/teachers/addCommentStudent`,
+      `${baseURL}/teachers/addComment`,
       {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
-        comment: comment,
-      },
-      { withCredentials: true }
-    ),
-  addCommentToGroup: (idtocomment, namerepository, comment) =>
-    axios.post(
-      `${baseURL}/teachers/addCommentGroup`,
-      {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
+        repositoryId: idRepository,
         comment: comment,
       },
       { withCredentials: true }
@@ -74,8 +63,6 @@ const API = {
     lastname,
     email,
     password,
-    githubuser,
-    githubtoken
   ) =>
     axios.post(
       `${baseURL}/students`,
@@ -84,8 +71,6 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
       { withCredentials: true }
     ),
@@ -97,8 +82,6 @@ const API = {
     lastname,
     email,
     password,
-    githubuser,
-    githubtoken
   ) =>
     axios.put(
       `${baseURL}/students`,
@@ -108,8 +91,6 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
       { withCredentials: true }
     ),
@@ -117,15 +98,19 @@ const API = {
     axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
   getAllStudents: () =>
     axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
-  addProjectInStudent: (studentId, projectId) =>
-    axios.put(
-      `${baseURL}/students/addProject/${studentId}/${projectId}`,
-      {},
+  // GROUPS
+  createGroup: (name, members, nameProject, projectOwner, projectToken) =>
+    axios.post(
+      `${baseURL}/groups`,
+      {
+        name: name,
+        members: members,
+        nameProject: nameProject,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
       { withCredentials: true }
     ),
-  // GROUPS
-  createGroup: (name) =>
-    axios.post(`${baseURL}/groups`, { name: name }, { withCredentials: true }),
   getGroup: (id) =>
     axios.get(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
   updateGroup: (id, name) =>
@@ -210,18 +195,28 @@ const API = {
       { withCredentials: true }
     ),
   // PROJECTS
-  createProject: (name) =>
+  createProject: (name, projectOwner, projectToken, groupId) =>
     axios.post(
       `${baseURL}/projects`,
-      { name: name },
+      {
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+        groupId: groupId,
+      },
       { withCredentials: true }
     ),
   getProject: (id) =>
     axios.get(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
-  updateProject: (id, name) =>
+  updateProject: (id, name, projectOwner, projectToken) =>
     axios.put(
       `${baseURL}/projects`,
-      { id: id, name: name },
+      {
+        id: id,
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
       { withCredentials: true }
     ),
   deleteProject: (id) =>
@@ -235,23 +230,23 @@ const API = {
       { withCredentials: true }
     ),
   // REPOSITORIES
-  createRepository: (name, owner) =>
+  createRepository: (name, projectId) =>
     axios.post(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
+        projectId: projectId,
       },
       { withCredentials: true }
     ),
   getRepository: (id) =>
     axios.get(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
-  updateRepository: (name, owner) =>
+  updateRepository: (name, projectId) =>
     axios.put(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
+        projectId: projectId,
       },
       { withCredentials: true }
     ),

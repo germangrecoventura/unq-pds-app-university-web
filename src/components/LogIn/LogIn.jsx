@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 
 const LogIn = () => {
@@ -51,7 +51,7 @@ const LogIn = () => {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row mt-1">
             <div className="col-md-4">
               <label htmlFor="inputPassword" className="col-form-label">
                 Password:

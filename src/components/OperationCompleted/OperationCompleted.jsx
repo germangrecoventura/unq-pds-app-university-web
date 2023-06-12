@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const OperationCompleted = () => {
   let navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setTimeout(() => {
-      return navigate("/");
+      return navigate(`${location.state}`);
     }, 5000);
-  }, []);
+  }, [navigate, location.state]);
 
   return (
     <div className="container">

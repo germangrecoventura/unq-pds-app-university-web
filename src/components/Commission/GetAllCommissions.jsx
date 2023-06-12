@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import API from "../../services/API";
 import "./Commission.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 export default function GetAllCommissions() {
   const [commissions, setCommissions] = useState([]);
@@ -12,23 +14,29 @@ export default function GetAllCommissions() {
   return (
     <div>
       {commissions.length !== 0 ? (
-        <table className="TableGetAll">
-          <thead>
+        <MDBTable className="text-table table-light" responsive="md" hover>
+          <MDBTableHead>
             <tr>
-              <th>Id</th>
-              <th>Year</th>
-              <th>Four month period</th>
-              <th>Matter</th>
-              <th>Students</th>
-              <th>Teachers</th>
-              <th>Groups</th>
+              <th scope="col">Commission number</th>
+              <th scope="col">Year</th>
+              <th scope="col">Four month period</th>
+              <th scope="col">Matter</th>
+              <th scope="col">Students</th>
+              <th scope="col">Teachers</th>
+              <th scope="col">Groups</th>
             </tr>
+          </MDBTableHead>
+          <MDBTableBody>
             {commissions.sort(function (a, b) {
               return a.id - b.id;
             }) &&
               commissions.map((commission) => (
                 <tr key={commission.id}>
-                  <td>{commission.id}</td>
+                  <td>
+                    <Link to={`/commission/${commission.id}`}>
+                      {commission.id}
+                    </Link>
+                  </td>
                   <td>{commission.year}</td>
                   <td>{commission.fourMonthPeriod}</td>
                   <td>{commission.matter.name}</td>
@@ -37,8 +45,8 @@ export default function GetAllCommissions() {
                   <td>{commission.groupsStudents.length}</td>
                 </tr>
               ))}
-          </thead>
-        </table>
+          </MDBTableBody>
+        </MDBTable>
       ) : (
         <h4>There is no commissions in Academic Management Module</h4>
       )}

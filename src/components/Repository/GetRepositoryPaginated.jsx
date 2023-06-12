@@ -193,7 +193,7 @@ const GetRepositoryPaginated = (props) => {
       <div className="row buttons">
         {!isStudent && (
           <>
-            {props.repository.branches.length > 0 && (
+            {props.repository.branches?.length > 0 && (
               <div className="col-md-2 text-center">
                 <button
                   class="btn btn-primary"
@@ -207,7 +207,7 @@ const GetRepositoryPaginated = (props) => {
                 </button>
               </div>
             )}
-            {props.repository.commits.length > 0 && (
+            {props.repository.commits?.length > 0 && (
               <div className="col-md-2 text-center">
                 <button
                   class="btn btn-primary"
@@ -221,7 +221,7 @@ const GetRepositoryPaginated = (props) => {
                 </button>
               </div>
             )}
-            {props.repository.issues.length > 0 && (
+            {props.repository.issues?.length > 0 && (
               <div className="col-md-2 text-center">
                 <button
                   class="btn btn-primary"
@@ -235,7 +235,7 @@ const GetRepositoryPaginated = (props) => {
                 </button>
               </div>
             )}
-            {props.repository.pullRequests.length > 0 && (
+            {props.repository.pullRequests?.length > 0 && (
               <div className="col-md-2 text-center">
                 <button
                   class="btn btn-primary"
@@ -249,7 +249,7 @@ const GetRepositoryPaginated = (props) => {
                 </button>
               </div>
             )}
-            {props.repository.tags.length > 0 && (
+            {props.repository.tags?.length > 0 && (
               <div className="col-md-2 text-center">
                 <button
                   class="btn btn-primary"
@@ -265,7 +265,7 @@ const GetRepositoryPaginated = (props) => {
             )}
           </>
         )}
-        {props.repository.commentsTeacher.length > 0 && (
+        {props.repository.commentsTeacher?.length > 0 && (
           <div className="col-md-2 text-center">
             <button
               class="btn btn-primary"
@@ -280,7 +280,7 @@ const GetRepositoryPaginated = (props) => {
           </div>
         )}
       </div>
-      {props.repository.branches.length > 0 && (
+      {props.repository.branches?.length > 0 && (
         <div class="collapse" id="branch">
           <table className="TableData">
             <thead>
@@ -295,7 +295,7 @@ const GetRepositoryPaginated = (props) => {
         </div>
       )}
 
-      {props.repository.commits.length > 0 && (
+      {props.repository.commits?.length > 0 && (
         <div class="collapse" id="commit">
           <table className="TableData">
             <thead>
@@ -309,13 +309,13 @@ const GetRepositoryPaginated = (props) => {
           </table>
           {numberPagesCommit > 1 && (
             <nav aria-label="Page navigation example">
-              <ul class="pagination">{getPagesCommit().map((index) => index)}</ul>
+              <ul class="pagination pageButtons">{getPagesCommit().map((index) => index)}</ul>
             </nav>
           )}
         </div>
       )}
 
-      {props.repository.issues.length >= 0 && (
+      {props.repository.issues?.length >= 0 && (
         <div class="collapse" id="issue">
           <table className="TableData">
             <thead>
@@ -331,13 +331,13 @@ const GetRepositoryPaginated = (props) => {
           </table>
           {numberPagesIssue > 1 && (
             <nav aria-label="Page navigation example">
-              <ul class="pagination">{getPagesIssue().map((index) => index)}</ul>
+              <ul class="pagination pageButtons">{getPagesIssue().map((index) => index)}</ul>
             </nav>
           )}
         </div>
       )}
 
-      {props.repository.pullRequests.length > 0 && (
+      {props.repository.pullRequests?.length > 0 && (
         <div class="collapse" id="pullRequest">
           <table className="TableData">
             <thead>
@@ -353,7 +353,7 @@ const GetRepositoryPaginated = (props) => {
           </table>
           {numberPagesPullRequest > 1 && (
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
+              <ul class="pagination pageButtons">
                 {getPagesPullRequest().map((index) => index)}
               </ul>
             </nav>
@@ -361,7 +361,7 @@ const GetRepositoryPaginated = (props) => {
         </div>
       )}
 
-      {props.repository.tags.length > 0 && (
+      {props.repository.tags?.length > 0 && (
         <div class="collapse" id="tag">
           <table className="TableData">
             <thead>
@@ -376,7 +376,7 @@ const GetRepositoryPaginated = (props) => {
         </div>
       )}
 
-      {props.repository.commentsTeacher.length > 0 && (
+      {props.repository.commentsTeacher?.length > 0 && (
         <div class="collapse" id="comments">
           <table className="TableData">
             <thead>

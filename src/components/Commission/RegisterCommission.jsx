@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import Cookies from "js-cookie";
 
@@ -46,7 +46,7 @@ const RegisterCommission = (props) => {
         .then((response) => {
           resetForm();
           setIsSubmitting(false);
-          navigate("/operation-completed");
+          navigate("/operation-completed", { state: "/commissions" });
         })
         .catch((error) => {
           setFormErrors(error.response.data);
@@ -92,7 +92,7 @@ const RegisterCommission = (props) => {
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-1">
                 <div className="col-md-4">
                   <label
                     htmlFor="inputFourMonthPeriod"
@@ -130,7 +130,7 @@ const RegisterCommission = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-1">
                 <div className="col-md-4">
                   <label htmlFor="inputMatterName" className="col-form-label">
                     Matter name:

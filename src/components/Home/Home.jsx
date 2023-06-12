@@ -1,6 +1,5 @@
 import Card from "../Card/Card";
 import LogIn from "../LogIn/LogIn";
-import "./Home.css";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -10,10 +9,9 @@ const Home = () => {
   let cookies = Cookies.get("jwt");
 
   useEffect(() => {
-    API.getUser()
-      .then((response) => {
-        setUser(response.data);
-      })
+    API.getUser().then((response) => {
+      setUser(response.data);
+    });
   }, []);
 
   return (
@@ -60,22 +58,6 @@ const Home = () => {
                 description={"Operations related to commissions"}
                 url={"/commissions"}
                 image={"bi bi-c-square-fill"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Repositories"}
-                description={"Operations related to repository"}
-                url={"/repositories"}
-                image={"bi bi-github"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Project"}
-                description={"Operations related to projects"}
-                url={"/projects"}
-                image={"bi bi-file-earmark-ppt-fill"}
               ></Card>
             </div>
           </>
