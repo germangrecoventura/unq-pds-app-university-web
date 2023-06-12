@@ -18,60 +18,77 @@ const TableCommission = (props) => {
   }, []);
 
   function students() {
-    return props.commission.students.map((student) => (
-      <tr key={student.id}>
-        <td className="data-list">
-          <Link to={`/student/${student.id}`} className="text">
-            {student.firstName} {student.lastName}
-          </Link>
-          <DeleteFromListButton
-            entityA="Commission"
-            entityB="Student"
-            idEntityA={props.commission.id}
-            idEntityB={student.id}
-            formErrors={props.formErrors}
-          />
-        </td>
-      </tr>
-    ));
+    return (
+      props.commission.students.sort(function (a, b) {
+        return a.id - b.id;
+      }) &&
+      props.commission.students.map((student) => (
+        <tr key={student.id}>
+          <td className="data-list">
+            <Link to={`/student/${student.id}`} className="text">
+              {student.firstName} {student.lastName}
+            </Link>
+            <DeleteFromListButton
+              entityA="Commission"
+              entityB="Student"
+              idEntityA={props.commission.id}
+              idEntityB={student.id}
+              formErrors={props.formErrors}
+            />
+          </td>
+        </tr>
+      ))
+    );
   }
 
   function teachers() {
-    return props.commission.teachers.map((teacher) => (
-      <tr key={teacher.id}>
-        <td className="data-list">
-          <Link to={`/teacher/${teacher.id}`} className="text">
-            {teacher.firstName} {teacher.lastName}
-          </Link>
-          <DeleteFromListButton
-            entityA="Commission"
-            entityB="Teacher"
-            idEntityA={props.commission.id}
-            idEntityB={teacher.id}
-            formErrors={props.formErrors}
-          />
-        </td>
-      </tr>
-    ));
+    {
+      return (
+        props.commission.teachers.sort(function (a, b) {
+          return a.id - b.id;
+        }) &&
+        props.commission.teachers.map((teacher) => (
+          <tr key={teacher.id}>
+            <td className="data-list">
+              <Link to={`/teacher/${teacher.id}`} className="text">
+                {teacher.firstName} {teacher.lastName}
+              </Link>
+              <DeleteFromListButton
+                entityA="Commission"
+                entityB="Teacher"
+                idEntityA={props.commission.id}
+                idEntityB={teacher.id}
+                formErrors={props.formErrors}
+              />
+            </td>
+          </tr>
+        ))
+      );
+    }
   }
 
   function groups() {
-    return props.commission.groupsStudents.map((group) => (
-      <tr key={group.id}>
-        <td className="data-list">
-          <Link to={`/group/${group.id}`} className="text">
-            {group.name}
-          </Link>
-          <DeleteFromListButton
-            entityA="Commission"
-            entityB="Group"
-            idEntityA={props.commission.id}
-            idEntityB={group.id}
-            formErrors={props.formErrors}
-          />
-        </td>
-      </tr>
-    ));
+    return (
+      props.commission.groupsStudents.sort(function (a, b) {
+        return a.id - b.id;
+      }) &&
+      props.commission.groupsStudents.map((group) => (
+        <tr key={group.id}>
+          <td className="data-list">
+            <Link to={`/group/${group.id}`} className="text">
+              {group.name}
+            </Link>
+            <DeleteFromListButton
+              entityA="Commission"
+              entityB="Group"
+              idEntityA={props.commission.id}
+              idEntityB={group.id}
+              formErrors={props.formErrors}
+            />
+          </td>
+        </tr>
+      ))
+    );
   }
 
   return (
