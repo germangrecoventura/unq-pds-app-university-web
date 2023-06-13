@@ -12,6 +12,7 @@ import TableRepository from "../Repository/TableRepository";
 import GetRepositoryPaginated from "../Repository/GetRepositoryPaginated";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../Card/Card";
+import TableDeployInstance from "../DeployInstance/TableDeployInstance";
 
 const PageGet = (props) => {
   let navigate = useNavigate();
@@ -85,6 +86,16 @@ const PageGet = (props) => {
         break;
       case "Repository":
         API.getRepository(idEntity)
+          .then((response) => {
+            setEntity(response.data);
+            setIsFind(true);
+          })
+          .catch((error) => {
+            setFormErrors(error.response.data);
+          });
+        break;
+      case "Deploy instance":
+        API.getDeployInstance(idEntity)
           .then((response) => {
             setEntity(response.data);
             setIsFind(true);
@@ -265,6 +276,10 @@ const PageGet = (props) => {
             </>
           )}
 
+          {isFind && props.page === "Deploy instance" && (
+            <TableDeployInstance deployInstance={entity} />
+          )}
+
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {isAdmin && entity && props.page === "Matter" && (
               <div className="col">
@@ -276,7 +291,17 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {  entity &&(props.page === "Group" ||
+            {!isTeacher && entity && props.page === "Deploy instance" && (
+              <div className="col">
+                <Card
+                  title={`Update ${props.page.toLowerCase()}`}
+                  description={""}
+                  url={`/project/${projectId}/deployInstance/update/${entity.id}`}
+                  image={"bi bi-person-fill-gear"}
+                ></Card>
+              </div>
+            )}
+            {entity && (props.page === "Group" ||
               props.page === "Project" ||
               (props.page === "Student" &&
                 isStudent &&
@@ -287,7 +312,8 @@ const PageGet = (props) => {
               isAdmin) &&
               props.page !== "Matter" &&
               props.page !== "Commission" &&
-              props.page !== "Repository" && (
+              props.page !== "Repository" &&
+              props.page !== "Deploy instance" && (
                 <div className="col">
                   <Card
                     title={`Update ${props.page.toLowerCase()}`}
@@ -316,7 +342,8 @@ const PageGet = (props) => {
             {isAdmin &&
               entity &&
               props.page !== "Project" &&
-              props.page !== "Repository" && (
+              props.page !== "Repository" &&
+              props.page !== "Deploy instance" && (
                 <div className="col" onClick={handleSubmit}>
                   <Card
                     title={`Delete ${props.page.toLowerCase()}`}
@@ -327,14 +354,24 @@ const PageGet = (props) => {
               )}
 
             {props.page === "Project" && entity && (
-              <div className="col">
-                <Card
-                  title={`Add repository`}
-                  description={""}
-                  url={`/project/${idEntity}/addRepository`}
-                  image={"bi bi-journal-plus"}
-                ></Card>
-              </div>
+              <>
+                <div className="col">
+                  <Card
+                    title={`Add repository`}
+                    description={""}
+                    url={`/project/${idEntity}/addRepository`}
+                    image={"bi bi-journal-plus"}
+                  ></Card>
+                </div>
+                <div className="col">
+                  <Card
+                    title={`Add deploy instance`}
+                    description={""}
+                    url={`/project/${idEntity}/addDeployInstance`}
+                    image={"bi bi-cloud-plus"}
+                  ></Card>
+                </div>
+              </>
             )}
 
             {props.page === "Group" && entity && (
@@ -353,6 +390,16 @@ const PageGet = (props) => {
                   title={"Add comments"}
                   description={""}
                   url={`/project/${projectId}/${props.page.toLowerCase()}/${idEntity}/addComment`}
+                  image={"bi bi-clipboard-plus-fill"}
+                ></Card>
+              </div>
+            )}
+            {!isTeacher && entity && props.page === "Deploy instance" && (
+              <div className="col">
+                <Card
+                  title={"Add comments"}
+                  description={""}
+                  url={`/project/${projectId}/deployInstance/${idEntity}/addComment`}
                   image={"bi bi-clipboard-plus-fill"}
                 ></Card>
               </div>

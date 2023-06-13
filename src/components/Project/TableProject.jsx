@@ -13,6 +13,16 @@ const TableProject = (props) => {
     ));
   }
 
+  function deployInstances() {
+    return props.project.deployInstances.map((deployInstance) => (
+      <tr key={deployInstance.id}>
+        <td>
+          <Link to={`/project/${props.project.id}/deployInstance/${deployInstance.id}`}>{deployInstance.name}</Link>
+        </td>
+      </tr>
+    ))
+  }
+
   return (
     <>
       <MDBTable className="text-table table-light" responsive="md" hover>
@@ -20,12 +30,14 @@ const TableProject = (props) => {
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Repositories</th>
+            <th scope="col">Deploy instances</th>
           </tr>
         </MDBTableHead>
         <MDBTableBody>
           <tr>
             <td>{props.project.name}</td>
             <td>{props.project.repositories?.length}</td>
+            <td>{props.project.deployInstances?.length}</td>
           </tr>
         </MDBTableBody>
       </MDBTable>
@@ -45,6 +57,20 @@ const TableProject = (props) => {
             </button>
           </div>
         )}
+        {props.project.deployInstances?.length > 0 && (
+          <div className="col-md-2 text-center">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#deployInstance"
+              aria-expanded="false"
+              aria-controls="deployInstance"
+            >
+              Deploy instances
+            </button>
+          </div>
+        )}
       </div>
       {props.project.repositories?.length > 0 && (
         <div className="collapse" id="repository">
@@ -55,6 +81,18 @@ const TableProject = (props) => {
               </tr>
             </MDBTableHead>
             <MDBTableBody>{repositories()}</MDBTableBody>
+          </MDBTable>
+        </div>
+      )}
+      {props.project.deployInstances?.length > 0 && (
+        <div className="collapse" id="deployInstance">
+          <MDBTable className="text-table table-light" responsive="md" hover>
+            <MDBTableHead>
+              <tr>
+                <th scope="col">Deploy instances</th>
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>{deployInstances()}</MDBTableBody>
           </MDBTable>
         </div>
       )}

@@ -98,6 +98,15 @@ const API = {
     axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
   getAllStudents: () =>
     axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
+  addCommentToDeployInstance: (deployInstanceId, comment) =>
+    axios.post(
+      `${baseURL}/students/addComment`,
+      {
+        deployInstanceId: deployInstanceId,
+        comment: comment,
+      },
+      { withCredentials: true }
+    ),
   // GROUPS
   createGroup: (name, members, nameProject, projectOwner, projectToken) =>
     axios.post(
@@ -229,6 +238,12 @@ const API = {
       {},
       { withCredentials: true }
     ),
+  addDeployInstance: (projectId, deployInstanceId) =>
+    axios.put(
+      `${baseURL}/projects/addDeployInstance/${projectId}/${deployInstanceId}`,
+      {},
+      { withCredentials: true }
+    ),
   // REPOSITORIES
   createRepository: (name, projectId) =>
     axios.post(
@@ -288,6 +303,33 @@ const API = {
       `${baseURL}/repositories/pagePullRequest?name=${name}&page=${page}&size=${elementPage}`,
       { withCredentials: true }
     ),
+  // DEPLOY INSTANCES
+  createDeployInstance: (name, url, projectId) =>
+    axios.post(
+      `${baseURL}/deployInstances`,
+      {
+        name: name,
+        url: url,
+        projectId: projectId,
+      },
+      { withCredentials: true }
+    ),
+  getDeployInstance: (id) =>
+    axios.get(`${baseURL}/deployInstances?id=${id}`, { withCredentials: true }),
+  updateDeployInstance: (id, name, url) =>
+    axios.put(
+      `${baseURL}/deployInstances`,
+      {
+        id: id,
+        name: name,
+        url: url,
+      },
+      { withCredentials: true }
+    ),
+  deleteDeployInstance: (id) =>
+    axios.delete(`${baseURL}/deployInstances?id=${id}`, { withCredentials: true }),
+  getAllDeployInstances: () =>
+    axios.get(`${baseURL}/deployInstances/getAll`, { withCredentials: true }),
 
   // USERS
   login: (email, password) =>
