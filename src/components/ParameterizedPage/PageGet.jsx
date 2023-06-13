@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
-import Cookies from "js-cookie";
 import TableStudent from "../Student/TableStudent";
 import TableTeacher from "../Teacher/TableTeacher";
 import TableMatter from "../Matter/TableMatter";
@@ -23,7 +22,7 @@ const PageGet = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
 
   useEffect(() => {
     API.getUser().then((response) => {
@@ -228,7 +227,7 @@ const PageGet = (props) => {
         </div>
       </div>
 
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
@@ -276,15 +275,16 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {  entity &&(props.page === "Group" ||
-              props.page === "Project" ||
-              (props.page === "Student" &&
-                isStudent &&
-                user.id === Number(idEntity)) ||
-              (props.page === "Teacher" &&
-                isTeacher &&
-                user.id === Number(idEntity)) ||
-              isAdmin) &&
+            {entity &&
+              (props.page === "Group" ||
+                props.page === "Project" ||
+                (props.page === "Student" &&
+                  isStudent &&
+                  user.id === Number(idEntity)) ||
+                (props.page === "Teacher" &&
+                  isTeacher &&
+                  user.id === Number(idEntity)) ||
+                isAdmin) &&
               props.page !== "Matter" &&
               props.page !== "Commission" &&
               props.page !== "Repository" && (

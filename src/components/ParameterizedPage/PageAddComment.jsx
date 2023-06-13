@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
-import Cookies from "js-cookie";
 
 const PageAddComment = (props) => {
   const { projectId, idRepository } = useParams();
@@ -11,7 +10,7 @@ const PageAddComment = (props) => {
   const [formErrors, setFormErrors] = useState("");
   let navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
 
   useEffect(() => {
     API.getUser()
@@ -36,7 +35,9 @@ const PageAddComment = (props) => {
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
-        navigate("/operation-completed", { state: `/project/${projectId}/repository/${idRepository}` });
+        navigate("/operation-completed", {
+          state: `/project/${projectId}/repository/${idRepository}`,
+        });
       })
       .catch((error) => {
         setFormErrors(error.response.data);
@@ -48,7 +49,7 @@ const PageAddComment = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
@@ -58,7 +59,7 @@ const PageAddComment = (props) => {
           You do not have permissions to access this resource
         </div>
       )}
-      {cookies && !isStudent && (
+      {token && !isStudent && (
         <>
           <h5 className="title">Add comment to repository form</h5>
           <form onSubmit={handleSubmit}>

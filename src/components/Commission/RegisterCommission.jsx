@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
-import Cookies from "js-cookie";
 
 const RegisterCommission = (props) => {
   const [year, setYear] = useState("");
@@ -12,19 +11,19 @@ const RegisterCommission = (props) => {
   const [formErrors, setFormErrors] = useState("");
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
   let navigate = useNavigate();
 
   useEffect(() => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsAdmin(response.data.role === "ADMIN");
+        setIsAdmin(response.data.role.contain("ADMIN"));
       })
       .catch((error) => {
         setIsAdmin(false);
       })
-      .finally(() => { });
+      .finally(() => {});
   }, []);
 
   const resetForm = () => {
@@ -39,7 +38,7 @@ const RegisterCommission = (props) => {
     setFormErrors("");
     setIsSubmitting(true);
     if (fourMonthPeriod === "") {
-      setFormErrors({ "message": "Please select a four month period" });
+      setFormErrors({ message: "Please select a four month period" });
       setIsSubmitting(false);
     } else {
       API.createCommission(year, fourMonthPeriod, matterName)
@@ -59,7 +58,7 @@ const RegisterCommission = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>

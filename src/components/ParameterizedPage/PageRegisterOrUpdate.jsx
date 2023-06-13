@@ -3,7 +3,6 @@ import { useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 
 const PageRegisterOrUpdate = (props) => {
   const { projectId, idEntity } = useParams();
@@ -18,7 +17,7 @@ const PageRegisterOrUpdate = (props) => {
   const [studentThree, setStudentThree] = useState(null);
   const [studentFour, setStudentFour] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const PageRegisterOrUpdate = (props) => {
       .catch((error) => {
         setIsAdmin(false);
       })
-      .finally(() => { });
+      .finally(() => {});
 
     if (props.operation === "update") {
       switch (props.entity) {
@@ -126,12 +125,14 @@ const PageRegisterOrUpdate = (props) => {
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
-                API.addRepository(projectId, response.data.id).then((response) => {
-                  document.getElementById("createModal").click();
-                  navigate("/operation-completed", {
-                    state: `/project/${projectId}`,
-                  });
-                });
+                API.addRepository(projectId, response.data.id).then(
+                  (response) => {
+                    document.getElementById("createModal").click();
+                    navigate("/operation-completed", {
+                      state: `/project/${projectId}`,
+                    });
+                  }
+                );
               })
               .catch((error) => {
                 setTimeout(() => {
@@ -144,13 +145,20 @@ const PageRegisterOrUpdate = (props) => {
               });
             break;
           default:
-            API.createProject(name, projectGithubOwner, projectGithubToken, idEntity)
+            API.createProject(
+              name,
+              projectGithubOwner,
+              projectGithubToken,
+              idEntity
+            )
               .then((response) => {
                 resetForm();
                 setIsSubmitting(false);
                 API.addProjectInGroup(idEntity, response.data.id).then(
                   (response) => {
-                    navigate("/operation-completed", { state: `/group/${idEntity}` });
+                    navigate("/operation-completed", {
+                      state: `/group/${idEntity}`,
+                    });
                   }
                 );
               })
@@ -257,19 +265,19 @@ const PageRegisterOrUpdate = (props) => {
         </div>
       </div>
 
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
 
-      {cookies && !isAdmin && props.entity === "Matter" && (
+      {token && !isAdmin && props.entity === "Matter" && (
         <div className="alert alert-danger" role="alert">
           You do not have permissions to access this resource
         </div>
       )}
 
-      {cookies && (isAdmin || props.entity !== "Matter") && (
+      {token && (isAdmin || props.entity !== "Matter") && (
         <div>
           <h5 className="title">
             {props.entity} {props.operation} form
@@ -396,46 +404,46 @@ const PageRegisterOrUpdate = (props) => {
               {((props.entity === "Group" &&
                 props.operation === "registration") ||
                 props.entity === "Project") && (
-                  <>
-                    <div className="row mt-1">
-                      <div className="col-md-4">
-                        <label
-                          htmlFor="inputProjectGithubOwner"
-                          className="col-form-label"
-                        >
-                          Project github owner:
-                        </label>
-                      </div>
-                      <div className="col-md-6">
-                        <input
-                          type="text"
-                          id="inputProjectGithubOwner"
-                          className="form-control"
-                          value={projectGithubOwner}
-                          onChange={(e) => setProjectGithubOwner(e.target.value)}
-                        />
-                      </div>
+                <>
+                  <div className="row mt-1">
+                    <div className="col-md-4">
+                      <label
+                        htmlFor="inputProjectGithubOwner"
+                        className="col-form-label"
+                      >
+                        Project github owner:
+                      </label>
                     </div>
-                    <div className="row mt-1">
-                      <div className="col-md-4">
-                        <label
-                          htmlFor="inputProjectGithubToken"
-                          className="col-form-label"
-                        >
-                          Project github token:
-                        </label>
-                      </div>
-                      <div className="col-md-6">
-                        <input
-                          type="password"
-                          id="inputProjectGithubToken"
-                          className="form-control"
-                          onChange={(e) => setProjectGithubToken(e.target.value)}
-                        />
-                      </div>
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        id="inputProjectGithubOwner"
+                        className="form-control"
+                        value={projectGithubOwner}
+                        onChange={(e) => setProjectGithubOwner(e.target.value)}
+                      />
                     </div>
-                  </>
-                )}
+                  </div>
+                  <div className="row mt-1">
+                    <div className="col-md-4">
+                      <label
+                        htmlFor="inputProjectGithubToken"
+                        className="col-form-label"
+                      >
+                        Project github token:
+                      </label>
+                    </div>
+                    <div className="col-md-6">
+                      <input
+                        type="password"
+                        id="inputProjectGithubToken"
+                        className="form-control"
+                        onChange={(e) => setProjectGithubToken(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
             <div className="mb-3">
               <FormErrors errors={Object.entries(formErrors)}></FormErrors>
