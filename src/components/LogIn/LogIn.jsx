@@ -20,6 +20,7 @@ const LogIn = () => {
     setIsSubmitting(true);
     API.login(email, password)
       .then((response) => {
+        localStorage.setItem("loginToken", response.data.token);
         resetForm();
         window.location.replace("");
       })

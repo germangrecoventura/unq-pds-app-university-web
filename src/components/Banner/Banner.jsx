@@ -1,14 +1,16 @@
-import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import API from "../../services/API";
 import "./Banner.css";
 
 const Banner = () => {
+  let token = localStorage.getItem("loginToken");
+
   const logout = (event) => {
     event.preventDefault();
     API.logout()
       .then((response) => {
-        Cookies.remove("jwt");
+        console.log("Estoy deslogueando")
+        localStorage.removeItem("loginToken");
         window.location.replace("/");
       })
       .catch((error) => {});
@@ -22,7 +24,7 @@ const Banner = () => {
         </Link>
       </div>
       <div className="log">
-        {Cookies.get("jwt") && (
+        {token && (
           <button type="button" className="btn text-white" onClick={logout}>
             <i className="bi bi-person-circle text-white"></i> Logout
           </button>
