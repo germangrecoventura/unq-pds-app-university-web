@@ -18,7 +18,7 @@ const RegisterCommission = (props) => {
     API.getUser()
       .then((response) => {
         setUser(response.data);
-        setIsAdmin(response.data.role.contain("ADMIN"));
+        setIsAdmin(response.data.role === "ADMIN");
       })
       .catch((error) => {
         setIsAdmin(false);

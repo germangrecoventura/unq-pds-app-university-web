@@ -9,7 +9,6 @@ const Banner = () => {
     event.preventDefault();
     API.logout()
       .then((response) => {
-        console.log("Estoy deslogueando")
         localStorage.removeItem("loginToken");
         window.location.replace("/");
       })
