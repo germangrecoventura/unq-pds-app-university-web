@@ -348,10 +348,12 @@ const API = {
         url: url,
         projectId: projectId,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getDeployInstance: (id) =>
-    axios.get(`${baseURL}/deployInstances?id=${id}`, { withCredentials: true }),
+    axios.get(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   updateDeployInstance: (id, name, url) =>
     axios.put(
       `${baseURL}/deployInstances`,
@@ -360,12 +362,16 @@ const API = {
         name: name,
         url: url,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteDeployInstance: (id) =>
-    axios.delete(`${baseURL}/deployInstances?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllDeployInstances: () =>
-    axios.get(`${baseURL}/deployInstances/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/deployInstances/getAll`, {
+      headers: { Authorization: token },
+    }),
 
   // USERS
   login: (email, password) =>

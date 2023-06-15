@@ -3,7 +3,6 @@ import { useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 
 const RegisterOrUpdateDeployInstance = (props) => {
     const { projectId, idEntity } = useParams();
@@ -12,7 +11,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrors, setFormErrors] = useState("");
     const [isTeacher, setIsTeacher] = useState(false);
-    let cookies = Cookies.get("jwt");
+    let token = localStorage.getItem("loginToken");
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -89,19 +88,19 @@ const RegisterOrUpdateDeployInstance = (props) => {
     return (
         <div className="container clearfix">
 
-            {!cookies && (
+            {!token && (
                 <div className="alert alert-danger" role="alert">
                     Please login to access resources
                 </div>
             )}
 
-            {cookies && isTeacher && (
+            {token && isTeacher && (
                 <div className="alert alert-danger" role="alert">
                     You do not have permissions to access this resource
                 </div>
             )}
 
-            {cookies && !isTeacher && (
+            {token && !isTeacher && (
                 <div>
                     <h5 className="title">
                         Deploy instance {props.operation} form
