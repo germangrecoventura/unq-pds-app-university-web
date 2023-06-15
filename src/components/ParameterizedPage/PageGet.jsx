@@ -363,14 +363,16 @@ const PageGet = (props) => {
                     image={"bi bi-journal-plus"}
                   ></Card>
                 </div>
-                <div className="col">
-                  <Card
-                    title={`Add deploy instance`}
-                    description={""}
-                    url={`/project/${idEntity}/addDeployInstance`}
-                    image={"bi bi-cloud-plus"}
-                  ></Card>
-                </div>
+                {!isTeacher && (
+                  <div className="col">
+                    <Card
+                      title={`Add deploy instance`}
+                      description={""}
+                      url={`/project/${idEntity}/addDeployInstance`}
+                      image={"bi bi-cloud-plus"}
+                    ></Card>
+                  </div>
+                )}
               </>
             )}
 

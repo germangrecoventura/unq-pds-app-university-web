@@ -80,7 +80,7 @@ const PageAddComment = (props) => {
             You do not have permissions to access this resource
           </div>
         )}
-      {cookies &&
+      {token &&
         ((!isStudent && props.entity === "repository") ||
           (!isTeacher && props.entity === "deploy instance")) && (
           <>

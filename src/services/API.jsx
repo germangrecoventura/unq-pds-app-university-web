@@ -272,7 +272,7 @@ const API = {
     axios.put(
       `${baseURL}/projects/addDeployInstance/${projectId}/${deployInstanceId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   // REPOSITORIES
   createRepository: (name, projectId) =>
