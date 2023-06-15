@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
-import Cookies from "js-cookie";
 
 const PageAddComment = (props) => {
   const { projectId, idRepository, idDeployInstance } = useParams();
@@ -12,7 +11,7 @@ const PageAddComment = (props) => {
   let navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
 
   useEffect(() => {
     API.getUser()
@@ -65,16 +64,16 @@ const PageAddComment = (props) => {
           });
         break;
     }
-
   };
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
+
       {((isStudent && props.entity === "repository") ||
         (isTeacher && props.entity === "deploy instance")) && (
           <div className="alert alert-danger" role="alert">

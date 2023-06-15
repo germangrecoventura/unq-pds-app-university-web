@@ -3,7 +3,6 @@ import { useState } from "react";
 import FormErrors from "../Forms/FormErrors";
 import API from "../../services/API";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 
 const PageRegisterOrUpdateUser = (props) => {
   const { idEntity } = useParams();
@@ -18,7 +17,7 @@ const PageRegisterOrUpdateUser = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -183,13 +182,13 @@ const PageRegisterOrUpdateUser = (props) => {
 
   return (
     <div className="container clearfix">
-      {!cookies && (
+      {!token && (
         <div className="alert alert-danger" role="alert">
           Please login to access resources
         </div>
       )}
 
-      {cookies &&
+      {token &&
         (validationRegister() ||
           validationStudent() ||
           validationTeacher()) && (
