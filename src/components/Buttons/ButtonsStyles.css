@@ -1,0 +1,40 @@
+.delete-button {
+    justify-content: flex-end;
+    width: 25px;
+    height: 25px;
+    color: black;
+    background-color: red;
+    text-align: center;
+    cursor: pointer;
+}
+
+.add-button {
+    justify-content: flex-end;
+    width: 25px;
+    height: 25px;
+    color: black;
+    background-color: green;
+    text-align: center;
+    cursor: pointer;
+}
+
+.more-items {
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.data-list-items {
+    margin: auto;
+    width: max-content;
+    display: flex;
+    border: white;
+}
+
+.text {
+    margin: auto;
+}
+
+.btn-success {
+    margin-bottom: 40px;
+}

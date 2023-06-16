@@ -1,24 +1,21 @@
 import Card from "../Card/Card";
 import LogIn from "../LogIn/LogIn";
-import "./Home.css";
 import API from "../../services/API";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 const Home = () => {
   const [user, setUser] = useState(null);
-  let cookies = Cookies.get("jwt");
+  let token = localStorage.getItem("loginToken");
 
   useEffect(() => {
-    API.getUser()
-      .then((response) => {
-        setUser(response.data);
-      })
+    API.getUser().then((response) => {
+      setUser(response.data);
+    });
   }, []);
 
   return (
     <div className="container">
-      {!cookies && <LogIn></LogIn>}
+      {!token && <LogIn></LogIn>}
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {user && (
           <>
@@ -60,22 +57,6 @@ const Home = () => {
                 description={"Operations related to commissions"}
                 url={"/commissions"}
                 image={"bi bi-c-square-fill"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Repositories"}
-                description={"Operations related to repository"}
-                url={"/repositories"}
-                image={"bi bi-github"}
-              ></Card>
-            </div>
-            <div className="col">
-              <Card
-                title={"Project"}
-                description={"Operations related to projects"}
-                url={"/projects"}
-                image={"bi bi-file-earmark-ppt-fill"}
               ></Card>
             </div>
           </>

@@ -23,6 +23,7 @@ tbody tr, td {
     margin-right: auto;
     border-collapse: collapse;
     width: 100%;
+    background-color: rgb(211, 221, 217);
     border: 3px solid rgb(107, 44, 44);
 }
 
@@ -34,4 +35,14 @@ tbody tr, td {
 
 .pointer {
     cursor: pointer;
+}
+
+.pageButtons {
+    overflow: scroll;
+    background-color: rgb(211, 221, 217);
+}
+
+.page-link {
+    background-color: rgb(211, 221, 217);
+    border-color: black;
 }

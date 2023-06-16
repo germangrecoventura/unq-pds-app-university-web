@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080";
+const baseURL = process.env.REACT_APP_API || "http://localhost:8080";
+const token = `Bearer ${localStorage.getItem("loginToken")}`;
 
 const API = {
   //TEACHERS
@@ -13,10 +14,12 @@ const API = {
         email: email,
         password: password,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getTeacher: (id) =>
-    axios.get(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
+    axios.get(`${baseURL}/teachers?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   updateTeacher: (id, firstname, lastname, email, password) =>
     axios.put(
       `${baseURL}/teachers`,
@@ -27,56 +30,52 @@ const API = {
         email: email,
         password: password,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteTeacher: (id) =>
-    axios.delete(`${baseURL}/teachers?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/teachers?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllTeachers: () =>
-    axios.get(`${baseURL}/teachers/getAll`, { withCredentials: true }),
-  addCommentToStudent: (idtocomment, namerepository, comment) =>
+    axios.get(`${baseURL}/teachers/getAll`, {
+      headers: { Authorization: token },
+    }),
+  addCommentToRepository: (idRepository, comment) =>
     axios.post(
-      `${baseURL}/teachers/addCommentStudent`,
+      `${baseURL}/teachers/addComment`,
       {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
+        repositoryId: idRepository,
         comment: comment,
       },
-      { withCredentials: true }
-    ),
-  addCommentToGroup: (idtocomment, namerepository, comment) =>
-    axios.post(
-      `${baseURL}/teachers/addCommentGroup`,
-      {
-        idToComment: idtocomment,
-        nameRepository: namerepository,
-        comment: comment,
-      },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   // MATTERS
   createMatter: (name) =>
-    axios.post(`${baseURL}/matters`, { name: name }, { withCredentials: true }),
+    axios.post(
+      `${baseURL}/matters`,
+      { name: name },
+      { headers: { Authorization: token } }
+    ),
   getMatter: (id) =>
-    axios.get(`${baseURL}/matters?id=${id}`, { withCredentials: true }),
+    axios.get(`${baseURL}/matters?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   updateMatter: (id, name) =>
     axios.put(
       `${baseURL}/matters`,
       { id: id, name: name },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteMatter: (id) =>
-    axios.delete(`${baseURL}/matters?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/matters?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllMatters: () =>
-    axios.get(`${baseURL}/matters/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/matters/getAll`, {
+      headers: { Authorization: token },
+    }),
   // STUDENTS
-  createStudent: (
-    firstname,
-    lastname,
-    email,
-    password,
-    githubuser,
-    githubtoken
-  ) =>
+  createStudent: (firstname, lastname, email, password) =>
     axios.post(
       `${baseURL}/students`,
       {
@@ -84,22 +83,14 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getStudent: (id) =>
-    axios.get(`${baseURL}/students?id=${id}`, { withCredentials: true }),
-  updateStudent: (
-    id,
-    firstname,
-    lastname,
-    email,
-    password,
-    githubuser,
-    githubtoken
-  ) =>
+    axios.get(`${baseURL}/students?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  updateStudent: (id, firstname, lastname, email, password) =>
     axios.put(
       `${baseURL}/students`,
       {
@@ -108,53 +99,65 @@ const API = {
         lastName: lastname,
         email: email,
         password: password,
-        ownerGithub: githubuser,
-        tokenGithub: githubtoken,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteStudent: (id) =>
-    axios.delete(`${baseURL}/students?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/students?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllStudents: () =>
-    axios.get(`${baseURL}/students/getAll`, { withCredentials: true }),
-  addProjectInStudent: (studentId, projectId) =>
-    axios.put(
-      `${baseURL}/students/addProject/${studentId}/${projectId}`,
-      {},
-      { withCredentials: true }
-    ),
+    axios.get(`${baseURL}/students/getAll`, {
+      headers: { Authorization: token },
+    }),
   // GROUPS
-  createGroup: (name) =>
-    axios.post(`${baseURL}/groups`, { name: name }, { withCredentials: true }),
+  createGroup: (name, members, nameProject, projectOwner, projectToken) =>
+    axios.post(
+      `${baseURL}/groups`,
+      {
+        name: name,
+        members: members,
+        nameProject: nameProject,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
+      { headers: { Authorization: token } }
+    ),
   getGroup: (id) =>
-    axios.get(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
+    axios.get(`${baseURL}/groups?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   updateGroup: (id, name) =>
     axios.put(
       `${baseURL}/groups`,
       { id: id, name: name },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteGroup: (id) =>
-    axios.delete(`${baseURL}/groups?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/groups?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllGroups: () =>
-    axios.get(`${baseURL}/groups/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/groups/getAll`, {
+      headers: { Authorization: token },
+    }),
   addMember: (groupId, studentId) =>
     axios.put(
       `${baseURL}/groups/addMember/${groupId}/${studentId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   removeMember: (groupId, studentId) =>
     axios.put(
       `${baseURL}/groups/removeMember/${groupId}/${studentId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   addProjectInGroup: (groupId, projectId) =>
     axios.put(
       `${baseURL}/groups/addProject/${groupId}/${projectId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   // COMMISSIONS
   createCommission: (year, fourMonthPeriod, matterName) =>
@@ -165,147 +168,215 @@ const API = {
         fourMonthPeriod: fourMonthPeriod,
         matterName: matterName,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getCommission: (id) =>
-    axios.get(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
+    axios.get(`${baseURL}/commissions?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   deleteCommission: (id) =>
-    axios.delete(`${baseURL}/commissions?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/commissions?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllCommissions: () =>
-    axios.get(`${baseURL}/commissions/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/commissions/getAll`, {
+      headers: { Authorization: token },
+    }),
   addStudent: (commissionId, studentId) =>
     axios.put(
       `${baseURL}/commissions/addStudent/${commissionId}/${studentId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   removeStudent: (commissionId, studentId) =>
     axios.put(
       `${baseURL}/commissions/removeStudent/${commissionId}/${studentId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   addTeacher: (commissionId, teacherId) =>
     axios.put(
       `${baseURL}/commissions/addTeacher/${commissionId}/${teacherId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   removeTeacher: (commissionId, teacherId) =>
     axios.put(
       `${baseURL}/commissions/removeTeacher/${commissionId}/${teacherId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   addGroup: (commissionId, groupId) =>
     axios.put(
       `${baseURL}/commissions/addGroup/${commissionId}/${groupId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   removeGroup: (commissionId, groupId) =>
     axios.put(
       `${baseURL}/commissions/removeGroup/${commissionId}/${groupId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   // PROJECTS
-  createProject: (name) =>
+  createProject: (name, projectOwner, projectToken, groupId) =>
     axios.post(
       `${baseURL}/projects`,
-      { name: name },
-      { withCredentials: true }
+      {
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+        groupId: groupId,
+      },
+      { headers: { Authorization: token } }
     ),
   getProject: (id) =>
-    axios.get(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
-  updateProject: (id, name) =>
+    axios.get(`${baseURL}/projects?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  updateProject: (id, name, projectOwner, projectToken) =>
     axios.put(
       `${baseURL}/projects`,
-      { id: id, name: name },
-      { withCredentials: true }
+      {
+        id: id,
+        name: name,
+        ownerGithub: projectOwner,
+        tokenGithub: projectToken,
+      },
+      { headers: { Authorization: token } }
     ),
   deleteProject: (id) =>
-    axios.delete(`${baseURL}/projects?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/projects?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllProjects: () =>
-    axios.get(`${baseURL}/projects/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/projects/getAll`, {
+      headers: { Authorization: token },
+    }),
   addRepository: (projectId, repositoryId) =>
     axios.put(
       `${baseURL}/projects/addRepository/${projectId}/${repositoryId}`,
       {},
-      { withCredentials: true }
+      { headers: { Authorization: token } }
+    ),
+  addDeployInstance: (projectId, deployInstanceId) =>
+    axios.put(
+      `${baseURL}/projects/addDeployInstance/${projectId}/${deployInstanceId}`,
+      {},
+      { headers: { Authorization: token } }
     ),
   // REPOSITORIES
-  createRepository: (name, owner) =>
+  createRepository: (name, projectId) =>
     axios.post(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
+        projectId: projectId,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getRepository: (id) =>
-    axios.get(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
-  updateRepository: (name, owner) =>
+    axios.get(`${baseURL}/repositories?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  updateRepository: (name, projectId) =>
     axios.put(
       `${baseURL}/repositories`,
       {
         name: name,
-        owner: owner,
+        projectId: projectId,
       },
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   deleteRepository: (id) =>
-    axios.delete(`${baseURL}/repositories?id=${id}`, { withCredentials: true }),
+    axios.delete(`${baseURL}/repositories?id=${id}`, {
+      headers: { Authorization: token },
+    }),
   getAllRepositories: () =>
-    axios.get(`${baseURL}/repositories/getAll`, { withCredentials: true }),
+    axios.get(`${baseURL}/repositories/getAll`, {
+      headers: { Authorization: token },
+    }),
 
   getLengthPagesPaginatedCommit: (name, size) =>
     axios.get(
       `${baseURL}/repositories/lengthPagesPaginatedCommit?name=${name}&size=${size}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
 
   getPaginatedCommit: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pageCommit?name=${name}&page=${page}&size=${elementPage}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getLengthPagesPaginatedIssue: (name, size) =>
     axios.get(
       `${baseURL}/repositories/lengthPagesPaginatedIssue?name=${name}&size=${size}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
 
   getPaginatedIssue: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pageIssue?name=${name}&page=${page}&size=${elementPage}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
   getLengthPagesPaginatedPullRequest: (name, size) =>
     axios.get(
       `${baseURL}/repositories/lengthPagesPaginatedPullRequest?name=${name}&size=${size}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
 
   getPaginatedPullRequest: (name, page, elementPage) =>
     axios.get(
       `${baseURL}/repositories/pagePullRequest?name=${name}&page=${page}&size=${elementPage}`,
-      { withCredentials: true }
+      { headers: { Authorization: token } }
     ),
+  // DEPLOY INSTANCES
+  createDeployInstance: (name, url, comment, projectId) =>
+    axios.post(
+      `${baseURL}/deployInstances`,
+      {
+        name: name,
+        url: url,
+        comment: comment,
+        projectId: projectId,
+      },
+      { headers: { Authorization: token } }
+    ),
+  getDeployInstance: (id) =>
+    axios.get(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  updateDeployInstance: (id, name, url, comment) =>
+    axios.put(
+      `${baseURL}/deployInstances`,
+      {
+        id: id,
+        name: name,
+        url: url,
+        comment: comment,
+      },
+      { headers: { Authorization: token } }
+    ),
+  deleteDeployInstance: (id) =>
+    axios.delete(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  getAllDeployInstances: () =>
+    axios.get(`${baseURL}/deployInstances/getAll`, {
+      headers: { Authorization: token },
+    }),
 
   // USERS
   login: (email, password) =>
-    axios.post(
-      `${baseURL}/login`,
-      {
-        email: email,
-        password: password,
-      },
-      { withCredentials: true }
-    ),
-  logout: () => axios.post(`${baseURL}/logout`, {}, { withCredentials: true }),
-  getUser: () => axios.get(`${baseURL}/user-logged`, { withCredentials: true }),
+    axios.post(`${baseURL}/login`, {
+      email: email,
+      password: password,
+    }),
+
+  logout: () =>
+    axios.post(`${baseURL}/log-out`, {}, { headers: { Authorization: token } }),
+  getUser: () =>
+    axios.get(`${baseURL}/user-logged`, { headers: { Authorization: token } }),
 };
 
 export default API;

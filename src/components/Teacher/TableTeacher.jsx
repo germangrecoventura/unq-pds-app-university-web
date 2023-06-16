@@ -1,24 +1,25 @@
 import "./Teacher.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 
 const TableTeacher = (props) => {
-    return (
-        <table className="TableGet">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
-                  <th>Email</th>
-                </tr>
-                <tr>
-                  <td>{props.teacher.id}</td>
-                  <td>{props.teacher.firstName}</td>
-                  <td>{props.teacher.lastName}</td>
-                  <td>{props.teacher.email}</td>
-                </tr>
-              </thead>
-            </table>
-    );
+  return (
+    <MDBTable className="text-table table-light" responsive="md" hover>
+      <MDBTableHead>
+        <tr>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Email</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+        <tr key={props.teacher.id}>
+          <td>{props.teacher.firstName}</td>
+          <td>{props.teacher.lastName}</td>
+          <td>{props.teacher.email}</td>
+        </tr>
+      </MDBTableBody>
+    </MDBTable>
+  );
 };
 
 export default TableTeacher;
