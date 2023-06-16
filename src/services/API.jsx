@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080";
+const baseURL = process.env.REACT_APP_API || "http://localhost:8080";
 const token = `Bearer ${localStorage.getItem("loginToken")}`;
 
 const API = {
