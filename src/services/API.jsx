@@ -259,6 +259,12 @@ const API = {
       {},
       { headers: { Authorization: token } }
     ),
+  addDeployInstance: (projectId, deployInstanceId) =>
+    axios.put(
+      `${baseURL}/projects/addDeployInstance/${projectId}/${deployInstanceId}`,
+      {},
+      { headers: { Authorization: token } }
+    ),
   // REPOSITORIES
   createRepository: (name, projectId) =>
     axios.post(
@@ -324,6 +330,41 @@ const API = {
       `${baseURL}/repositories/pagePullRequest?name=${name}&page=${page}&size=${elementPage}`,
       { headers: { Authorization: token } }
     ),
+  // DEPLOY INSTANCES
+  createDeployInstance: (name, url, comment, projectId) =>
+    axios.post(
+      `${baseURL}/deployInstances`,
+      {
+        name: name,
+        url: url,
+        comment: comment,
+        projectId: projectId,
+      },
+      { headers: { Authorization: token } }
+    ),
+  getDeployInstance: (id) =>
+    axios.get(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  updateDeployInstance: (id, name, url, comment) =>
+    axios.put(
+      `${baseURL}/deployInstances`,
+      {
+        id: id,
+        name: name,
+        url: url,
+        comment: comment,
+      },
+      { headers: { Authorization: token } }
+    ),
+  deleteDeployInstance: (id) =>
+    axios.delete(`${baseURL}/deployInstances?id=${id}`, {
+      headers: { Authorization: token },
+    }),
+  getAllDeployInstances: () =>
+    axios.get(`${baseURL}/deployInstances/getAll`, {
+      headers: { Authorization: token },
+    }),
 
   // USERS
   login: (email, password) =>
@@ -333,7 +374,7 @@ const API = {
     }),
 
   logout: () =>
-    axios.post(`${baseURL}/log-out`, {},{ headers: { Authorization: token } }),
+    axios.post(`${baseURL}/log-out`, {}, { headers: { Authorization: token } }),
   getUser: () =>
     axios.get(`${baseURL}/user-logged`, { headers: { Authorization: token } }),
 };

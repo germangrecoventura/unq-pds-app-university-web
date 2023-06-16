@@ -18,6 +18,7 @@ import PageGet from "./components/ParameterizedPage/PageGet";
 import PageRegisterOrUpdate from "./components/ParameterizedPage/PageRegisterOrUpdate";
 import PageRegisterOrUpdateUser from "./components/ParameterizedPage/PageRegisterOrUpdateUser";
 import PageAddComment from "./components/ParameterizedPage/PageAddComment";
+import RegisterOrUpdateDeployInstance from "./components/DeployInstance/RegisterOrUpdateDeployInstance";
 
 const App = () => {
   return (
@@ -160,6 +161,18 @@ const App = () => {
             <Route
               path="/project/:projectId/repository/:idRepository/addComment"
               element={<PageAddComment />}
+            />
+            <Route
+              path="/project/:projectId/addDeployInstance"
+              element={<RegisterOrUpdateDeployInstance operation="registration" />}
+            />
+            <Route
+              path="/project/:projectId/deployInstance/:idEntity"
+              element={<PageGet page="Deploy instance" />}
+            />
+            <Route
+              path="/project/:projectId/deployInstance/update/:idEntity"
+              element={<RegisterOrUpdateDeployInstance operation="update" />}
             />
 
             <Route

@@ -42,29 +42,27 @@ const TableCommission = (props) => {
   }
 
   function teachers() {
-    {
-      return (
-        props.commission.teachers.sort(function (a, b) {
-          return a.id - b.id;
-        }) &&
-        props.commission.teachers.map((teacher) => (
-          <tr key={teacher.id}>
-            <td className="data-list">
-              <Link to={`/teacher/${teacher.id}`} className="text">
-                {teacher.firstName} {teacher.lastName}
-              </Link>
-              <DeleteFromListButton
-                entityA="Commission"
-                entityB="Teacher"
-                idEntityA={props.commission.id}
-                idEntityB={teacher.id}
-                formErrors={props.formErrors}
-              />
-            </td>
-          </tr>
-        ))
-      );
-    }
+    return (
+      props.commission.teachers.sort(function (a, b) {
+        return a.id - b.id;
+      }) &&
+      props.commission.teachers.map((teacher) => (
+        <tr key={teacher.id}>
+          <td className="data-list">
+            <Link to={`/teacher/${teacher.id}`} className="text">
+              {teacher.firstName} {teacher.lastName}
+            </Link>
+            <DeleteFromListButton
+              entityA="Commission"
+              entityB="Teacher"
+              idEntityA={props.commission.id}
+              idEntityB={teacher.id}
+              formErrors={props.formErrors}
+            />
+          </td>
+        </tr>
+      ))
+    );
   }
 
   function groups() {

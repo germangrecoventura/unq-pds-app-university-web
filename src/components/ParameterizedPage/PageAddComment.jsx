@@ -20,7 +20,7 @@ const PageAddComment = (props) => {
       .catch((error) => {
         setIsStudent(false);
       })
-      .finally(() => {});
+      .finally(() => { });
   }, []);
 
   const resetForm = () => {
@@ -35,9 +35,7 @@ const PageAddComment = (props) => {
       .then((response) => {
         resetForm();
         setIsSubmitting(false);
-        navigate("/operation-completed", {
-          state: `/project/${projectId}/repository/${idRepository}`,
-        });
+        navigate("/operation-completed", { state: `/project/${projectId}/repository/${idRepository}` });
       })
       .catch((error) => {
         setFormErrors(error.response.data);
@@ -45,7 +43,7 @@ const PageAddComment = (props) => {
       .finally(() => {
         setIsSubmitting(false);
       });
-  };
+  }
 
   return (
     <div className="container clearfix">
@@ -54,6 +52,7 @@ const PageAddComment = (props) => {
           Please login to access resources
         </div>
       )}
+
       {isStudent && (
         <div className="alert alert-danger" role="alert">
           You do not have permissions to access this resource
