@@ -110,15 +110,6 @@ const API = {
     axios.get(`${baseURL}/students/getAll`, {
       headers: { Authorization: token },
     }),
-  addCommentToDeployInstance: (deployInstanceId, comment) =>
-    axios.post(
-      `${baseURL}/students/addComment`,
-      {
-        deployInstanceId: deployInstanceId,
-        comment: comment,
-      },
-      { headers: { Authorization: token } }
-    ),
   // GROUPS
   createGroup: (name, members, nameProject, projectOwner, projectToken) =>
     axios.post(
