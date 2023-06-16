@@ -8,6 +8,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
     const { projectId, idEntity } = useParams();
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
+    const [comment, setComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrors, setFormErrors] = useState("");
     const [isTeacher, setIsTeacher] = useState(false);
@@ -29,6 +30,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
                 .then((response) => {
                     setName(response.data.name);
                     setUrl(response.data.url);
+                    setComment(response.data.comment);
                 })
                 .catch((error) => {
                     setFormErrors(error.response.data);
@@ -39,6 +41,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
     const resetForm = () => {
         setName("");
         setUrl("");
+        setComment("");
         setFormErrors("");
     };
 
@@ -49,7 +52,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
 
         switch (props.operation) {
             case "registration":
-                API.createDeployInstance(name, url, projectId)
+                API.createDeployInstance(name, url, comment, projectId)
                     .then((response) => {
                         resetForm();
                         setIsSubmitting(false);
@@ -67,7 +70,7 @@ const RegisterOrUpdateDeployInstance = (props) => {
                     });
                 break;
             default:
-                API.updateDeployInstance(idEntity, name, url)
+                API.updateDeployInstance(idEntity, name, url, comment)
                     .then((response) => {
                         resetForm();
                         setIsSubmitting(false);
@@ -138,6 +141,23 @@ const RegisterOrUpdateDeployInstance = (props) => {
                                         required={true}
                                         value={url}
                                         onChange={(e) => setUrl(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row mt-1">
+                                <div className="col-md-4">
+                                    <label htmlFor="inputComment" className="col-form-label">
+                                        Comment:
+                                    </label>
+                                </div>
+                                <div className="col-md-6">
+                                    <textarea
+                                        type="text"
+                                        id="inputComment"
+                                        className="form-control"
+                                        required={true}
+                                        value={comment}
+                                        onChange={(e) => setComment(e.target.value)}
                                     />
                                 </div>
                             </div>

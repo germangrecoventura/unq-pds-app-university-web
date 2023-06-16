@@ -160,7 +160,7 @@ const App = () => {
             />
             <Route
               path="/project/:projectId/repository/:idRepository/addComment"
-              element={<PageAddComment entity="repository"/>}
+              element={<PageAddComment />}
             />
             <Route
               path="/project/:projectId/addDeployInstance"
@@ -173,10 +173,6 @@ const App = () => {
             <Route
               path="/project/:projectId/deployInstance/update/:idEntity"
               element={<RegisterOrUpdateDeployInstance operation="update" />}
-            />
-            <Route
-              path="/project/:projectId/deployInstance/:idDeployInstance/addComment"
-              element={<PageAddComment entity="deploy instance"/>}
             />
 
             <Route

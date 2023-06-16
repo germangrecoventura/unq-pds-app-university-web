@@ -396,16 +396,6 @@ const PageGet = (props) => {
                 ></Card>
               </div>
             )}
-            {!isTeacher && entity && props.page === "Deploy instance" && (
-              <div className="col">
-                <Card
-                  title={"Add comments"}
-                  description={""}
-                  url={`/project/${projectId}/deployInstance/${idEntity}/addComment`}
-                  image={"bi bi-clipboard-plus-fill"}
-                ></Card>
-              </div>
-            )}
           </div>
           <div className="mb-3 py-5">
             <FormErrors errors={Object.entries(formErrors)}></FormErrors>

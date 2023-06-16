@@ -340,12 +340,13 @@ const API = {
       { headers: { Authorization: token } }
     ),
   // DEPLOY INSTANCES
-  createDeployInstance: (name, url, projectId) =>
+  createDeployInstance: (name, url, comment, projectId) =>
     axios.post(
       `${baseURL}/deployInstances`,
       {
         name: name,
         url: url,
+        comment: comment,
         projectId: projectId,
       },
       { headers: { Authorization: token } }
@@ -354,13 +355,14 @@ const API = {
     axios.get(`${baseURL}/deployInstances?id=${id}`, {
       headers: { Authorization: token },
     }),
-  updateDeployInstance: (id, name, url) =>
+  updateDeployInstance: (id, name, url, comment) =>
     axios.put(
       `${baseURL}/deployInstances`,
       {
         id: id,
         name: name,
         url: url,
+        comment: comment,
       },
       { headers: { Authorization: token } }
     ),
