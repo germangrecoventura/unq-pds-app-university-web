@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://unq-pds-app-university-api-production.up.railway.app/" /* || "http://localhost:8080" */;
+const baseURL = "https://unq-pds-app-university-api-production.up.railway.app" /* || "http://localhost:8080" */;
 const token = `Bearer ${localStorage.getItem("loginToken")}`;
 
 const API = {
