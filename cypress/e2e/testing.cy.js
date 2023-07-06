@@ -124,16 +124,23 @@ describe("template spec", () => {
     cy.wait(1000);
   });
 
-  it("add repository and comment", () => {
+  it("create group and project, add repository and comment", () => {
     cy.wait(1000);
     cy.get(".row > :nth-child(3)").click();
-    cy.get(":nth-child(1) > td > a").click();
+    cy.get(".row > :nth-child(1)").click();
+    cy.get("#inputName").type("Grupo Test");
+    cy.get("#InputStudentOne").type("lucas@gmail.com");
+    cy.get("#InputProjectName").type("A Project");
+    cy.get("#inputProjectGithubOwner").type("lziege");
+    cy.get(".modal-footer > .btn").click();
+    cy.wait(5300);
+    cy.get(":nth-child(2) > td > a").click();
     cy.get(":nth-child(4) > :nth-child(2) > .btn").click();
     cy.get(
       "#project > .table-responsive-md > .table > tbody > tr > td > a"
     ).click();
     cy.get(":nth-child(2) > .col > .link > .card").click();
-    cy.get("#inputName").type("unq-pds-app-university-api");
+    cy.get("#inputName").type("unq-tp");
     cy.get(".modal-footer > .btn").click();
     cy.wait(10300);
     cy.get(".col-md-2 > .btn").should("exist");
@@ -146,5 +153,9 @@ describe("template spec", () => {
     cy.url().should("equal", "http://localhost:3000/operation-completed");
     cy.wait(5300);
     cy.get(":nth-child(5) > .btn").should("exist");
+    cy.visit("/groups");
+    cy.get(":nth-child(2) > td > a").click();
+    cy.get(".row-cols-1 > :nth-child(2)").click();
+    cy.wait(1000);
   });
 });
